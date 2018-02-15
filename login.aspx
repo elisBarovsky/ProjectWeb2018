@@ -1,0 +1,70 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="login" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div align="center">
+        <div style="text-align=center">
+            <br/>
+            <img src="Images/Betsefer.png" />
+            <br/>
+            <div id="loginPage" runat="server"> 
+        <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":שם משתמש"></asp:Login>
+            <br/>
+            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>
+             <asp:ImageButton ID="ImageButton1" runat="server" src="Images/5897a7cfcba9841eabab6152.png" Height="55px" OnClick="IforgotPassword" />
+
+           </div>
+
+            <div id="forgetMyPassword"  runat="server" visible="false">
+
+                <asp:TextBox ID="TextBoxUserID" runat="server"></asp:TextBox>
+                <asp:Label ID="LabelUserID" runat="server" Text="ת.ז."></asp:Label>
+                <br/>
+                <asp:Label ID="LabelBDay" runat="server" Text="תאריך לידה"></asp:Label>
+                 <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
+
+                <br/>
+               
+                <br/>
+                <asp:Button ID="ButtonCheckUserExist" runat="server" Text="בדיקת משתמש" OnClick="ButtonCheckUserExist_Click" />
+            </div>
+            <br />
+
+             <asp:Label ID="LBLEror" runat="server" Text=""></asp:Label>
+            <div id="securityQ"  runat="server" visible="false">
+                 <asp:TextBox ID="TextBoxSecurityA" runat="server"></asp:TextBox>
+                 <asp:Label ID="LabelSecurityQ" runat="server" Text=""></asp:Label>
+                <br/>
+             <asp:Button ID="CheckAnswer" runat="server" Text="אימות תשובה" OnClick="CheckAnswer_Click"  />
+
+                <br/>
+            </div>
+
+             <div id="ChangePassword"  runat="server" visible="false">
+              
+                 <asp:TextBox ID="Pass1" runat="server" TextMode="Password"></asp:TextBox>
+                  <asp:Label ID="Label3" runat="server" Text="הזן סיסמה חדשה"></asp:Label>
+                 <br/><br/>
+                 <asp:TextBox ID="Pass2" runat="server" TextMode="Password"></asp:TextBox>
+                  <asp:Label ID="Label2" runat="server" Text="הזן סיסמה שנית"></asp:Label>
+                 <br/>
+                 <br/>
+                <asp:Button ID="Button1" runat="server" Text="שנה סיסמה" OnClick="Button1_Click"   />
+                <br/>
+                        
+
+            </div>
+              <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
+            <br/><br/>
+              <asp:Button ID="Button2" runat="server" Text="מעבר להתחברות " Visible="false" OnClick="Button2_Click" />
+    </div>
+        </div>
+    </form>
+</body>
+</html>
