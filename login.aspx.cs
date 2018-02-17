@@ -9,23 +9,48 @@ public partial class login : System.Web.UI.Page
 {
     Users User = new Users();
     List<string> l = new List<string>();
+    Questions q = new Questions();
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        
+    }
+
+   
+
+    protected void FillSecurityQ()
+    {
+       
+        firstLogin.Visible = true;
 
     }
 
-    protected void Login1_Authenticate(object sender, AuthenticateEventArgs e)
+    protected void Login1_Authenticate(object sender, EventArgs e)
     {
-         switch (int.Parse(User.GetUserType(Login1.UserName, Login1.Password)))
-         {
-            case 1:
-                Response.Redirect("Admin.aspx");
-                break;
-            case 2:
-                Response.Redirect("Teacher.aspx");
-                break;
-         }
+        string userName = Login1.UserName, password = Login1.Password;
+        string isAlreadyLogin = User.IsAlreadyLogin(userName, password);
+        if (isAlreadyLogin != "")
+        {
+            if (!bool.Parse(isAlreadyLogin))
+            {
+                loginPage.Visible = false;
+                FillSecurityQ();
+            }
+        
+        else
+        {
+            switch (int.Parse(User.GetUserType(userName, password)))
+            {
+                case 1:
+                    Response.Redirect("Admin.aspx");
+                    break;
+                case 2:
+                    Response.Redirect("Teacher.aspx");
+                    break;
+            }
+        }
+        }
+          
     }
 
     protected void IforgotPassword(object sender, EventArgs e)
@@ -101,5 +126,27 @@ public partial class login : System.Web.UI.Page
         Button2.Visible = false;
         loginPage.Visible = true;
         Label1.Visible = false;
+    }
+
+    protected void LinkButton_continue_Click(object sender, EventArgs e)
+    {
+         int q = int.Parse(DropDownList_Qlist.SelectedItem.Value);
+        string a = TextBox_answer.Text;
+        string id = Login1.UserName;
+        int num = User.SaveQuestion(id,q,a);
+        string p = Login1.Password;
+        if (num > 0)
+        {
+            //update to true
+            switch (int.Parse(User.GetUserType(Login1.UserName, Login1.Password)))
+            {
+                case 1:
+                    Response.Redirect("Admin.aspx");
+                    break;
+                case 2:
+                    Response.Redirect("Teacher.aspx");
+                    break;
+            }
+        }
     }
 }

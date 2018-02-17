@@ -35,6 +35,15 @@ public class Users
         return db.ChangePassword(userID, Password);
     }
 
+    public string IsAlreadyLogin(string userName, string password)
+    {
+        return db.IsAlreadyLogin(userName, password);
+    }
+
+    public int SaveQuestion(string id, int q, string a)
+    {
+        return db.SaveQuestion(id, q, a);
+    }
 
 
 }

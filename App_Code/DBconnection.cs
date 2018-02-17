@@ -89,7 +89,7 @@ public class DBconnection
     public string GetUserType(string name, string password)
     {
         SqlConnection con = connect("Betsefer");
-        String selectSTR = "SELECT CodeUserType  FROM Users where LoginName  = '" + name + "' and LoginPassword  = '" + password + "'";
+        String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + name + "' and LoginPassword  = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
         string type = "";
@@ -185,6 +185,78 @@ public class DBconnection
         }
 
         String cStr = BuildInsertCommand(userID, Password);      // helper method to build the insert string
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+
+    public string IsAlreadyLogin(string userName, string password)
+    {
+        SqlConnection con = connect("Betsefer");
+        String selectSTR = "select alreadyLogin from Users where UserID = '" + userName + "' and LoginPassword = '" + password + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string isAlreadyLogin = "";
+        while (dr.Read())
+        {
+            isAlreadyLogin = dr["alreadyLogin"].ToString();
+        }
+        return isAlreadyLogin;
+    }
+
+    public List<Questions> GetQuestions()
+    {
+        List<Questions> questions = new List<Questions>();
+
+        SqlConnection con = connect("Betsefer");
+        String selectSTR = "select * from SecurityQ";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+        while (dr.Read())
+        {
+        Questions q = new Questions();
+            q.SecurityCode = int.Parse(dr["CodeSecurityQ"].ToString());
+            q.SecurityInfo = dr["SecurityQInfo"].ToString();
+
+            questions.Add(q);
+        }
+        return questions;
+    }
+
+    public int SaveQuestion(string id, int q, string a) {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("Betsefer"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = "update Users set SecurityQCode = " + q + ", SecurityQAnswer = '" + a + "' where UserID = '" + id + "'";
 
         cmd = CreateCommand(cStr, con);             // create the command
 

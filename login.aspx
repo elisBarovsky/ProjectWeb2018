@@ -15,11 +15,24 @@
             <br/>
             <div id="loginPage" runat="server"> 
         <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":שם משתמש"></asp:Login>
+           
             <br/>
             <asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>
              <asp:ImageButton ID="ImageButton1" runat="server" src="Images/5897a7cfcba9841eabab6152.png" Height="55px" OnClick="IforgotPassword" />
 
            </div>
+             <br/>
+                <div id="firstLogin"  runat="server" visible="false">
+                    <asp:Label ID="Label_firstLogin" runat="server" Text="אנא ענה על מספר שאלות שיעזרו לנו במקרה ותצטרך לשחזר את סיסמתך"></asp:Label>
+                    <br /> <br />
+                    <asp:DropDownList ID="DropDownList_Qlist" runat="server" DataSourceID="SqlDataSource1" DataTextField="SecurityQInfo" DataValueField="CodeSecurityQ"></asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:bgroup52_test2ConnectionString %>" SelectCommand="SELECT * FROM [SecurityQ]"></asp:SqlDataSource>
+                    <asp:Label ID="Label_Q" runat="server" Text="בחר שאלת הזדהות"></asp:Label>
+                    <br />
+                    <asp:TextBox ID="TextBox_answer" runat="server"></asp:TextBox>
+                    <br /> <br />
+                    <asp:Button ID="LinkButton_continue" runat="server" OnAuthenticate="Login1_Authenticate" text="המשך" OnClick="LinkButton_continue_Click"/>
+                </div>
 
             <div id="forgetMyPassword"  runat="server" visible="false">
 
