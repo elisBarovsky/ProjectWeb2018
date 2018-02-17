@@ -13,10 +13,10 @@ public partial class login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
-        {
+        //if (!IsPostBack)
+        //{
            
-        }
+        //}
     }
     protected void SaveLoginCookie(string ID, string password)
     {
@@ -38,25 +38,30 @@ public partial class login : System.Web.UI.Page
 
         SaveLoginCookie(UserID, password);
 
-        if (isAlreadyLogin =="False")
+        if (isAlreadyLogin != "")
         {
             if (!bool.Parse(isAlreadyLogin))
             {
                 loginPage.Visible = false;
                 FillSecurityQ();
             }
+
+            else
+            {
+                switch (int.Parse(User.GetUserType(UserID, password)))
+                {
+                    case 1:
+                        Response.Redirect("Admin.aspx");
+                        break;
+                    case 2:
+                        Response.Redirect("Teacher.aspx");
+                        break;
+                }
+            }
         }
         else
         {
-            switch (int.Parse(User.GetUserType(UserID, password)))
-            {
-                case 1:
-                    Response.Redirect("Admin.aspx");
-                    break;
-                case 2:
-                    Response.Redirect("Teacher.aspx");
-                    break;
-            }
+            Login1.FailureText = "אחד מהפרטים שהקשת שגוים";
         }
     }
     protected void UpdateQuation(object sender, EventArgs e)

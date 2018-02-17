@@ -15,11 +15,11 @@ public class DBconnection
     public SqlDataAdapter da;
     public DataTable dt;
 
-    SqlConnection con = new SqlConnection("Betsefer");
+    SqlConnection con = new SqlConnection();
 
     public DBconnection()
     {
-
+        con = connect("Betsefer");
     }
 
     public SqlConnection connect(String conString)  // read the connection string from the configuration file
@@ -123,7 +123,6 @@ public class DBconnection
 
     public string IsAlreadyLogin(string UserID, string password)
     {
-        SqlConnection con = connect("Betsefer");
         String selectSTR = "select alreadyLogin from Users where UserID = '" + UserID + "' and LoginPassword = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -139,7 +138,6 @@ public class DBconnection
     {
         List<Questions> questions = new List<Questions>();
 
-        SqlConnection con = connect("Betsefer");
         String selectSTR = "select * from SecurityQ";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
