@@ -13,33 +13,42 @@ public partial class login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        if (!IsPostBack)
+        {
+           
+        }
+    }
+    protected void SaveLoginCookie(string ID, string password)
+    {
+        Response.Cookies["UserID"].Value = ID;
+        Response.Cookies["UserID"].Expires = DateTime.Now.AddMinutes(5);
+        Response.Cookies["UserPassword"].Value = password;
+        Response.Cookies["UserPassword"].Expires = DateTime.Now.AddMinutes(5);
     }
 
-   
-
     protected void FillSecurityQ()
-    {
-       
+    {   
         firstLogin.Visible = true;
-
     }
 
     protected void Login1_Authenticate(object sender, EventArgs e)
     {
-        string userName = Login1.UserName, password = Login1.Password;
-        string isAlreadyLogin = User.IsAlreadyLogin(userName, password);
-        if (isAlreadyLogin != "")
+        string UserID = Login1.UserName, password = Login1.Password;
+        string isAlreadyLogin = User.IsAlreadyLogin(UserID, password);
+
+        SaveLoginCookie(UserID, password);
+
+        if (isAlreadyLogin =="False")
         {
             if (!bool.Parse(isAlreadyLogin))
             {
                 loginPage.Visible = false;
                 FillSecurityQ();
             }
-        
+        }
         else
         {
-            switch (int.Parse(User.GetUserType(userName, password)))
+            switch (int.Parse(User.GetUserType(UserID, password)))
             {
                 case 1:
                     Response.Redirect("Admin.aspx");
@@ -49,10 +58,29 @@ public partial class login : System.Web.UI.Page
                     break;
             }
         }
-        }
-          
     }
+    protected void UpdateQuation(object sender, EventArgs e)
+    {
+        int q = int.Parse(DropDownList_Qlist.SelectedItem.Value);
+        string a = TextBox_answer.Text;
+        string id = Login1.UserName;
+        int num = User.SaveQuestion(id, q, a);
+        
+        if (num > 0)
+        {
+           int result= User.ChangeFirstLogin(id);
 
+            switch (int.Parse(User.GetUserType(Request.Cookies["UserID"].Value, Request.Cookies["UserPassword"].Value )))
+            {
+                case 1:
+                    Response.Redirect("Admin.aspx");
+                    break;
+                case 2:
+                    Response.Redirect("Teacher.aspx");
+                    break;
+            }
+        }
+    }
     protected void IforgotPassword(object sender, EventArgs e)
     {
         loginPage.Visible = false;
@@ -99,12 +127,11 @@ public partial class login : System.Web.UI.Page
         }
     }
 
-    protected void Button1_Click(object sender, EventArgs e)
+    protected void ChangePasswordBTN(object sender, EventArgs e)
     {
         string userID = TextBoxUserID.Text;
         if (Pass1.Text==Pass2.Text)
         {
-            // חסרה הפונקציה ששומרת סיסמה בפועל בDB
             int num = User.ChangePassword(userID, Pass1.Text);
             if (num > 0)
             {
@@ -113,7 +140,6 @@ public partial class login : System.Web.UI.Page
                 Button2.Visible = true;
             }
             else Label1.Text = "עקב בעיות טכניות לא ניתן לשמור את סיסמתך כרגע, אנא נסה במועד מאוחר יותר או פנה לשירות הלקוחות" + "<br/><img src = 'Images/Ambulance.png' style='height: 55px'/>"; 
-
         }
         else
         {
@@ -121,32 +147,12 @@ public partial class login : System.Web.UI.Page
         }
     }
 
-    protected void Button2_Click(object sender, EventArgs e)
+    protected void BackToLoginBTN(object sender, EventArgs e)
     {
         Button2.Visible = false;
         loginPage.Visible = true;
         Label1.Visible = false;
     }
 
-    protected void LinkButton_continue_Click(object sender, EventArgs e)
-    {
-         int q = int.Parse(DropDownList_Qlist.SelectedItem.Value);
-        string a = TextBox_answer.Text;
-        string id = Login1.UserName;
-        int num = User.SaveQuestion(id,q,a);
-        string p = Login1.Password;
-        if (num > 0)
-        {
-            //update to true
-            switch (int.Parse(User.GetUserType(Login1.UserName, Login1.Password)))
-            {
-                case 1:
-                    Response.Redirect("Admin.aspx");
-                    break;
-                case 2:
-                    Response.Redirect("Teacher.aspx");
-                    break;
-            }
-        }
-    }
+  
 }

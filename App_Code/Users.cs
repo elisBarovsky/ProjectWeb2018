@@ -11,15 +11,12 @@ public class Users
     DBconnection db;
     public Users()
     {
-        //
-        // TODO: Add constructor logic here
-        //
         db = new DBconnection();
     }
 
-    public string GetUserType(string name, string password)
+    public string GetUserType(string UserID, string password)
     {
-        return db.GetUserType(name, password);
+        return db.GetUserType(UserID, password);
     }
 
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday)
@@ -35,9 +32,9 @@ public class Users
         return db.ChangePassword(userID, Password);
     }
 
-    public string IsAlreadyLogin(string userName, string password)
+    public string IsAlreadyLogin(string UserID, string password)
     {
-        return db.IsAlreadyLogin(userName, password);
+        return db.IsAlreadyLogin(UserID, password);
     }
 
     public int SaveQuestion(string id, int q, string a)
@@ -45,6 +42,10 @@ public class Users
         return db.SaveQuestion(id, q, a);
     }
 
+    public int ChangeFirstLogin(string id)
+    {
+        return db.ChangeFirstLogin(id);
+    }
 
 }
 

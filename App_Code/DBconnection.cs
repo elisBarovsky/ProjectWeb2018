@@ -86,10 +86,10 @@ public class DBconnection
     }
 
 
-    public string GetUserType(string name, string password)
+    public string GetUserType(string UserID, string password)
     {
         SqlConnection con = connect("Betsefer");
-        String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + name + "' and LoginPassword  = '" + password + "'";
+        String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + UserID + "' and LoginPassword  = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
         string type = "";
@@ -208,10 +208,10 @@ public class DBconnection
         }
     }
 
-    public string IsAlreadyLogin(string userName, string password)
+    public string IsAlreadyLogin(string UserID, string password)
     {
         SqlConnection con = connect("Betsefer");
-        String selectSTR = "select alreadyLogin from Users where UserID = '" + userName + "' and LoginPassword = '" + password + "'";
+        String selectSTR = "select alreadyLogin from Users where UserID = '" + UserID + "' and LoginPassword = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
         string isAlreadyLogin = "";
@@ -257,6 +257,45 @@ public class DBconnection
         }
 
         String cStr = "update Users set SecurityQCode = " + q + ", SecurityQAnswer = '" + a + "' where UserID = '" + id + "'";
+
+        cmd = CreateCommand(cStr, con);             // create the command
+
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+
+    public int ChangeFirstLogin(string id)
+    {
+        SqlConnection con;
+        SqlCommand cmd;
+
+        try
+        {
+            con = connect("Betsefer"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+
+        String cStr = "update Users set alreadyLogin = '1'  where UserID = '" + id + "'";
 
         cmd = CreateCommand(cStr, con);             // create the command
 

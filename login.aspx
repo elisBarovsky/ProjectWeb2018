@@ -31,7 +31,7 @@
                     <br />
                     <asp:TextBox ID="TextBox_answer" runat="server"></asp:TextBox>
                     <br /> <br />
-                    <asp:Button ID="LinkButton_continue" runat="server" OnAuthenticate="Login1_Authenticate" text="המשך" OnClick="LinkButton_continue_Click"/>
+                    <asp:Button ID="LinkButton_continue" runat="server" OnAuthenticate="Login1_Authenticate" text="המשך" OnClick="UpdateQuation"/>
                 </div>
 
             <div id="forgetMyPassword"  runat="server" visible="false">
@@ -68,14 +68,14 @@
                   <asp:Label ID="Label2" runat="server" Text="הזן סיסמה שנית"></asp:Label>
                  <br/>
                  <br/>
-                <asp:Button ID="Button1" runat="server" Text="שנה סיסמה" OnClick="Button1_Click"   />
+                <asp:Button ID="Button1" runat="server" Text="שנה סיסמה" OnClick="ChangePasswordBTN"   />
                 <br/>
                         
 
             </div>
               <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
             <br/><br/>
-              <asp:Button ID="Button2" runat="server" Text="מעבר להתחברות " Visible="false" OnClick="Button2_Click" />
+              <asp:Button ID="Button2" runat="server" Text="מעבר להתחברות " Visible="false" OnClick="BackToLoginBTN" />
     </div>
         </div>
     </form>
