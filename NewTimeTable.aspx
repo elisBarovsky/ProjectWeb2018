@@ -99,7 +99,7 @@
                 <td><asp:DropDownList ID="DropDownList31" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"></asp:DropDownList></td>
                 <td><asp:DropDownList ID="DropDownList32" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"></asp:DropDownList></td>
                 <td><asp:DropDownList ID="DropDownList33" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"></asp:DropDownList></td>
-                <td><asp:DropDownList ID="DropDownList34" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"</asp:DropDownList></td>
+                <td><asp:DropDownList ID="DropDownList34" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"></asp:DropDownList> </td>
                 <td><asp:DropDownList ID="DropDownList35" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"></asp:DropDownList></td>
                 <td><asp:DropDownList ID="DropDownList36" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson"></asp:DropDownList></td>
             </tr>

@@ -160,6 +160,33 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
+    public int AddUser(Users NewUser)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[Users] ([UserID],[UserFName],[UserLName],[BirthDate],[UserImg],[LoginName],[LoginPassword],[PhoneNumber],[CodeUserType],[SecurityQCode],[SecurityQAnswer],[alreadyLogin])"+
+                     " VALUES('"+ NewUser.UserID1+"','"+ NewUser.UserFName1+"','"+ NewUser.UserLName1+"','"+ NewUser.BirthDate1+"','"+ NewUser.UserImg1+"','"+ NewUser.UserName1+"','"+ NewUser.UserPassword1+"','"+ NewUser.PhoneNumber1+"','"+ NewUser.CodeUserType1+"' , null, null, 0)";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
+
+    public int AddPupil(string UserID, string GroupType, int classNumber)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[Pupil]([UserID] ,[CodePgroup],[CodeClass])  VALUES ('"+ UserID + "' ,'"+ GroupType + "' ,"+ classNumber + ")";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
+
+    public int AddTeacher(string UserID, string IsMain,string ClassOt)
+    {
+        SqlCommand cmd;
+
+        String cStr = "INSERT INTO [dbo].[Teachers] ([TeacherID] ,[IsMainTeacher]) VALUES ('"+ UserID + "' ,'"+ IsMain + "')";
+        cmd = CreateCommand(cStr, con);
+       return ExecuteNonQuery(cmd);// execute the command  
+
+    }
+
     public int ChangeFirstLogin(string id)
     {
         SqlCommand cmd;
@@ -168,6 +195,13 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
+    public int AddMainTeacherToClass(string id,string OtClass)
+    {
+        SqlCommand cmd;
+        String cStr= "update Class set MainTeacherID = '" + id + "'  where TotalName = '" + OtClass + "'";
+        cmd = CreateCommand(cStr, con);             // create the command      
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
     //--------------------------------------------------------------------------------------------------
     // This method returns number of rows affected
     //--------------------------------------------------------------------------------------------------

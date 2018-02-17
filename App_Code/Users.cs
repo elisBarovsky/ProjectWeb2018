@@ -9,9 +9,163 @@ using System.Web;
 public class Users
 {
     DBconnection db;
+    string UserID, UserFName, UserLName,  BirthDate, UserImg,  UserName, UserPassword, PhoneNumber, CodeUserType;
+
+    public string UserID1
+    {
+        get
+        {
+            return UserID;
+        }
+
+        set
+        {
+            UserID = value;
+        }
+    }
+
+    public string UserFName1
+    {
+        get
+        {
+            return UserFName;
+        }
+
+        set
+        {
+            UserFName = value;
+        }
+    }
+
+    public string UserLName1
+    {
+        get
+        {
+            return UserLName;
+        }
+
+        set
+        {
+            UserLName = value;
+        }
+    }
+
+    public string BirthDate1
+    {
+        get
+        {
+            return BirthDate;
+        }
+
+        set
+        {
+            BirthDate = value;
+        }
+    }
+
+    public string UserImg1
+    {
+        get
+        {
+            return UserImg;
+        }
+
+        set
+        {
+            UserImg = value;
+        }
+    }
+
+    public string UserName1
+    {
+        get
+        {
+            return UserName;
+        }
+
+        set
+        {
+            UserName = value;
+        }
+    }
+
+    public string UserPassword1
+    {
+        get
+        {
+            return UserPassword;
+        }
+
+        set
+        {
+            UserPassword = value;
+        }
+    }
+
+    public string PhoneNumber1
+    {
+        get
+        {
+            return PhoneNumber;
+        }
+
+        set
+        {
+            PhoneNumber = value;
+        }
+    }
+
+    public string CodeUserType1
+    {
+        get
+        {
+            return CodeUserType;
+        }
+
+        set
+        {
+            CodeUserType = value;
+        }
+    }
+
     public Users()
     {
         db = new DBconnection();
+    }
+
+    public Users(string userID, string userFName, string userLName, string birthDate, string userImg, string userName, string userPassword, string phoneNumber, string codeUserType)
+    {
+        db = new DBconnection();
+
+        UserID = userID;
+        UserFName = userFName;
+        UserLName = userLName;
+        BirthDate = birthDate;
+        UserImg = userImg;
+        UserName = userName;
+        UserPassword = userPassword;
+        PhoneNumber = phoneNumber;
+        CodeUserType = codeUserType;
+    }
+
+    public int AddPupil(string UserID,string GroupType,int classNumber )
+    {
+        return db.AddPupil(UserID, GroupType, classNumber);
+    }
+
+    public int AddTeacher(string UserID, string IsMain,string ClassOt)
+    {
+        return db.AddTeacher(UserID, IsMain, ClassOt);
+    }
+
+    public int AddClassTeacher(string UserID, string ClassOt)
+    {
+        return db.AddMainTeacherToClass(UserID, ClassOt);
+    }
+
+    public int AddUser(Users NewUser)
+    {
+        return db.AddUser(NewUser);
     }
 
     public string GetUserType(string UserID, string password)

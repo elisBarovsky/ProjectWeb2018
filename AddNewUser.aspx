@@ -24,10 +24,15 @@
 
      <table class="auto-style1">
          <tr>
-             <td  > <asp:RadioButtonList ID="GroupAgeDLL" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" AutoPostBack="true" RepeatDirection="Horizontal"></asp:RadioButtonList>
+             <td  > <asp:RadioButtonList ID="GroupAgeDLL" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" RepeatDirection="Horizontal"></asp:RadioButtonList>
                  <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
+            
+               <asp:CheckBox ID="MainTeacherCB" runat="server" />
              </td>
-             <td  ><asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"></asp:Label></td>
+             <td  ><asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label> 
+               <asp:Label ID="MainTeacher" runat="server" Text=" האם מחנך"></asp:Label>  
+               </td>
+
 
              <td> <asp:RadioButtonList ID="UserTypeDLL" runat="server" DataSourceID="SqlDataSource2"  OnSelectedIndexChanged ="UserTypeDLL_CheckedChanged"  DataTextField="CodeUserName" DataValueField="CodeUserType" AutoPostBack="true" RepeatDirection="Horizontal" ></asp:RadioButtonList>  
                  <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT * FROM [UserType]" ></asp:SqlDataSource>
@@ -44,7 +49,7 @@
              <td><asp:TextBox ID="UserIDTB" runat="server"></asp:TextBox></td>
              <td>תעודת זהות</td>
              <td>
-                <asp:Calendar ID="Calendar1" runat="server"   />
+                <asp:Calendar ID="Calendar1" runat="server"  AutoPostBack="false" />
 
              </td>
              <td>תאריך לידה</td>
@@ -56,7 +61,10 @@
              <td><asp:DropDownList ID="ClassOtDLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
                  <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                  </td>
-             <td ><asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה"></asp:Label></td>
+             <td ><asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה"></asp:Label>
+                 
+
+             </td>
          </tr>
             <tr>
              <td><asp:TextBox ID="PasswordTB" runat="server"></asp:TextBox></td>
@@ -65,14 +73,19 @@
              <td>שם משתמש</td>
          </tr>
 
-       <%--  <tr>
+         <tr>
+             <td> </td>
+             <td> </td>
+             <td><asp:TextBox ID="TelephoneNumberTB" runat="server"></asp:TextBox></td>
+             <td>טלפון</td>
 
-
-         </tr>--%>
+         </tr>
        
      </table>
      <br />
-     <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="הוסף משתמש" />
+     <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="הוסף משתמש" OnClick="AddUserBTN_Click" />
+     <asp:Label ID="MessegaeLBL" runat="server" Text=""></asp:Label>
+
 </div>
 </asp:Content>
 
