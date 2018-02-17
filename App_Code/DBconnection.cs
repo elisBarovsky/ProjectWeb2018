@@ -15,80 +15,55 @@ public class DBconnection
     public SqlDataAdapter da;
     public DataTable dt;
 
+    SqlConnection con = new SqlConnection("Betsefer");
+
     public DBconnection()
     {
-        //
-        // TODO: Add constructor logic here
-        //
+
     }
 
-    public SqlConnection connect(String conString)
+    public SqlConnection connect(String conString)  // read the connection string from the configuration file
     {
-        // read the connection string from the configuration file
         string cStr = WebConfigurationManager.ConnectionStrings[conString].ConnectionString;
         SqlConnection con = new SqlConnection(cStr);
         con.Open();
         return con;
     }
 
-    //--------------------------------------------------------------------
-    // Build the Insert command String
-    //--------------------------------------------------------------------
-    private String BuildInsertCommand(string userID, string Password)
-    {
-        String command;
-        
-       // StringBuilder sb = new StringBuilder();
-       // use a string builder to create the dynamic string
-       // sb.AppendFormat("Values('{0}', '{1}' ,{2}, {3},{4},{5})", pro, pro, "'" + pro + "'", pro, pro, pro);
-        String prefix = "update[dbo].[Users] set[LoginPassword] = ('" + Password + "') WHERE UserID = '" + userID + "'";
-       // command = prefix + sb.ToString();
-
-        return prefix;
-    }
     //---------------------------------------------------------------------------------
     // Create the SqlCommand
     //---------------------------------------------------------------------------------
     private SqlCommand CreateCommand(String CommandSTR, SqlConnection con)
     {
-
         SqlCommand cmd = new SqlCommand(); // create the command object
-
         cmd.Connection = con;              // assign the connection to the command object
-
         cmd.CommandText = CommandSTR;      // can be Select, Insert, Update, Delete 
-
         cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-
         cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
-
         return cmd;
     }
-
 
     //--------------------------------------------------------------------
     // Read from the DB into a table
     //--------------------------------------------------------------------
-    public void readCarsDataBase()
-    {
 
-        SqlConnection con = connect("Betsefer"); // open the connection to the database/
+    //public void readCarsDataBase()
+    //{
+    //    String selectStr = "SELECT * FROM Cars"; // create the select that will be used by the adapter to select data from the DB
 
-        String selectStr = "SELECT * FROM Cars"; // create the select that will be used by the adapter to select data from the DB
+    //    SqlDataAdapter da = new SqlDataAdapter(selectStr, con); // create the data adapter
 
-        SqlDataAdapter da = new SqlDataAdapter(selectStr, con); // create the data adapter
+    //    DataSet ds = new DataSet("carsDS"); // create a DataSet and give it a name (not mandatory) as defualt it will be the same name as the DB
 
-        DataSet ds = new DataSet("carsDS"); // create a DataSet and give it a name (not mandatory) as defualt it will be the same name as the DB
+    //    da.Fill(ds);       // Fill the datatable (in the dataset), using the Select command
 
-        da.Fill(ds);       // Fill the datatable (in the dataset), using the Select command
-
-        dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
-    }
+    //    dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
+    //}
 
 
     public string GetUserType(string UserID, string password)
     {
-        SqlConnection con = connect("Betsefer");
+        //  SqlConnection con = connect("Betsefer");
         String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + UserID + "' and LoginPassword  = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -102,7 +77,7 @@ public class DBconnection
     }
 
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday) {
-        SqlConnection con = connect("Betsefer");
+        //  SqlConnection con = connect("Betsefer");
         String selectSTR = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQAnswer FROM dbo.SecurityQ INNER JOIN" +
             "  dbo.Users 	ON dbo.SecurityQ.CodeSecurityQ = dbo.Users.SecurityQCode INNER" +
             " JOIN dbo.UserType ON dbo.Users.CodeUserType = dbo.UserType.CodeUserType " +
@@ -117,37 +92,9 @@ public class DBconnection
             l.Add(Q);
             answer = dr["SecurityQAnswer"].ToString();
             l.Add(answer);
-           
         }
         return l;
     }
-
-    //public int ChangePassword(string userID, string Password)
-    //{
-    //    SqlConnection con = connect("Betsefer");
-    //    String selectSTR = "INSERT INTO [dbo].[Users] [LoginPassword] VALUES (" + Password + ") WHERE UserID = '" + userID + "'";
-    //    SqlCommand cmd = new SqlCommand(selectSTR, con);
-    //    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-    //    string Q, answer;
-    //    List<string> l = new List<string>();
-    //    while (dr.Read())
-    //    {
-    //        Q = dr["SecurityQInfo"].ToString();
-    //        l.Add(Q);
-    //        answer = dr["SecurityQAnswer"].ToString();
-    //        l.Add(answer);
-
-    //    }
-    //    return l;
-
-    //}
-
-
-
-
-
-
-
 
     //public List<string> getCategories()
     //{
@@ -166,46 +113,12 @@ public class DBconnection
     //    return categories;
     //}
 
-    //--------------------------------------------------------------------------------------------------
-    // This method inserts a product to the productN table 
-    //--------------------------------------------------------------------------------------------------
     public int ChangePassword(string userID, string Password)
     {
-        SqlConnection con;
         SqlCommand cmd;
-
-        try
-        {
-            con = connect("Betsefer"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-
-        String cStr = BuildInsertCommand(userID, Password);      // helper method to build the insert string
-
+        String cStr = "update[dbo].[Users] set[LoginPassword] = ('" + Password + "') WHERE UserID = '" + userID + "'";
         cmd = CreateCommand(cStr, con);             // create the command
-
-        try
-        {
-            int numEffected = cmd.ExecuteNonQuery(); // execute the command
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            throw (ex);
-        }
-
-        finally
-        {
-            if (con != null)
-            {
-                con.Close();
-            }
-        }
+        return ExecuteNonQuery(cmd);
     }
 
     public string IsAlreadyLogin(string UserID, string password)
@@ -233,72 +146,35 @@ public class DBconnection
 
         while (dr.Read())
         {
-        Questions q = new Questions();
+            Questions q = new Questions();
             q.SecurityCode = int.Parse(dr["CodeSecurityQ"].ToString());
             q.SecurityInfo = dr["SecurityQInfo"].ToString();
-
             questions.Add(q);
         }
         return questions;
     }
 
-    public int SaveQuestion(string id, int q, string a) {
-        SqlConnection con;
+    public int SaveQuestion(string id, int q, string a)
+    {
         SqlCommand cmd;
-
-        try
-        {
-            con = connect("Betsefer"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-
         String cStr = "update Users set SecurityQCode = " + q + ", SecurityQAnswer = '" + a + "' where UserID = '" + id + "'";
-
         cmd = CreateCommand(cStr, con);             // create the command
-
-        try
-        {
-            int numEffected = cmd.ExecuteNonQuery(); // execute the command
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            throw (ex);
-        }
-
-        finally
-        {
-            if (con != null)
-            {
-                con.Close();
-            }
-        }
+        return ExecuteNonQuery(cmd); // execute the command   
     }
 
     public int ChangeFirstLogin(string id)
     {
-        SqlConnection con;
         SqlCommand cmd;
-
-        try
-        {
-            con = connect("Betsefer"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-
         String cStr = "update Users set alreadyLogin = '1'  where UserID = '" + id + "'";
+        cmd = CreateCommand(cStr, con);             // create the command      
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
 
-        cmd = CreateCommand(cStr, con);             // create the command
-
+    //--------------------------------------------------------------------------------------------------
+    // This method returns number of rows affected
+    //--------------------------------------------------------------------------------------------------
+    public int ExecuteNonQuery(SqlCommand cmd)
+    {
         try
         {
             int numEffected = cmd.ExecuteNonQuery(); // execute the command
