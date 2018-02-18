@@ -163,6 +163,11 @@ public class Users
         return db.AddMainTeacherToClass(UserID, ClassOt);
     }
 
+    public int AddParent(string PupilID, string ParentID)
+    {
+        return db.AddParent(PupilID, ParentID);
+    }
+
     public int AddUser(Users NewUser)
     {
         return db.AddUser(NewUser);

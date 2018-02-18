@@ -74,8 +74,8 @@
          </tr>
 
          <tr>
-             <td> </td>
-             <td> </td>
+             <td><asp:TextBox ID="ChildIDTB" runat="server"></asp:TextBox> </td>
+             <td> <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label></td>
              <td><asp:TextBox ID="TelephoneNumberTB" runat="server"></asp:TextBox></td>
              <td>טלפון</td>
 

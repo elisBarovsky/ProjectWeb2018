@@ -14,6 +14,7 @@ public partial class AddNewUser : System.Web.UI.Page
         {
             VisiblePupilFalse(false);
             VisibleTeacherFalse(false);
+            VisibleParentFalse(false);
         }
     }
 
@@ -22,15 +23,26 @@ public partial class AddNewUser : System.Web.UI.Page
         if (UserTypeDLL.SelectedValue =="4")
         {
             VisiblePupilFalse(true);
+            VisibleTeacherFalse(false);
+            VisibleParentFalse(false);
         }
         else if (UserTypeDLL.SelectedValue == "2")
         {
+            VisiblePupilFalse(false);
             VisibleTeacherFalse(true);
+            VisibleParentFalse(false);
+        }
+        else if (UserTypeDLL.SelectedValue == "3")
+        {
+            VisibleParentFalse(true);
+            VisibleTeacherFalse(false);
+            VisiblePupilFalse(false);
         }
         else
         {
             VisibleTeacherFalse(false);
             VisiblePupilFalse(false);
+            VisibleParentFalse(false);
         }
     }
     protected void VisiblePupilFalse(bool ans)
@@ -39,6 +51,12 @@ public partial class AddNewUser : System.Web.UI.Page
         GroupAgeDLL.Visible = ans;
         ClassOtDLL.Visible = ans;
         ClassLBL.Visible = ans;
+    }
+
+    protected void VisibleParentFalse(bool ans)
+    {
+        ChildIDTB.Visible = ans;
+        ChildIDLBL.Visible = ans;
     }
 
     protected void VisibleTeacherFalse(bool ans)
@@ -56,19 +74,29 @@ public partial class AddNewUser : System.Web.UI.Page
         
         Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), folderPath + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
-        Users user1 = new Users();
+        Users PupilUser = new Users();
         if (res1 == 1)
         {
             if (UserTypeDLL.SelectedValue == "4")
             {
-                int num= user1.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
+                int num= PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
             }
-            else if (MainTeacherCB.Checked)
+            else if (UserTypeDLL.SelectedValue == "2")
             {
-                int num1 = user1.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString());
+                Users TeacherUser = new Users();
+                string IsMain = "0";
+                if (MainTeacherCB.Checked)   {  IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString()); }
+
+                Users MainTeacherUser = new Users();
+                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOtDLL.SelectedItem.ToString());
+            }
+            else if(UserTypeDLL.SelectedValue == "3")  
+            {
+                Users UsersParentUser = new Users();
+                int num4 = UsersParentUser.AddParent(ChildIDTB.Text, UserIDTB.Text); ;
             }
             AddUserSuuccsed();
-    }
+        }
         else
         {
             MessegaeLBL.Text = "הייתה בעיה בהוספת המשתמש, בדוק נתונים";
@@ -85,6 +113,7 @@ public partial class AddNewUser : System.Web.UI.Page
         PasswordTB.Text="";
         TelephoneNumberTB.Text="";
         UserTypeDLL.SelectedValue=null;
+        ChildIDTB.Text = "";
     }
 
 }

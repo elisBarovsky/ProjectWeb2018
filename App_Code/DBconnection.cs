@@ -180,11 +180,17 @@ public class DBconnection
     public int AddTeacher(string UserID, string IsMain,string ClassOt)
     {
         SqlCommand cmd;
-
         String cStr = "INSERT INTO [dbo].[Teachers] ([TeacherID] ,[IsMainTeacher]) VALUES ('"+ UserID + "' ,'"+ IsMain + "')";
         cmd = CreateCommand(cStr, con);
        return ExecuteNonQuery(cmd);// execute the command  
+    }
 
+    public int AddParent(string PupilID, string ParentID)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[PupilsParent] ([PupilID] ,[ParentID]) VALUES ('" + PupilID + "' ,'" + ParentID + "')";
+        cmd = CreateCommand(cStr, con);
+        return ExecuteNonQuery(cmd);// execute the command  
     }
 
     public int ChangeFirstLogin(string id)
