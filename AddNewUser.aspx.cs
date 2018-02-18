@@ -69,10 +69,10 @@ public partial class AddNewUser : System.Web.UI.Page
 
     protected void AddUserBTN_Click(object sender, EventArgs e)
     {
-        string folderPath = Server.MapPath("~/Images/");
+        string folderPath = Server.MapPath("~/Images/");  
         FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-        
-        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), folderPath + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
+                                                                                                                          //folderPath // להוריד ירוק כשיהיה בשרת
+        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
         Users PupilUser = new Users();
         if (res1 == 1)
