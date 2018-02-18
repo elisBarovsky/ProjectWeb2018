@@ -60,10 +60,10 @@ public class DBconnection
     //    dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
     //}
 
-
+    ///*CommandBehavior.CloseConnection*/
     public string GetUserType(string UserID, string password)
     {
-        //  SqlConnection con = connect("Betsefer");
+        //con = connect("Betsefer");
         String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + UserID + "' and LoginPassword  = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -152,10 +152,10 @@ public class DBconnection
         return questions;
     }
 
-    public int SaveQuestion(string id, int q, string a)
+    public int SaveQuestion(string id, int q1, string a1, int q2, string a2)
     {
         SqlCommand cmd;
-        String cStr = "update Users set SecurityQCode = " + q + ", SecurityQAnswer = '" + a + "' where UserID = '" + id + "'";
+        String cStr = "update Users set SecurityQ1Code = " + q1 + ", SecurityQ1Answer = '" + a1 + "', SecurityQ2Code="+ q2 + ",SecurityQ2Answer='"+ a2+ "'  where UserID = '" + id + "'";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd); // execute the command   
     }
@@ -190,7 +190,7 @@ public class DBconnection
     public int ChangeFirstLogin(string id)
     {
         SqlCommand cmd;
-        String cStr = "update Users set alreadyLogin = '1'  where UserID = '" + id + "'";
+        String cStr = "update Users set alreadyLogin = 1  where UserID = '" + id + "'";
         cmd = CreateCommand(cStr, con);             // create the command      
         return ExecuteNonQuery(cmd); // execute the command   
     }

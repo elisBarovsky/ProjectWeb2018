@@ -191,9 +191,9 @@ public class Users
         return db.IsAlreadyLogin(UserID, password);
     }
 
-    public int SaveQuestion(string id, int q, string a)
+    public int SaveQuestion(string id, int q1, string a1, int q2, string a2)
     {
-        return db.SaveQuestion(id, q, a);
+        return db.SaveQuestion(id, q1, a1, q2, a2);
     }
 
     public int ChangeFirstLogin(string id)

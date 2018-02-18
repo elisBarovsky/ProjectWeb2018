@@ -56,16 +56,16 @@ public partial class AddNewUser : System.Web.UI.Page
         
         Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), folderPath + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
-
+        Users user1 = new Users();
         if (res1 == 1)
         {
             if (UserTypeDLL.SelectedValue == "4")
             {
-                int num=  NewUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
+                int num= user1.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
             }
             else if (MainTeacherCB.Checked)
             {
-                int num1 = NewUser.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString());
+                int num1 = user1.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString());
             }
             AddUserSuuccsed();
     }

@@ -25,12 +25,18 @@
                 <div id="firstLogin"  runat="server" visible="false">
                     <asp:Label ID="Label_firstLogin" runat="server" Text="אנא ענה על מספר שאלות שיעזרו לנו במקרה ותצטרך לשחזר את סיסמתך"></asp:Label>
                     <br /> <br />
-                    <asp:DropDownList ID="DropDownList_Qlist" runat="server" DataSourceID="SqlDataSource1" DataTextField="SecurityQInfo" DataValueField="CodeSecurityQ"></asp:DropDownList>
+                    <asp:DropDownList ID="DropDownList_Qlist1" runat="server" AutoPostBack="true"  OnSelectedIndexChanged="CheckQ2" DataSourceID="SqlDataSource1" DataTextField="SecurityQInfo" DataValueField="CodeSecurityQ"></asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:bgroup52_test2ConnectionString %>" SelectCommand="SELECT * FROM [SecurityQ]"></asp:SqlDataSource>
-                    <asp:Label ID="Label_Q" runat="server" Text="בחר שאלת הזדהות"></asp:Label>
+                    <asp:Label ID="Label_Q1" runat="server" Text="בחר שאלת הזדהות"></asp:Label>
                     <br />
-                    <asp:TextBox ID="TextBox_answer" runat="server"></asp:TextBox>
+                    <asp:TextBox ID="TextBox_answer1" runat="server"></asp:TextBox>
                     <br /> <br />
+                    <asp:DropDownList ID="DropDownList_Qlist2" runat="server" AutoPostBack="true"  DataSourceID="SqlDataSource2" OnSelectedIndexChanged="CheckQ2" DataTextField="SecurityQInfo" DataValueField="CodeSecurityQ"></asp:DropDownList>
+                     <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT * FROM [SecurityQ]"></asp:SqlDataSource>
+                     <asp:Label ID="Label_Q2" runat="server" Text="בחר שאלת הזדהות שנייה"></asp:Label>
+                    <br />
+                    <asp:TextBox ID="TextBox_answer2" runat="server"></asp:TextBox>
+                      <br />  <br />
                     <asp:Button ID="LinkButton_continue" runat="server" OnAuthenticate="Login1_Authenticate" text="המשך" OnClick="UpdateQuation"/>
                 </div>
 
@@ -51,8 +57,10 @@
 
              <asp:Label ID="LBLEror" runat="server" Text=""></asp:Label>
             <div id="securityQ"  runat="server" visible="false">
-                 <asp:TextBox ID="TextBoxSecurityA" runat="server"></asp:TextBox>
-                 <asp:Label ID="LabelSecurityQ" runat="server" Text=""></asp:Label>
+                 <asp:TextBox ID="TextBoxSecurityA1" runat="server"></asp:TextBox>
+                 <asp:Label ID="LabelSecurityQ1" runat="server" Text=""></asp:Label>
+                <asp:TextBox ID="TextBoxSecurityA2" runat="server"></asp:TextBox>
+                 <asp:Label ID="LabelSecurityQ2" runat="server" Text=""></asp:Label>
                 <br/>
              <asp:Button ID="CheckAnswer" runat="server" Text="אימות תשובה" OnClick="CheckAnswer_Click"  />
 

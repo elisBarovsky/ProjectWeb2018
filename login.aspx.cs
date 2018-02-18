@@ -66,16 +66,19 @@ public partial class login : System.Web.UI.Page
     }
     protected void UpdateQuation(object sender, EventArgs e)
     {
-        int q = int.Parse(DropDownList_Qlist.SelectedItem.Value);
-        string a = TextBox_answer.Text;
+        int q1 = int.Parse(DropDownList_Qlist1.SelectedItem.Value);
+        string a1 = TextBox_answer1.Text;
+        int q2 = int.Parse(DropDownList_Qlist2.SelectedItem.Value);
+        string a2 = TextBox_answer2.Text;
         string id = Login1.UserName;
-        int num = User.SaveQuestion(id, q, a);
+        int num = User.SaveQuestion(id, q1, a1, q2, a2);
         
         if (num > 0)
         {
-           int result= User.ChangeFirstLogin(id);
-
-            switch (int.Parse(User.GetUserType(Request.Cookies["UserID"].Value, Request.Cookies["UserPassword"].Value )))
+            Users User2 = new Users();
+            int result= User2.ChangeFirstLogin(id);
+            Users User3 = new Users();
+            switch (int.Parse(User3.GetUserType(Request.Cookies["UserID"].Value, Request.Cookies["UserPassword"].Value )))
             {
                 case 1:
                     Response.Redirect("Admin.aspx");
@@ -92,6 +95,21 @@ public partial class login : System.Web.UI.Page
         forgetMyPassword.Visible = true;
     }
 
+    protected void CheckQ2(object sender, EventArgs e)
+    {
+        if (int.Parse(DropDownList_Qlist2.SelectedItem.Value)==int.Parse(DropDownList_Qlist1.SelectedItem.Value))
+        {
+            LinkButton_continue.Visible = false;
+            LBLEror.Visible = true;
+            LBLEror.Text = "אסור 2 שאלות זהות, בחר שאלה אחרת";
+        }
+        else
+        {
+            LinkButton_continue.Visible = true;
+            LBLEror.Visible = false;
+        }
+    }
+    
     protected void ButtonCheckUserExist_Click(object sender, EventArgs e)
     {
         string userID = TextBoxUserID.Text;
@@ -108,19 +126,21 @@ public partial class login : System.Web.UI.Page
             forgetMyPassword.Visible = false;
             LBLEror.Visible = false;
             securityQ.Visible = true;
-            LabelSecurityQ.Text = l.First();
+            LabelSecurityQ1.Text = l.First();
+            LabelSecurityQ2.Text = l.First();  //************************************************************
         }
     }
-
+     
     protected void CheckAnswer_Click(object sender, EventArgs e)
     {
         string userID = TextBoxUserID.Text;
         string Bday = Calendar1.SelectedDate.ToString("dd/MM/yyyy");
         l = User.GetUserSecurityDetailsByuserIDandBday(userID, Bday);
         
-        string answer= TextBoxSecurityA.Text;
+        string answer1= TextBoxSecurityA1.Text;
+        string answer2 = TextBoxSecurityA2.Text;
 
-        if (l[1]== answer)
+        if (l[1]== answer1 && l[2] == answer2) //******************************************************************
         {
             ChangePassword.Visible = true;
             securityQ.Visible = false;
