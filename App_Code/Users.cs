@@ -178,6 +178,11 @@ public class Users
         return db.GetUserType(UserID, password);
     }
 
+    public string GetUserIMG(string UserID)
+    {
+        return db.GetUserIMG(UserID);
+    }
+
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday)
     {
         List<string> l = new List<string>();

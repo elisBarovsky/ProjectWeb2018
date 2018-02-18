@@ -76,6 +76,20 @@ public class DBconnection
         return type;
     }
 
+    public string GetUserIMG(string UserID)
+    {
+        //con = connect("Betsefer");
+        String selectSTR = "select [UserImg] from [dbo].[Users] where UserID  = '" + UserID + "'" ;
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string type = "";
+
+        while (dr.Read())
+        {
+            type = dr["UserImg"].ToString();
+        }
+        return type;
+    }
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday) {
         //  SqlConnection con = connect("Betsefer");
         String selectSTR = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQAnswer FROM dbo.SecurityQ INNER JOIN" +
