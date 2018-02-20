@@ -115,11 +115,6 @@ public class Users
         }
     }
 
-    public Dictionary<string, string> getPupils(string classCode)
-    {
-        return db.getPupils(classCode);
-    }
-
     public string CodeUserType1
     {
         get
@@ -163,6 +158,16 @@ public class Users
         return db.AddTeacher(UserID, IsMain, ClassOt);
     }
 
+    public Dictionary<string, string> getPupils(string classCode)
+    {
+        return db.getPupils(classCode);
+    }
+
+    public Dictionary<string, string> FillUsers(string CodeUserType)
+    {
+        return db.FillUsers(CodeUserType);
+    }
+
     public int AddClassTeacher(string UserID, string ClassOt)
     {
         return db.AddMainTeacherToClass(UserID, ClassOt);
@@ -182,9 +187,20 @@ public class Users
     {
         return db.GetUserType(UserID, password);
     }
+
     public string GetPupilGroup(string UserID)
     {
         return db.GetPupilGroup(UserID);
+    }
+
+    public bool GetTeacherMain(string UserID)
+    {
+        return db.GetTeacherMain(UserID);
+    }
+
+    public string GetTeacherMainClass(string UserID)
+    {
+        return db.GetTeacherMainClass(UserID);
     }
 
     public List<string> GetUserInfo(string UserID)

@@ -24,11 +24,21 @@ public partial class UpdateUser : System.Web.UI.Page
         {
             VisiblePupil(true);
             VisibleOtherUsers(false);
+            VisibleTeacherUsers(false);
+        }
+        else if (UserTypeDLL.SelectedValue == "2")
+        {
+            VisibleTeacherUsers(true);
+            VisiblePupil(false);
+            VisibleOtherUsers(true);
+            FillUsers();
         }
         else
         {
+            VisibleTeacherUsers(false);
             VisiblePupil(false);
             VisibleOtherUsers(true);
+            FillUsers();
         }
     }
 
@@ -42,6 +52,16 @@ public partial class UpdateUser : System.Web.UI.Page
         Session["PupilsList"] = pupils;
     }
 
+    protected void FillUsers()
+    {
+        Users Users = new Users();
+        Dictionary<string, string> UsersList = new Dictionary<string, string>();
+        UsersList = Users.FillUsers(UserTypeDLL.SelectedValue);
+        OtherUsersDLL.DataSource = UsersList.Values;
+        OtherUsersDLL.DataBind();
+        Session["UsersList"] = UsersList;
+    }
+
     protected void UserChosed(object sender, EventArgs e)
     {
         string UserID = "";
@@ -51,12 +71,29 @@ public partial class UpdateUser : System.Web.UI.Page
             Users PupilGroupID = new Users();
             Dictionary<string, string> pupils = new Dictionary<string, string>();
             pupils = (Dictionary<string, string>)(Session["PupilsList"]);
-            
-         //   GroupAgeDLL.SelectedValue = PupilGroupID.GetPupilGroup(pupils[UserID]);    יש בעיה למשוך את התעודת זהות
+            UserID = KeyByValue(pupils, UserID);
+            GroupAgeDLL.SelectedValue = PupilGroupID.GetPupilGroup(UserID);  
         }
         else
         {
-             UserID = OtherUsersDLL.SelectedValue;
+            UserID = OtherUsersDLL.SelectedValue;
+            Dictionary<string, string> Users = new Dictionary<string, string>();
+            Users = (Dictionary<string, string>)(Session["UsersList"]);
+            UserID = KeyByValue(Users, UserID);
+            if (UserTypeDLL.SelectedValue == "2") {
+
+                Users TeacherChecked = new Users();
+                bool IsMain = TeacherChecked.GetTeacherMain(UserID);
+
+                if (IsMain)
+                {
+                    MainTeacherCB.Checked = true;
+                    Class2LBL.Visible = true;
+                    ClassOt2DLL.Visible = true;
+                    Users TeacherMainClass = new Users();
+                    ClassOt2DLL.SelectedValue = TeacherMainClass.GetTeacherMainClass(UserID); ;
+                }
+            }
         }
 
         Users UserInfo_ = new Users();
@@ -64,16 +101,38 @@ public partial class UpdateUser : System.Web.UI.Page
 
         List<string> UserInfo = new List<string>();
         UserInfo = UserInfo_.GetUserInfo(UserID);
-        UserIDTB.Text = UserInfo[0];
-        FNameTB.Text = UserInfo[1];
-        LNameTB.Text = UserInfo[2];
-        BirthDateTB.Text = UserInfo[3];
-        ChangeBdateCB.Visible = true;
-        UserNameTB.Text = UserInfo[4];
-        PasswordTB.Text = UserInfo[5];
-        TelephoneNumberTB.Text = UserInfo[6];
-        UserIMG.ImageUrl = UserInfo[7];
         
+        UserIDTB.Text = UserID;
+        FNameTB.Text = UserInfo[0];
+        LNameTB.Text = UserInfo[1];
+        BirthDateTB.Text = UserInfo[2];
+        ChangeBdateCB.Visible = true;
+        UserNameTB.Text = UserInfo[3];
+        PasswordTB.Text = UserInfo[4];
+        TelephoneNumberTB.Text = UserInfo[5];
+
+        if (UserInfo[6]=="")
+        {
+            UserIMG.ImageUrl = "/Images/NoImg.png";
+        }
+        else
+        {
+            UserIMG.ImageUrl = UserInfo[6];
+        }
+    }
+
+    public static string KeyByValue(Dictionary<string, string> dict, string val)
+    {
+        string key = null;
+        foreach (KeyValuePair<string, string> pair in dict)
+        {
+            if (pair.Value == val)
+            {
+                key = pair.Key;
+                break;
+            }
+        }
+        return key;
     }
 
     protected void ShowCalendar_(object sender, EventArgs e)
@@ -88,6 +147,11 @@ public partial class UpdateUser : System.Web.UI.Page
         }
     }
 
+    protected void FillTBofBdate(object sender, EventArgs e)
+    {
+        BirthDateTB.Text = Calendar1.SelectedDate.ToShortDateString();
+    }
+    
     protected void VisiblePupil(bool ans)
     {
         ChoosePupilLBL.Visible = ans;
@@ -95,6 +159,7 @@ public partial class UpdateUser : System.Web.UI.Page
         ClassOt1DLL.Visible = ans;
         Class1LBL.Visible = ans;
         Class2LBL.Visible = ans;
+        ClassOt2DLL.Visible = ans;
         GroupAgeLBL.Visible = ans;
         GroupAgeDLL.Visible = ans;
     }
@@ -104,7 +169,13 @@ public partial class UpdateUser : System.Web.UI.Page
         OtherUsersDLL.Visible = ans;
         ChooseOtherUsers.Visible = ans;
     }
-  
+
+    protected void VisibleTeacherUsers(bool ans)
+    {
+        MainTeacher.Visible = ans;
+        MainTeacherCB.Visible = ans;
+    }
+
     protected void UpdateUserSuccssed()
     {
         MessegaeLBL.Text = "משתמש נוסף בהצלחה";
@@ -131,6 +202,8 @@ public partial class UpdateUser : System.Web.UI.Page
         Calendar1.Visible = false;
         ChildIDTB.Visible = false;
         ChildIDLBL.Visible = false;
+        MainTeacher.Visible = false;
+        MainTeacherCB.Visible = false;
     }
 
     protected void UpdateUserBTN_Click(object sender, EventArgs e) //******************* להתאים עד הסוף שינויים
@@ -151,7 +224,7 @@ public partial class UpdateUser : System.Web.UI.Page
             {
                 Users TeacherUser = new Users();
                 string IsMain = "0";
-               // if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
+               if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
 
                 Users MainTeacherUser = new Users();
                 int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());

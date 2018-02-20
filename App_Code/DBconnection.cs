@@ -88,10 +88,37 @@ public class DBconnection
         return CodePgroup;
     }
 
+    public bool GetTeacherMain(string UserID)
+    {
+        String selectSTR = "SELECT IsMainTeacher  FROM Teachers where TeacherID  = '" + UserID + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        bool Checked = false;
+
+        while (dr.Read())
+        {
+            Checked = bool.Parse(dr["IsMainTeacher"].ToString());
+        }
+        return Checked;
+    }
+
+    public string GetTeacherMainClass(string UserID)
+    {
+        String selectSTR = "SELECT ClassCode  FROM Class where MainTeacherID  = '" + UserID + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string ClassCode = "";
+
+        while (dr.Read())
+        {
+            ClassCode = dr["ClassCode"].ToString();
+        }
+        return ClassCode;
+    }
+
     public List<string> GetUserInfo(string UserID)
     {
-        string UserFName, UserID_, UserLName, BirthDate, UserImg, UserName, UserPassword, PhoneNumber;
-        //con = connect("Betsefer");
+        string UserFName, UserLName, BirthDate, UserImg, UserName, UserPassword, PhoneNumber;
         String selectSTR = "select * from [dbo].[Users] where UserID  = '" + UserID + "'" ;
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -100,8 +127,6 @@ public class DBconnection
 
         while (dr.Read())
         {
-            UserID_ = dr["UserID"].ToString();
-            UserInfo.Add(UserID_);
             UserFName = dr["UserFName"].ToString();
             UserInfo.Add(UserFName);
             UserLName = dr["UserLName"].ToString();
@@ -120,7 +145,6 @@ public class DBconnection
         return UserInfo;
     }
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday) {
-        //  SqlConnection con = connect("Betsefer");
         String selectSTR = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQAnswer FROM dbo.SecurityQ INNER JOIN" +
             "  dbo.Users 	ON dbo.SecurityQ.CodeSecurityQ = dbo.Users.SecurityQCode INNER" +
             " JOIN dbo.UserType ON dbo.Users.CodeUserType = dbo.UserType.CodeUserType " +
@@ -138,23 +162,6 @@ public class DBconnection
         }
         return l;
     }
-
-    //public List<string> getCategories()
-    //{
-    //    List<string> categories = new List<string>();
-    //    SqlConnection con = connect("ShoppingDB");
-    //    String selectSTR = "SELECT distinct [CatName] FROM [Category] ";
-    //    SqlCommand cmd = new SqlCommand(selectSTR, con);
-    //    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-
-    //    while (dr.Read())
-    //    {
-    //        category c = new category();
-    //        c.CategoryName = dr["CatName"].ToString();
-    //        categories.Add(c.CategoryName);
-    //    }
-    //    return categories;
-    //}
 
     public int ChangePassword(string userID, string Password)
     {
@@ -251,6 +258,7 @@ public class DBconnection
         cmd = CreateCommand(cStr, con);             // create the command      
         return ExecuteNonQuery(cmd); // execute the command   
     }
+
     //--------------------------------------------------------------------------------------------------
     // This method returns number of rows affected
     //--------------------------------------------------------------------------------------------------
@@ -287,10 +295,28 @@ public class DBconnection
         while (dr.Read())
         {
             UserID = dr["UserID"].ToString();
-            
             UserName = dr["PupilName"].ToString();
             l.Add(UserID, UserName);
         }
         return l;
     }
+
+    public Dictionary<string, string> FillUsers(string CodeUserType)
+    {
+        String selectSTR = "SELECT(UserLName+' '+ UserFName) as UserName, UserID" +
+           " FROM dbo.Users where CodeUserType='" + CodeUserType + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string UserID, UserName;
+        Dictionary<string, string> l = new Dictionary<string, string>();
+        l.Add("1", "בחר משתמש");
+        while (dr.Read())
+        {
+            UserID = dr["UserID"].ToString();
+            UserName = dr["UserName"].ToString();
+            l.Add(UserID, UserName);
+        }
+        return l;
+    }
 }
+
