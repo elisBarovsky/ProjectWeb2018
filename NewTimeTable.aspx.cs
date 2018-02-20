@@ -11,4 +11,9 @@ public partial class timeTable : System.Web.UI.Page
     {
 
     }
+
+    protected void FillFirstItem(object sender, EventArgs e)
+    {
+        (sender as DropDownList).Items.Insert(0, new ListItem("--", "0"));
+    }
 }
