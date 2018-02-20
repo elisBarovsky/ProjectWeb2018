@@ -50,7 +50,7 @@
                  <asp:DropDownList ID="OtherUsersDLL" runat="server" DataSourceID="SqlDataSource4" OnSelectedIndexChanged ="UserChosed" DataTextField="UserName" AutoPostBack="true" DataValueField="UserID"></asp:DropDownList>
 
                  <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT        (UserLName+' '+ UserFName) as UserName, UserID
-FROM            dbo.Users where CodeUserType=@CodeUserType">
+                                            FROM dbo.Users where CodeUserType=@CodeUserType">
                      <SelectParameters>
                             <asp:ControlParameter ControlID="UserTypeDLL" DefaultValue="1" Name="CodeUserType" PropertyName="SelectedValue" Type="int32" />
                      </SelectParameters>
@@ -77,6 +77,9 @@ FROM            dbo.Users where CodeUserType=@CodeUserType">
              <td><asp:TextBox ID="UserIDTB" runat="server"></asp:TextBox></td>
              <td>תעודת זהות</td>
              <td>
+                 <asp:TextBox ID="BirthDateTB" runat="server"></asp:TextBox>
+                 <br />
+                 <asp:CheckBox ID="ChangeBdateCB" runat="server"  Text="האם תרצה לשנות תאריך לידה?"  OnCheckedChanged="ShowCalendar_" AutoPostBack="true"/>
                 <asp:Calendar ID="Calendar1" runat="server"  AutoPostBack="false" />
 
              </td>

@@ -76,19 +76,36 @@ public class DBconnection
         return type;
     }
 
-    public string GetUserIMG(string UserID)
+    public List<string> GetUserInfo(string UserID)
     {
+        string UserFName, UserID_, UserLName, BirthDate, UserImg, UserName, UserPassword, PhoneNumber;
         //con = connect("Betsefer");
-        String selectSTR = "select [UserImg] from [dbo].[Users] where UserID  = '" + UserID + "'" ;
+        String selectSTR = "select * from [dbo].[Users] where UserID  = '" + UserID + "'" ;
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-        string type = "";
+
+        List<string> UserInfo = new List<string>();
 
         while (dr.Read())
         {
-            type = dr["UserImg"].ToString();
+            UserID_ = dr["UserID"].ToString();
+            UserInfo.Add(UserID_);
+            UserFName = dr["UserFName"].ToString();
+            UserInfo.Add(UserFName);
+            UserLName = dr["UserLName"].ToString();
+            UserInfo.Add(UserLName);
+            BirthDate = dr["BirthDate"].ToString();
+            UserInfo.Add(BirthDate);
+            UserName = dr["LoginName"].ToString();
+            UserInfo.Add(UserName);
+            UserPassword = dr["LoginPassword"].ToString();
+            UserInfo.Add(UserPassword);
+            PhoneNumber = dr["PhoneNumber"].ToString();
+            UserInfo.Add(PhoneNumber);
+            UserImg = dr["UserImg"].ToString();
+            UserInfo.Add(UserImg);
         }
-        return type;
+        return UserInfo;
     }
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday) {
         //  SqlConnection con = connect("Betsefer");

@@ -178,9 +178,9 @@ public class Users
         return db.GetUserType(UserID, password);
     }
 
-    public string GetUserIMG(string UserID)
+    public List<string> GetUserInfo(string UserID)
     {
-        return db.GetUserIMG(UserID);
+        return db.GetUserInfo(UserID);
     }
 
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday)
