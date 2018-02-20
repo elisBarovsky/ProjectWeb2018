@@ -75,10 +75,10 @@ public partial class login : System.Web.UI.Page
         
         if (num > 0)
         {
-            Users User2 = new Users();
+           Users User2 = new Users();
             int result= User2.ChangeFirstLogin(id);
-            Users User3 = new Users();
-            switch (int.Parse(User3.GetUserType(Request.Cookies["UserID"].Value, Request.Cookies["UserPassword"].Value )))
+            Users User4 = new Users();
+            switch (int.Parse(User4.GetUserType(Request.Cookies["UserID"].Value, Request.Cookies["UserPassword"].Value )))
             {
                 case 1:
                     Response.Redirect("Admin.aspx");
