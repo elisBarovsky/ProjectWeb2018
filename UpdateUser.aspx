@@ -28,10 +28,10 @@
      <table class="auto-style1">
          <tr>
              <td class="auto-style2"  >
-               <asp:DropDownList ID="ClassOtDLL" runat="server"  DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="true" onselectedindexchanged="FillPupils"></asp:DropDownList>
+               <asp:DropDownList ID="ClassOt1DLL" runat="server"  DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="true" onselectedindexchanged="FillPupils"></asp:DropDownList>
                  <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
              </td>
-             <td  ><asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה" ></asp:Label>               
+             <td  ><asp:Label ID="Class1LBL" runat="server" Text=" בחר כיתה" ></asp:Label>               
                </td>
                                                        
              <td> <asp:RadioButtonList ID="UserTypeDLL" runat="server" DataSourceID="SqlDataSource2"  OnSelectedIndexChanged ="UserTypeDLL_CheckedChanged"  DataTextField="CodeUserName" DataValueField="CodeUserType" AutoPostBack="true" RepeatDirection="Horizontal" ></asp:RadioButtonList>  
@@ -88,10 +88,12 @@
          <tr >
                  <td class="auto-style2"> <asp:FileUpload ID="FileUpload1" runat="server" /></td>
              <td>תמונה</td>
-             <td></td>
+             <td>  
+                     <asp:DropDownList ID="ClassOt2DLL" runat="server"  DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="false" onselectedindexchanged="FillPupils"></asp:DropDownList>
+             </td>
              <td >
                  
-
+                 <asp:Label ID="Class2LBL" runat="server" Text=" בחר כיתה" ></asp:Label>
              </td>
          </tr>
             <tr>
@@ -118,7 +120,7 @@
        
      </table>
      <br />                                                          <%--OnClick="AddUserBTN_Click"--%>
-     <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="עדכן משתמש" />
+     <asp:Button ID="UpdateUserBTN" runat="server" CssClass="form-btn" Text="עדכן משתמש" OnClick="UpdateUserBTN_Click" />
      <asp:Label ID="MessegaeLBL" runat="server" Text=""></asp:Label>
 
 </div>
