@@ -6,6 +6,9 @@
             width: 100%;
             position: center;
         }
+        .auto-style2 {
+            width: 446px;
+        }
     </style>
      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
@@ -24,11 +27,11 @@
 
      <table class="auto-style1">
          <tr>
-             <td  >
-               <asp:DropDownList ID="ClassOtDLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="true"></asp:DropDownList>
+             <td class="auto-style2"  >
+               <asp:DropDownList ID="ClassOtDLL" runat="server"  DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="true" onselectedindexchanged="FillPupils"></asp:DropDownList>
                  <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
              </td>
-             <td  ><asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה"></asp:Label>               
+             <td  ><asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה" ></asp:Label>               
                </td>
                                                        
              <td> <asp:RadioButtonList ID="UserTypeDLL" runat="server" DataSourceID="SqlDataSource2"  OnSelectedIndexChanged ="UserTypeDLL_CheckedChanged"  DataTextField="CodeUserName" DataValueField="CodeUserType" AutoPostBack="true" RepeatDirection="Horizontal" ></asp:RadioButtonList>  
@@ -37,15 +40,11 @@
              <td>  <asp:Label ID="Label1" runat="server" Text="סוג משתמש"></asp:Label></td>
          </tr>
             <tr>
-             <td>   <asp:Image ID="UserIMG" runat="server" /> </td>
+             <td class="auto-style2">   <asp:Image ID="UserIMG" runat="server" /> </td>
              <td></td>
-             <td> <asp:DropDownList ID="PupilDLL" runat="server" DataSourceID="SqlDataSource1" OnSelectedIndexChanged ="UserChosed" DataTextField="PupilName" AutoPostBack="true" DataValueField="UserID"></asp:DropDownList>   
-                 <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT   dbo.Users.UserID,( dbo.Users.UserLName+' '+ dbo.Users.UserFName)AS PupilName
-                                    FROM   dbo.Pupil INNER JOIN   dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID	 where dbo.Pupil.CodeClass= @ClassCode">
-                       <SelectParameters>
-                            <asp:ControlParameter ControlID="ClassOtDLL" DefaultValue="1" Name="ClassCode" PropertyName="SelectedValue" Type="String" />
-                       </SelectParameters>
-                 </asp:SqlDataSource>
+             <td> <asp:DropDownList ID="PupilDLL" runat="server" OnSelectedIndexChanged ="UserChosed"  AutoPostBack="true"></asp:DropDownList>   
+                
+            
 
                  <asp:DropDownList ID="OtherUsersDLL" runat="server" DataSourceID="SqlDataSource4" OnSelectedIndexChanged ="UserChosed" DataTextField="UserName" AutoPostBack="true" DataValueField="UserID"></asp:DropDownList>
 
@@ -62,19 +61,19 @@
              </td>
          </tr>
            <tr>
-             <td></td>
+             <td class="auto-style2"></td>
              <td></td>
              <td> </td>
              <td >עדכון פרטים</td>
          </tr>
          <tr>
-             <td><asp:TextBox ID="LNameTB" runat="server"></asp:TextBox></td>
+             <td class="auto-style2"><asp:TextBox ID="LNameTB" runat="server"></asp:TextBox></td>
              <td>שם משפחה</td>
              <td> <asp:TextBox ID="FNameTB" runat="server"></asp:TextBox></td>
              <td>שם פרטי</td>
          </tr>
          <tr>
-             <td><asp:TextBox ID="UserIDTB" runat="server"></asp:TextBox></td>
+             <td class="auto-style2"><asp:TextBox ID="UserIDTB" runat="server"></asp:TextBox></td>
              <td>תעודת זהות</td>
              <td>
                  <asp:TextBox ID="BirthDateTB" runat="server"></asp:TextBox>
@@ -87,7 +86,7 @@
          </tr>
          
          <tr >
-                 <td> <asp:FileUpload ID="FileUpload1" runat="server" /></td>
+                 <td class="auto-style2"> <asp:FileUpload ID="FileUpload1" runat="server" /></td>
              <td>תמונה</td>
              <td></td>
              <td >
@@ -96,15 +95,22 @@
              </td>
          </tr>
             <tr>
-             <td><asp:TextBox ID="PasswordTB" runat="server"></asp:TextBox></td>
+             <td class="auto-style2"><asp:TextBox ID="PasswordTB" runat="server"></asp:TextBox></td>
              <td>סיסמה</td>
              <td><asp:TextBox ID="UserNameTB" runat="server"></asp:TextBox></td>
              <td>שם משתמש</td>
          </tr>
 
          <tr>
-             <td><asp:TextBox ID="ChildIDTB" runat="server"></asp:TextBox> </td>
-             <td> <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label></td>
+             <td ><asp:TextBox ID="ChildIDTB" runat="server"></asp:TextBox>
+                  <asp:RadioButtonList ID="GroupAgeDLL" runat="server"   RepeatDirection="Horizontal" DataSourceID="SqlDataSource5" DataTextField="GroupName" DataValueField="CodePgroup"></asp:RadioButtonList>
+                 <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
+             </td>
+             <td> <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label>
+
+            <asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>
+             </td>
+             
              <td><asp:TextBox ID="TelephoneNumberTB" runat="server"></asp:TextBox></td>
              <td>טלפון</td>
 
@@ -112,7 +118,7 @@
        
      </table>
      <br />                                                          <%--OnClick="AddUserBTN_Click"--%>
-     <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="הוסף משתמש" />
+     <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="עדכן משתמש" />
      <asp:Label ID="MessegaeLBL" runat="server" Text=""></asp:Label>
 
 </div>

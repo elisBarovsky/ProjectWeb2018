@@ -115,6 +115,11 @@ public class Users
         }
     }
 
+    public Dictionary<string, string> getPupils(string classCode)
+    {
+        return db.getPupils(classCode);
+    }
+
     public string CodeUserType1
     {
         get
@@ -176,6 +181,10 @@ public class Users
     public string GetUserType(string UserID, string password)
     {
         return db.GetUserType(UserID, password);
+    }
+    public string GetPupilGroup(string UserID)
+    {
+        return db.GetPupilGroup(UserID);
     }
 
     public List<string> GetUserInfo(string UserID)

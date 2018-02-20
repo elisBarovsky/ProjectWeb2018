@@ -32,12 +32,27 @@ public partial class UpdateUser : System.Web.UI.Page
         }
     }
 
+    protected void FillPupils(object sender, EventArgs e)
+    {
+        Users Pupil = new Users();
+        Dictionary<string, string> pupils = new Dictionary<string, string>();
+        pupils = Pupil.getPupils(ClassOtDLL.SelectedValue);
+        PupilDLL.DataSource = pupils.Values;
+        PupilDLL.DataBind();
+        Session["PupilsList"] = pupils;
+    }
+
     protected void UserChosed(object sender, EventArgs e)
     {
         string UserID = "";
         if (UserTypeDLL.SelectedValue == "4")
         {
-             UserID = PupilDLL.SelectedValue;
+            UserID = PupilDLL.SelectedValue;
+            Users PupilGroupID = new Users();
+            Dictionary<string, string> pupils = new Dictionary<string, string>();
+            pupils = (Dictionary<string, string>)(Session["PupilsList"]);
+            
+         //   GroupAgeDLL.SelectedValue = PupilGroupID.GetPupilGroup(pupils[UserID]);    יש בעיה למשוך את התעודת זהות
         }
         else
         {
@@ -58,8 +73,8 @@ public partial class UpdateUser : System.Web.UI.Page
         PasswordTB.Text = UserInfo[5];
         TelephoneNumberTB.Text = UserInfo[6];
         UserIMG.ImageUrl = UserInfo[7];
+        
     }
-
 
     protected void ShowCalendar_(object sender, EventArgs e)
     {
@@ -79,14 +94,15 @@ public partial class UpdateUser : System.Web.UI.Page
         PupilDLL.Visible = ans;
         ClassOtDLL.Visible = ans;
         ClassLBL.Visible = ans;
+        GroupAgeLBL.Visible = ans;
+        GroupAgeDLL.Visible = ans;
     }
 
     protected void VisibleOtherUsers(bool ans)
     {
         OtherUsersDLL.Visible = ans;
         ChooseOtherUsers.Visible = ans;
-        //ChildIDTB.Visible = ans;
-        //ChildIDLBL.Visible = ans;
+       
     }
   
     protected void UpdateUserSuccssed()
@@ -113,5 +129,7 @@ public partial class UpdateUser : System.Web.UI.Page
         ChangeBdateCB.Visible = false;
         ChangeBdateCB.Checked = false;
         Calendar1.Visible = false;
+        ChildIDTB.Visible = false;
+        ChildIDLBL.Visible = false;
     }
 }

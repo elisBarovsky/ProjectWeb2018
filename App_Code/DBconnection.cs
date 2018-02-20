@@ -60,10 +60,8 @@ public class DBconnection
     //    dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
     //}
 
-    ///*CommandBehavior.CloseConnection*/
     public string GetUserType(string UserID, string password)
     {
-        //con = connect("Betsefer");
         String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + UserID + "' and LoginPassword  = '" + password + "'";
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -74,6 +72,20 @@ public class DBconnection
             type = dr["CodeUserType"].ToString();
         }
         return type;
+    }
+
+    public string GetPupilGroup(string UserID)
+    {
+        String selectSTR = "SELECT CodePgroup  FROM Pupil where UserID  = '" + UserID + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string CodePgroup = "";
+
+        while (dr.Read())
+        {
+            CodePgroup = dr["CodePgroup"].ToString();
+        }
+        return CodePgroup;
     }
 
     public List<string> GetUserInfo(string UserID)
@@ -262,5 +274,23 @@ public class DBconnection
                 con.Close();
             }
         }
+    }
+    public Dictionary<string,string> getPupils(string classCode)
+    {
+        String selectSTR = "SELECT   dbo.Users.UserID,(dbo.Users.UserLName + ' ' + dbo.Users.UserFName)AS PupilName" +
+           "  FROM dbo.Pupil INNER JOIN   dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID   where dbo.Pupil.CodeClass='" + classCode + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string UserID, UserName;
+        Dictionary<string, string> l = new Dictionary<string, string>();
+        l.Add("1", "בחר תלמיד");
+        while (dr.Read())
+        {
+            UserID = dr["UserID"].ToString();
+            
+            UserName = dr["PupilName"].ToString();
+            l.Add(UserID, UserName);
+        }
+        return l;
     }
 }
