@@ -183,6 +183,11 @@ public class Users
         return db.AddUser(NewUser);
     }
 
+    public int UpdateUser(string userID, string userFName, string userLName, string birthDate, string userImg, string userName, string userPassword, string phoneNumber)
+    {
+        return db.UpdateUser(userID, userFName, userLName, birthDate, userImg, userName, userPassword, phoneNumber);
+    }
+
     public string GetUserType(string UserID, string password)
     {
         return db.GetUserType(UserID, password);

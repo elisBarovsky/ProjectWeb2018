@@ -219,6 +219,22 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
+    public int UpdateUser(string userID, string userFName, string userLName, string birthDate, string userImg, string userName, string userPassword, string phoneNumber)
+    {
+        SqlCommand cmd;
+        String cStr;
+        if (userImg == "")
+        {
+            cStr = "Update Users set [UserID]='" + userID + "',[UserFName]='" + userFName + "',[UserLName]='" + userLName + "',[BirthDate]='" + birthDate + "',[LoginName]='"+ userName + "',[LoginPassword]='" + userPassword + "',[PhoneNumber]='" + phoneNumber + "' where [UserID]='" + userID + "'";
+        }
+        else
+        {
+             cStr = "Update Users set [UserID]='" + userID + "',[UserFName]='" + userFName + "',[UserLName]='" + userLName + "',[BirthDate]='" + birthDate + "',[UserImg]='" + userImg + "',[LoginName]='"+ userName + "',[LoginPassword]='"+ userPassword + "',[PhoneNumber]=' where [UserID]='" + userID + "'";
+        }
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
+
     public int AddPupil(string UserID, string GroupType, int classNumber)
     {
         SqlCommand cmd;

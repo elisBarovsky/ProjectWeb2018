@@ -178,7 +178,7 @@ public partial class UpdateUser : System.Web.UI.Page
 
     protected void UpdateUserSuccssed()
     {
-        MessegaeLBL.Text = "משתמש נוסף בהצלחה";
+        MessegaeLBL.Text = "משתמש עודכן בהצלחה";
         Calendar1.SelectedDate = Calendar1.TodaysDate;
         UserTypeDLL.SelectedValue = null;
         ClearAll();
@@ -209,33 +209,56 @@ public partial class UpdateUser : System.Web.UI.Page
     protected void UpdateUserBTN_Click(object sender, EventArgs e) //******************* להתאים עד הסוף שינויים
     {
         string folderPath = Server.MapPath("~/Images/");
-        FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-                                                                                                                            //folderPath // להוריד ירוק כשיהיה בשרת
-        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
-        int res1 = NewUser.AddUser(NewUser);
-        Users PupilUser = new Users();
+        int res1 = 0;
+        Users NewUser = new Users();
+        if (FileUpload1.FileName=="")
+        {
+            if (ChangeBdateCB.Checked == false)
+            {
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text,"", UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+            }
+            else
+            {
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(),"", UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+            }
+        }
+        else
+        {
+            FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
+
+            if (ChangeBdateCB.Checked == false)
+            {
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text, "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+            }
+            else
+            {
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+            }
+        }//folderPath // להוריד ירוק כשיהיה בשרת
+
+        //Users PupilUser = new Users();
         if (res1 == 1)
         {
-            if (UserTypeDLL.SelectedValue == "4")
-            {
-                int num = PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue, int.Parse(ClassOt2DLL.SelectedValue));
-            }
-            else if (UserTypeDLL.SelectedValue == "2")
-            {
-                Users TeacherUser = new Users();
-                string IsMain = "0";
-               if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
+            //    if (UserTypeDLL.SelectedValue == "4")
+            //    {
+            //        int num = PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue, int.Parse(ClassOt2DLL.SelectedValue));
+            //    }
+            //    else if (UserTypeDLL.SelectedValue == "2")
+            //    {
+            //        Users TeacherUser = new Users();
+            //        string IsMain = "0";
+            //       if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
 
-                Users MainTeacherUser = new Users();
-                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
-            }
-            else if (UserTypeDLL.SelectedValue == "3")
-            {
-                Users UsersParentUser = new Users();
-                int num4 = UsersParentUser.AddParent(ChildIDTB.Text, UserIDTB.Text); ;
-            }
-            UpdateUserSuccssed();
-        }
+            //        Users MainTeacherUser = new Users();
+            //        int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
+            //    }
+            //    else if (UserTypeDLL.SelectedValue == "3")
+            //    {
+            //        Users UsersParentUser = new Users();
+            //        int num4 = UsersParentUser.AddParent(ChildIDTB.Text, UserIDTB.Text); ;
+        //}
+        UpdateUserSuccssed();
+    }
         else
         {
             MessegaeLBL.Text = "הייתה בעיה בעדכון המשתמש, בדוק נתונים";
