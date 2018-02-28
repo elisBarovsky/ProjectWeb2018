@@ -30,9 +30,11 @@
 
 .Icons{
     height:50px;
+    width:50px;
 }
 
-#LogOutIcon{
-    float:right;
-    height:30px;
+#LogOutIcon {
+    float: right;
+    height: 30px;
+    width: 30px;
 }

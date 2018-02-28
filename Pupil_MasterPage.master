@@ -7,14 +7,68 @@
     <title></title>
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
+  
+     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <script src="AjaxCalls.js"></script>
+    <script src="Products.js"></script>
+    <link href="css/JQM.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+
+         <!--main page - choose category-->
+    <div data-role="page" data-theme="a" data-position="fixed" id="home">
+        <div data-role="header" id="head1">
+            <h1>  Welcome  </h1>
+        </div>
+        <!-- /header -->
+        <div data-role="content">
+            <ul data-role="listview" data-filter="true" data-filter-placeholder="Enter a category..." data-inset="true" id="DynamicList"></ul>
+            <!-- /content -->
+            <div data-role="footer" data-position="fixed" id="foot">
+                  <img src="Images/Betsefer.png" id="logo" />
+            </div>
+        </div>
+    </div>
+   <!--product page by category - choose product from a category -->
+    <div data-role="page" data-theme="a" data-position="fixed" id="Product" data-add-back-btn="true">
+        <div data-role="header" id="head1">
+            <a href="#home" class="ui-btn-left" data-theme="b" data-transition="slide" data-direction="reverse" data-icon="back" style="color:white">Back</a>
+            <h1>  Product List  </h1> 
+        </div>
+        <!-- /header -->
+        <div data-role="content">
+            <ul data-role="listview" data-filter="true" data-filter-placeholder="Enter a product" data-inset="true" id="DynamicListProduct"></ul>
+            <!-- /content -->
+            <div data-role="footer" data-position="fixed" id="foot">
+                <img src="Images/Betsefer.png" id="logo" />
+            </div>
+        </div>
+    </div>
+    <!--product page  - info about the choosen product  -->
+    <div data-role="page" data-theme="a" data-position="fixed" id="ProductInfo" data-add-back-btn="true">
+        <div data-role="header" id="head1">
+            <a href="#Product" class="ui-btn-left" data-theme="b" data-transition="slide" data-direction="reverse" data-icon="back" style="color:white"></a>
+            <h1>  Product View  </h1>
+        </div>
+        <!-- /header -->
+        <div data-role="content" >
+            <ul data-role="listview"  data-split-icon="info"  id="DynamicInfoProduct"></ul>
+                   <div data-role="collapsible-set" data-theme="c" data-content-theme="d" id="attriInfo">
+                   </div>
+            <!-- /content -->
+            <div data-role="footer" data-position="fixed" id="foot">
+                <img src="Images/Betsefer.png" id="logo" />
+            </div>
+        </div>
+    </div>
+
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
-    </div>
+  
     </form>
 </body>
 </html>

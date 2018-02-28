@@ -1,0 +1,17 @@
+﻿#foot {
+    background-color:black;
+    color:white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#foot {
+    text-align:center;
+  //  background-color: gainsboro;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#logo{
+    padding-top:10px;
+    height:50px;
+   position:center;
+}
