@@ -19,7 +19,7 @@
     <form id="form1" runat="server">
 
          <!--main page - choose category-->
-    <div data-role="page" data-theme="a" data-position="fixed" id="home">
+    <d data-role="page" data-theme="a" data-position="fixed" id="home">
         <div data-role="header" id="head1">
             <h1>  Welcome  </h1>
         </div>
@@ -32,7 +32,7 @@
             </div>
         </div>
     </div>
-   <!--product page by category - choose product from a category -->
+  <%-- <!--product page by category - choose product from a category -->
     <div data-role="page" data-theme="a" data-position="fixed" id="Product" data-add-back-btn="true">
         <div data-role="header" id="head1">
             <a href="#home" class="ui-btn-left" data-theme="b" data-transition="slide" data-direction="reverse" data-icon="back" style="color:white">Back</a>
@@ -63,7 +63,7 @@
                 <img src="Images/Betsefer.png" id="logo" />
             </div>
         </div>
-    </div>
+    </div>--%>
 
         <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
         
