@@ -6,16 +6,10 @@
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
         <script type="text/javascript">
-            jQuery(function($){
+            jQuery(function ($) {
                 $('.menu-btn').click(function () {
-                    $('.responsive-menu').addClass('expand')
-                    $('.menu-btn').addClass('btn-none')
+                    $('.responsive-menu').toggleClass('expand')
                 })
-
-    	 $( '.close-btn' ).click(function(){
-                $('.responsive-menu').removeClass('expand')
-    		$('.menu-btn').removeClass('btn-none')
-    	})
             })
     </script>
     <link href="css/mobileStyle.css" rel="stylesheet" />
