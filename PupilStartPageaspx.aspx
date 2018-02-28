@@ -1,8 +1,6 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Pupil_MasterPage.master" AutoEventWireup="true" CodeFile="PupilStartPageaspx.aspx.cs" Inherits="PupilStartPageaspx" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
     <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
@@ -21,9 +19,10 @@
             })
     </script>
     <link href="css/mobileStyle.css" rel="stylesheet" />
-</head>
-<body>
-    <div class="mobile-nav">
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <div class="mobile-nav">
         <div class="menu-btn" id="menu-btn">
             <div></div>
             <span></span>
@@ -76,5 +75,7 @@
 
         </div>
     </div>
-</body>
-</html>
+
+
+</asp:Content>
+

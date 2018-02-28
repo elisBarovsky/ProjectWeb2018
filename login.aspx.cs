@@ -60,7 +60,7 @@ public partial class login : System.Web.UI.Page
                         Response.Redirect("~~~~~~");
                         break;
                     case 4:
-                        Response.Redirect("PupilIndex.html");
+                        Response.Redirect("PupilStartPageaspx.aspx");
                         break;
                 }
             }
