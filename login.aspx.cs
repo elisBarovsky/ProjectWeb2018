@@ -56,6 +56,12 @@ public partial class login : System.Web.UI.Page
                     case 2:
                         Response.Redirect("Teacher.aspx");
                         break;
+                    case 3:
+                        Response.Redirect("~~~~~~");
+                        break;
+                    case 4:
+                        Response.Redirect("PupilIndex.html");
+                        break;
                 }
             }
         }
