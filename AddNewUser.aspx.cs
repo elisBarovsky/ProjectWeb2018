@@ -62,17 +62,23 @@ public partial class AddNewUser : System.Web.UI.Page
     protected void VisibleTeacherFalse(bool ans)
     {
         MainTeacher.Visible = ans;
-        ClassOtDLL.Visible = ans;
-        ClassLBL.Visible = ans;
+       // ClassOtDLL.Visible = ans;
+      //  ClassLBL.Visible = ans;
         MainTeacherCB.Visible = ans;
     }
 
     protected void AddUserBTN_Click(object sender, EventArgs e)
     {
-        string folderPath = Server.MapPath("~/Images/");  
-        FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-                                                                                                                          //folderPath // להוריד ירוק כשיהיה בשרת
-        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
+        string folderPath = Server.MapPath("~/Images/");
+        string ImgPath = "";
+        if (FileUpload1.FileName!="")
+        {
+            FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
+            ImgPath = "/Images/" + FileUpload1.FileName;
+            //   ImgPath = folderPath + FileUpload1.FileName;  להוריד ירוק כשיהיה בשרת
+        }
+
+        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), ImgPath, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
         Users PupilUser = new Users();
         if (res1 == 1)
@@ -114,6 +120,22 @@ public partial class AddNewUser : System.Web.UI.Page
         TelephoneNumberTB.Text="";
         UserTypeDLL.SelectedValue=null;
         ChildIDTB.Text = "";
+        MainTeacherCB.Checked = false;
+        ClassOtDLL.Visible = false;
+        ClassLBL.Visible = false;
     }
 
+    protected void MainTeacherCB_CheckedChanged(object sender, EventArgs e)
+    {
+        if (MainTeacherCB.Checked)
+        {
+            ClassOtDLL.Visible = true;
+            ClassLBL.Visible = true;
+        }
+        else
+        {
+            ClassOtDLL.Visible = false;
+            ClassLBL.Visible = false;
+        }
+    }
 }

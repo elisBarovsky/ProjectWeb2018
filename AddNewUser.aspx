@@ -27,7 +27,7 @@
              <td  > <asp:RadioButtonList ID="GroupAgeDLL" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" RepeatDirection="Horizontal"></asp:RadioButtonList>
                  <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
             
-               <asp:CheckBox ID="MainTeacherCB" runat="server" />
+               <asp:CheckBox ID="MainTeacherCB" runat="server" AutoPostBack="true" OnCheckedChanged="MainTeacherCB_CheckedChanged" />
              </td>
              <td  ><asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label> 
                <asp:Label ID="MainTeacher" runat="server" Text=" האם מחנך"></asp:Label>  

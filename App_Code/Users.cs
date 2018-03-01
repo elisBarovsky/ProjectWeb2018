@@ -178,6 +178,11 @@ public class Users
         return db.FillUsers(CodeUserType);
     }
 
+    public Dictionary<string, string> FillClassOt()
+    {
+        return db.FillClassOt();
+    }
+
     public int AddClassTeacher(string UserID, string ClassOt)
     {
         return db.AddMainTeacherToClass(UserID, ClassOt);
@@ -211,6 +216,11 @@ public class Users
     public string GetPupilGroup(string UserID)
     {
         return db.GetPupilGroup(UserID);
+    }
+
+    public string GetPupilOtClass(string UserID)
+    { 
+        return db.GetPupilOtClass(UserID);
     }
 
     public bool GetTeacherMain(string UserID)

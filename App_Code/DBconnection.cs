@@ -84,6 +84,20 @@ public class DBconnection
         return CodePgroup;
     }
 
+    public string GetPupilOtClass(string UserID)
+    {
+        String selectSTR = "SELECT  dbo.Class.ClassCode FROM dbo.Class INNER JOIN  dbo.Pupil ON dbo.Class.ClassCode = dbo.Pupil.CodeClass where  dbo.Pupil.UserID='" + UserID + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string ClassCode = "";
+
+        while (dr.Read())
+        {
+            ClassCode = dr["ClassCode"].ToString();
+        }
+        return ClassCode;
+    }
+
     public bool GetTeacherMain(string UserID)
     {
         String selectSTR = "SELECT IsMainTeacher  FROM Teachers where TeacherID  = '" + UserID + "'";
@@ -209,8 +223,8 @@ public class DBconnection
     public int AddUser(Users NewUser)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[Users] ([UserID],[UserFName],[UserLName],[BirthDate],[UserImg],[LoginName],[LoginPassword],[PhoneNumber],[CodeUserType],[SecurityQCode],[SecurityQAnswer],[alreadyLogin])"+
-                     " VALUES('"+ NewUser.UserID1+"','"+ NewUser.UserFName1+"','"+ NewUser.UserLName1+"','"+ NewUser.BirthDate1+"','"+ NewUser.UserImg1+"','"+ NewUser.UserName1+"','"+ NewUser.UserPassword1+"','"+ NewUser.PhoneNumber1+"','"+ NewUser.CodeUserType1+"' , null, null, 0)";
+        String cStr = "INSERT INTO [dbo].[Users] ([UserID],[UserFName],[UserLName],[BirthDate],[UserImg],[LoginName],[LoginPassword],[PhoneNumber],[CodeUserType],[SecurityQ1Code],[SecurityQ1Answer],[alreadyLogin],[SecurityQ2Code],[SecurityQ2Answer])" +
+                     " VALUES('"+ NewUser.UserID1+"','"+ NewUser.UserFName1+"','"+ NewUser.UserLName1+"','"+ NewUser.BirthDate1+"','"+ NewUser.UserImg1+"','"+ NewUser.UserName1+"','"+ NewUser.UserPassword1+"','"+ NewUser.PhoneNumber1+"','"+ NewUser.CodeUserType1+ "' , null, null, 0, null, null)";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd); // execute the command   
     }
@@ -356,6 +370,22 @@ public class DBconnection
         return l;
     }
 
+    public Dictionary<string, string> FillClassOt()
+    {
+        String selectSTR = "SELECT ClassCode,TotalName FROM Class ";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string ClassCode, TotalName;
+        Dictionary<string, string> l = new Dictionary<string, string>();
+        l.Add("0", "בחר");
+        while (dr.Read())
+        {
+            ClassCode = dr["ClassCode"].ToString();
+            TotalName = dr["TotalName"].ToString();
+            l.Add(ClassCode, TotalName);
+        }
+        return l;
+    }
     //--------------------------------------------------------------------------------------------------
     // This method returns number of rows affected
     //--------------------------------------------------------------------------------------------------

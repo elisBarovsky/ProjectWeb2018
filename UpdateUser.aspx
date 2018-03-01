@@ -28,7 +28,7 @@
      <table class="auto-style1">
          <tr>
              <td class="auto-style2"  >
-               <asp:DropDownList ID="ClassOt1DLL" runat="server"  DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="true" onselectedindexchanged="FillPupils"></asp:DropDownList>
+               <asp:DropDownList ID="ClassOt1DLL" runat="server"  AutoPostBack="true" onselectedindexchanged="FillPupils"></asp:DropDownList>
                  <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
              </td>
              <td  ><asp:Label ID="Class1LBL" runat="server" Text=" בחר כיתה" ></asp:Label>               
@@ -97,9 +97,10 @@
              </td>
              <td> <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label>
                
-                 <asp:Label ID="Class2LBL" runat="server" Text=" בחר כיתה" ></asp:Label>
-                  <br />
                  <asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>
+                  <br />
+                 <asp:Label ID="Class2LBL" runat="server" Text=" בחר כיתה" ></asp:Label>
+
              </td>
              <td>
                   <asp:CheckBox ID="MainTeacherCB" runat="server" /> 

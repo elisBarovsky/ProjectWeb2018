@@ -25,6 +25,7 @@ public partial class UpdateUser : System.Web.UI.Page
             VisiblePupil(true);
             VisibleOtherUsers(false);
             VisibleTeacherUsers(false);
+            FillClasses();
         }
         else if (UserTypeDLL.SelectedValue == "2")
         {
@@ -44,12 +45,29 @@ public partial class UpdateUser : System.Web.UI.Page
 
     protected void FillPupils(object sender, EventArgs e)
     {
+        string ClassCode = "";
+        Dictionary<string, string> Classes = new Dictionary<string, string>();
+        Classes = (Dictionary<string, string>)(Session["ClassesList"]);
+        ClassCode = KeyByValue(Classes, ClassOt1DLL.SelectedValue);
+
         Users Pupil = new Users();
         Dictionary<string, string> pupils = new Dictionary<string, string>();
-        pupils = Pupil.getPupils(ClassOt1DLL.SelectedValue);
+
+        pupils = Pupil.getPupils(ClassCode);
         PupilDLL.DataSource = pupils.Values;
         PupilDLL.DataBind();
         Session["PupilsList"] = pupils;
+
+    }
+
+    protected void FillClasses()
+    {
+        Dictionary<string, string> Classes = new Dictionary<string, string>();
+        Users ClassesU = new Users();
+        Classes = ClassesU.FillClassOt();
+        ClassOt1DLL.DataSource = Classes.Values;
+        ClassOt1DLL.DataBind();
+        Session["ClassesList"] = Classes;
     }
 
     protected void FillUsers()
@@ -72,7 +90,8 @@ public partial class UpdateUser : System.Web.UI.Page
             Dictionary<string, string> pupils = new Dictionary<string, string>();
             pupils = (Dictionary<string, string>)(Session["PupilsList"]);
             UserID = KeyByValue(pupils, UserID);
-            GroupAgeDLL.SelectedValue = PupilGroupID.GetPupilGroup(UserID);  
+            GroupAgeDLL.SelectedValue = PupilGroupID.GetPupilGroup(UserID);
+            ClassOt2DLL.SelectedValue = PupilGroupID.GetPupilOtClass(UserID);
         }
         else
         {
@@ -228,11 +247,11 @@ public partial class UpdateUser : System.Web.UI.Page
             }
         }                                                                                                                       //folderPath // להוריד ירוק כשיהיה בשרת
 
-        Users PupilUser = new Users();
         if (res1 == 1)
         {
             if (UserTypeDLL.SelectedValue == "4")
             {
+                Users PupilUser = new Users();
                 int num = PupilUser.UpdatePupil(UserIDTB.Text, GroupAgeDLL.SelectedValue, ClassOt2DLL.SelectedValue);
             }
             else if (UserTypeDLL.SelectedValue == "2")
