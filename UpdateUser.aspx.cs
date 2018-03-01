@@ -14,6 +14,7 @@ public partial class UpdateUser : System.Web.UI.Page
             VisiblePupil(false);
             VisibleOtherUsers(false);
             ClearAll();
+            UpdateUserBTN.Visible = false;
         }
     }
 
@@ -41,6 +42,7 @@ public partial class UpdateUser : System.Web.UI.Page
             VisibleOtherUsers(true);
             FillUsers();
         }
+        UpdateUserBTN.Visible = true;
     }
 
     protected void FillPupils(object sender, EventArgs e)

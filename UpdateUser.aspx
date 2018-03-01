@@ -56,16 +56,16 @@
              <td >עדכון פרטים</td>
          </tr>
          <tr>
-             <td class="auto-style2"><asp:TextBox ID="LNameTB" runat="server"></asp:TextBox></td>
+             <td class="auto-style2"><asp:TextBox ID="LNameTB" runat="server" required="required"></asp:TextBox></td>
              <td>שם משפחה</td>
-             <td> <asp:TextBox ID="FNameTB" runat="server"></asp:TextBox></td>
+             <td> <asp:TextBox ID="FNameTB" runat="server" required="required"></asp:TextBox></td>
              <td>שם פרטי</td>
          </tr>
          <tr>
-             <td class="auto-style2"><asp:TextBox ID="UserIDTB" runat="server"></asp:TextBox></td>
+             <td class="auto-style2"><asp:TextBox ID="UserIDTB" runat="server" required="required"></asp:TextBox></td>
              <td>תעודת זהות</td>
              <td>
-                 <asp:TextBox ID="BirthDateTB" runat="server"></asp:TextBox>
+                 <asp:TextBox ID="BirthDateTB" runat="server" required="required"></asp:TextBox>
                  <br />
                  <asp:CheckBox ID="ChangeBdateCB" runat="server"  Text="האם תרצה לשנות תאריך לידה?"  OnCheckedChanged="ShowCalendar_" AutoPostBack="true"/>
                 <asp:Calendar ID="Calendar1" runat="server"  AutoPostBack="false" OnSelectionChanged="FillTBofBdate" />
@@ -77,20 +77,20 @@
               <td > <asp:FileUpload ID="FileUpload1" runat="server" /></td>
              <td>תמונה</td>
              <td>  
-                   <asp:TextBox ID="TelephoneNumberTB" runat="server"></asp:TextBox>
+                   <asp:TextBox ID="TelephoneNumberTB" runat="server" required="required"></asp:TextBox>
              </td>
              <td >
                 טלפון 
              </td>
          </tr>
             <tr>
-             <td class="auto-style2"><asp:TextBox ID="PasswordTB" runat="server"></asp:TextBox></td>
+             <td class="auto-style2"><asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox></td>
              <td>סיסמה</td>
-             <td><asp:TextBox ID="UserNameTB" runat="server"></asp:TextBox></td>
+             <td><asp:TextBox ID="UserNameTB" runat="server" required="required"></asp:TextBox></td>
              <td>שם משתמש</td>
          </tr>
          <tr>
-             <td ><asp:TextBox ID="ChildIDTB" runat="server"></asp:TextBox>
+             <td ><asp:TextBox ID="ChildIDTB" runat="server" required="required"></asp:TextBox>
                   <asp:RadioButtonList ID="GroupAgeDLL" runat="server"   RepeatDirection="Horizontal" DataSourceID="SqlDataSource5" DataTextField="GroupName" DataValueField="CodePgroup"></asp:RadioButtonList>
                  <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
                  <asp:DropDownList ID="ClassOt2DLL" runat="server"  DataSourceID="SqlDataSource3" DataTextField="TotalName"  DataValueField="ClassCode" AutoPostBack="false" onselectedindexchanged="FillPupils"></asp:DropDownList>

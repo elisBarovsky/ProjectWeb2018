@@ -15,6 +15,7 @@ public partial class AddNewUser : System.Web.UI.Page
             VisiblePupilFalse(false);
             VisibleTeacherFalse(false);
             VisibleParentFalse(false);
+            AddUserBTN.Visible = false;
         }
     }
 
@@ -44,6 +45,7 @@ public partial class AddNewUser : System.Web.UI.Page
             VisiblePupilFalse(false);
             VisibleParentFalse(false);
         }
+        AddUserBTN.Visible = true;
     }
     protected void VisiblePupilFalse(bool ans)
     {
