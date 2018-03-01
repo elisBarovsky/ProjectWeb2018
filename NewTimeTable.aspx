@@ -28,7 +28,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div class="container">
-  <h2>מערכת שעות</h2>
+  <h2 style="text-align: right">מערכת שעות</h2>
   <%--<p>The .btn-group class creates a button group:</p>--%>
   <div class="btn-group">
     <button type="button" class="btn btn-primary" onclick="location.href = 'UpdateTimeTable.aspx';" >עדכון מערכת שעות</button>
@@ -146,7 +146,7 @@
             </tr>
         </table>
         <br /><br />
-        <asp:Button ID="ButtonSave" runat="server" Text="שמור" />
+        <asp:Button ID="ButtonSave" CssClass="form-btn"  runat="server" Text="שמור" />
 </div>
 </asp:Content>
 

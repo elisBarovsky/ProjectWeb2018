@@ -14,7 +14,7 @@
             <img src="Images/Betsefer.png" />
             <br/>
             <div id="loginPage" runat="server"> 
-        <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":מספר תעודת זהות"></asp:Login>
+        <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":מספר תעודת זהות" style="text-align: right"></asp:Login>
            
             <br/>
             <asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>
