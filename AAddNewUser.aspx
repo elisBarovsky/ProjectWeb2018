@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin_MasterPage.master" AutoEventWireup="true" CodeFile="AddNewUser.aspx.cs" Inherits="AddNewUser" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin_MasterPage.master" AutoEventWireup="true" CodeFile="AAddNewUser.aspx.cs" Inherits="AddNewUser" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
@@ -14,8 +14,8 @@
     <div class="container">
         <h2 style="text-align: right">ניהול משתמשים</h2>
         <div class="btn-group" style="position: center">
-            <button type="button" class="btn btn-primary active" onclick="location.href = 'AddNewUser.aspx';">הוספה  </button>
-            <button type="button" class="btn btn-primary " onclick="location.href = 'UpdateUser.aspx';">עדכון</button>
+            <button type="button" class="btn btn-primary active" onclick="location.href = 'AAddNewUser.aspx';">הוספה  </button>
+            <button type="button" class="btn btn-primary " onclick="location.href = 'AUpdateUser.aspx';">עדכון</button>
         </div>
         <br />
         <br />

@@ -5,9 +5,9 @@
 <html>
 <head runat="server">
     <title></title>
-    <asp:ContentPlaceHolder id="head" runat="server">
+    <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
-    
+
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
@@ -21,7 +21,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-      <div class="w3-sidebar w3-bar-block w3-card w3-dark-grey w3-xlarge" style="width: 10%; right: 0;">
+        <div class="w3-sidebar w3-bar-block w3-card w3-dark-grey w3-xlarge" style="width: 10%; right: 0;">
             <h3 class="w3-bar-item"></h3>
             <a href="Teacher.aspx" class="w3-bar-item w3-button"><i class="fa fa-home" style="padding-left: 50%"></i></a>
             <a href="#" class="w3-bar-item w3-button w3-hover-green" style="text-align: right">מערכת שעות</a>
@@ -31,10 +31,12 @@
             <a href="#" class="w3-bar-item w3-button w3-hover-blue" style="text-align: right">צפייה בדף קשר</a>
             <a href="TeacherMasseges.aspx" class="w3-bar-item w3-button w3-hover-red" style="text-align: right">הודעות</a>
             <a href="TCalender.aspx" class="w3-bar-item w3-button w3-hover-blue" style="text-align: right">לוח שנה</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-red" style="text-align: right">יום הורים</a>
+            <a href="TParentDay.aspx" class="w3-bar-item w3-button w3-hover-red" style="text-align: right">יום הורים</a>
+            <a href="Login.aspx" class="w3-bar-item w3-button"><i class="fa fa-sign-out" style="padding-left: 50%"></i></a>
+
         </div>
 
-        
+
         <div style="margin-right: 10%">
 
             <div class="w3-container w3-dark-grey" style="height: 50px">
