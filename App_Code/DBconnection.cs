@@ -50,13 +50,9 @@ public class DBconnection
     //public void readCarsDataBase()
     //{
     //    String selectStr = "SELECT * FROM Cars"; // create the select that will be used by the adapter to select data from the DB
-
     //    SqlDataAdapter da = new SqlDataAdapter(selectStr, con); // create the data adapter
-
     //    DataSet ds = new DataSet("carsDS"); // create a DataSet and give it a name (not mandatory) as defualt it will be the same name as the DB
-
     //    da.Fill(ds);       // Fill the datatable (in the dataset), using the Select command
-
     //    dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
     //}
 
@@ -229,7 +225,7 @@ public class DBconnection
         }
         else
         {
-             cStr = "Update Users set [UserID]='" + userID + "',[UserFName]='" + userFName + "',[UserLName]='" + userLName + "',[BirthDate]='" + birthDate + "',[UserImg]='" + userImg + "',[LoginName]='"+ userName + "',[LoginPassword]='"+ userPassword + "',[PhoneNumber]=' where [UserID]='" + userID + "'";
+             cStr = "Update Users set [UserID]='" + userID + "',[UserFName]='" + userFName + "',[UserLName]='" + userLName + "',[BirthDate]='" + birthDate + "',[UserImg]='" + userImg + "',[LoginName]='"+ userName + "',[LoginPassword]='"+ userPassword + "',[PhoneNumber]='" + phoneNumber + "' where [UserID]='" + userID + "'";
         }
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd); // execute the command   
@@ -243,6 +239,27 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
+    public int UpdatePupil(string userID, string CodePgroup, string ClassOt)
+    {
+        SqlCommand cmd;
+        String cStr = "UPDATE[dbo].[Pupil] [CodePgroup]='" + CodePgroup + "',[CodeClass]='" + GetCodeClass(ClassOt) + "' where [UserID]='" + userID + "'";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
+
+    public string GetCodeClass(string ClassOt)
+    {
+        String selectSTR = "select ClassCode * from Class where TotalName= '"+ ClassOt + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string CodeClass="";
+        while (dr.Read())
+        {
+            CodeClass = dr["ClassCode"].ToString();
+        }
+        return CodeClass;
+    }
+
     public int AddTeacher(string UserID, string IsMain,string ClassOt)
     {
         SqlCommand cmd;
@@ -251,12 +268,39 @@ public class DBconnection
        return ExecuteNonQuery(cmd);// execute the command  
     }
 
+    public int UpdateTeacher(string UserID, string IsMain, string ClassOt)
+    {
+        SqlCommand cmd;
+        String cStr = "UPDATE [dbo].[Teachers]  SET [IsMainTeacher] = '" + IsMain + "' where [TeacherID]='" + UserID + "'";
+
+        if (IsMain=="1") { UpdateClassTeacher( UserID,  ClassOt); }
+
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
+
+    public int UpdateClassTeacher(string UserID, string ClassOt)
+    {
+        SqlCommand cmd;
+        String cStr = "UPDATE [dbo].[Class] SET [MainTeacherID] = '" + UserID + "' where [TotalName]='" + ClassOt + "'";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
+    }
+
     public int AddParent(string PupilID, string ParentID)
     {
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[PupilsParent] ([PupilID] ,[ParentID]) VALUES ('" + PupilID + "' ,'" + ParentID + "')";
         cmd = CreateCommand(cStr, con);
         return ExecuteNonQuery(cmd);// execute the command  
+    }
+
+    public int UpdateParent(string PupilID, string ParentID)
+    {
+        SqlCommand cmd;
+        String cStr = "UPDATE [dbo].[PupilsParent] SET [PupilID] = '" + PupilID + "' ,[ParentID] = '" + ParentID + "' WHERE [ParentID]= '" + ParentID + "'";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd); // execute the command   
     }
 
     public int ChangeFirstLogin(string id)
@@ -275,30 +319,7 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    //--------------------------------------------------------------------------------------------------
-    // This method returns number of rows affected
-    //--------------------------------------------------------------------------------------------------
-    public int ExecuteNonQuery(SqlCommand cmd)
-    {
-        try
-        {
-            int numEffected = cmd.ExecuteNonQuery(); // execute the command
-            return numEffected;
-        }
-        catch (Exception ex)
-        {
-            return 0;
-            throw (ex);
-        }
-
-        finally
-        {
-            if (con != null)
-            {
-                con.Close();
-            }
-        }
-    }
+ 
     public Dictionary<string,string> getPupils(string classCode)
     {
         String selectSTR = "SELECT   dbo.Users.UserID,(dbo.Users.UserLName + ' ' + dbo.Users.UserFName)AS PupilName" +
@@ -333,6 +354,31 @@ public class DBconnection
             l.Add(UserID, UserName);
         }
         return l;
+    }
+
+    //--------------------------------------------------------------------------------------------------
+    // This method returns number of rows affected
+    //--------------------------------------------------------------------------------------------------
+    public int ExecuteNonQuery(SqlCommand cmd)
+    {
+        try
+        {
+            int numEffected = cmd.ExecuteNonQuery(); // execute the command
+            return numEffected;
+        }
+        catch (Exception ex)
+        {
+            return 0;
+            throw (ex);
+        }
+
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
     }
 }
 

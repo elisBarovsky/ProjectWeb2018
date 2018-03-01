@@ -176,14 +176,6 @@ public partial class UpdateUser : System.Web.UI.Page
         MainTeacherCB.Visible = ans;
     }
 
-    protected void UpdateUserSuccssed()
-    {
-        MessegaeLBL.Text = "משתמש עודכן בהצלחה";
-        Calendar1.SelectedDate = Calendar1.TodaysDate;
-        UserTypeDLL.SelectedValue = null;
-        ClearAll();
-    }
-    
     protected void ClearAll()
     {
         UserIDTB.Text = "";
@@ -234,34 +226,36 @@ public partial class UpdateUser : System.Web.UI.Page
             {
                 res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
             }
-        }//folderPath // להוריד ירוק כשיהיה בשרת
+        }                                                                                                                       //folderPath // להוריד ירוק כשיהיה בשרת
 
-        //Users PupilUser = new Users();
+        Users PupilUser = new Users();
         if (res1 == 1)
         {
-            //    if (UserTypeDLL.SelectedValue == "4")
-            //    {
-            //        int num = PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue, int.Parse(ClassOt2DLL.SelectedValue));
-            //    }
-            //    else if (UserTypeDLL.SelectedValue == "2")
-            //    {
-            //        Users TeacherUser = new Users();
-            //        string IsMain = "0";
-            //       if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
+            if (UserTypeDLL.SelectedValue == "4")
+            {
+                int num = PupilUser.UpdatePupil(UserIDTB.Text, GroupAgeDLL.SelectedValue, ClassOt2DLL.SelectedValue);
+            }
+            else if (UserTypeDLL.SelectedValue == "2")
+            {
+                Users TeacherUser = new Users();
+                string IsMain = "0";
+                if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
 
-            //        Users MainTeacherUser = new Users();
-            //        int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
-            //    }
-            //    else if (UserTypeDLL.SelectedValue == "3")
-            //    {
-            //        Users UsersParentUser = new Users();
-            //        int num4 = UsersParentUser.AddParent(ChildIDTB.Text, UserIDTB.Text); ;
-        //}
-        UpdateUserSuccssed();
-    }
+                Users MainTeacherUser = new Users();
+                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
+            }
+            else if (UserTypeDLL.SelectedValue == "3")
+            {
+                Users UsersParentUser = new Users();
+                int num4 = UsersParentUser.UpdateParent(ChildIDTB.Text, UserIDTB.Text); ;
+            }
+
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש עודכן בהצלחה'); location.href='UpdateUser.aspx';", true);
+        }
         else
         {
-            MessegaeLBL.Text = "הייתה בעיה בעדכון המשתמש, בדוק נתונים";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בעדכון המשתמש, בדוק נתונים');", true);
+            //MessegaeLBL.Text = "הייתה בעיה בעדכון המשתמש, בדוק נתונים";
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Web;
 public class Users
 {
     DBconnection db;
-    string UserID, UserFName, UserLName,  BirthDate, UserImg,  UserName, UserPassword, PhoneNumber, CodeUserType;
+    string UserID, UserFName, UserLName, BirthDate, UserImg, UserName, UserPassword, PhoneNumber, CodeUserType;
 
     public string UserID1
     {
@@ -148,14 +148,24 @@ public class Users
         CodeUserType = codeUserType;
     }
 
-    public int AddPupil(string UserID,string GroupType,int classNumber )
+    public int AddPupil(string UserID, string GroupType, int classNumber)
     {
         return db.AddPupil(UserID, GroupType, classNumber);
     }
 
-    public int AddTeacher(string UserID, string IsMain,string ClassOt)
+    public int UpdatePupil(string userID, string CodePgroup, string CodeClass)
+    {
+        return db.UpdatePupil(userID, CodePgroup, CodeClass);
+    }
+
+    public int AddTeacher(string UserID, string IsMain, string ClassOt)
     {
         return db.AddTeacher(UserID, IsMain, ClassOt);
+    }
+
+    public int UpdateTeacher(string UserID, string IsMain, string ClassOt)
+    {
+        return db.UpdateTeacher(UserID, IsMain, ClassOt);
     }
 
     public Dictionary<string, string> getPupils(string classCode)
@@ -176,6 +186,11 @@ public class Users
     public int AddParent(string PupilID, string ParentID)
     {
         return db.AddParent(PupilID, ParentID);
+    }
+
+    public int UpdateParent(string PupilID, string ParentID)
+    {
+        return db.UpdateParent(PupilID, ParentID);  
     }
 
     public int AddUser(Users NewUser)
