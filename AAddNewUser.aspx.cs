@@ -21,6 +21,7 @@ public partial class AddNewUser : System.Web.UI.Page
 
     protected void UserTypeDLL_CheckedChanged(object sender, EventArgs e)
     {
+        Clear();
         if (UserTypeDLL.SelectedValue =="4")
         {
             VisiblePupilFalse(true);
@@ -47,6 +48,7 @@ public partial class AddNewUser : System.Web.UI.Page
         }
         AddUserBTN.Visible = true;
     }
+
     protected void VisiblePupilFalse(bool ans)
     {
         GroupAgeLBL.Visible = ans;
@@ -82,12 +84,12 @@ public partial class AddNewUser : System.Web.UI.Page
 
         Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), ImgPath, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
-        Users PupilUser = new Users();
         if (res1 == 1)
         {
             if (UserTypeDLL.SelectedValue == "4")
             {
-                int num= PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
+                Users PupilUser = new Users();
+                int num = PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
             }
             else if (UserTypeDLL.SelectedValue == "2")
             {
@@ -96,23 +98,25 @@ public partial class AddNewUser : System.Web.UI.Page
                 if (MainTeacherCB.Checked)   {  IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString()); }
 
                 Users MainTeacherUser = new Users();
-                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOtDLL.SelectedItem.ToString());
+                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain);
             }
             else if(UserTypeDLL.SelectedValue == "3")  
             {
                 Users UsersParentUser = new Users();
                 int num4 = UsersParentUser.AddParent(ChildIDTB.Text, UserIDTB.Text); ;
             }
-            AddUserSuuccsed();
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש נוסף בהצלחה'); location.href='AAddNewUser.aspx';", true);
+        //    AddUserSuuccsed();
         }
         else
         {
-            MessegaeLBL.Text = "הייתה בעיה בהוספת המשתמש, בדוק נתונים";
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בעדכון המשתמש, בדוק נתונים');", true);
+            //MessegaeLBL.Text = "הייתה בעיה בהוספת המשתמש, בדוק נתונים";
         }
     }
-    protected void AddUserSuuccsed()
+    protected void Clear()
     {
-        MessegaeLBL.Text = "משתמש נוסף בהצלחה";
+       // MessegaeLBL.Text = "משתמש נוסף בהצלחה";
         UserIDTB.Text="";
         FNameTB.Text="";
         LNameTB.Text="";
@@ -120,7 +124,7 @@ public partial class AddNewUser : System.Web.UI.Page
         UserNameTB.Text="";
         PasswordTB.Text="";
         TelephoneNumberTB.Text="";
-        UserTypeDLL.SelectedValue=null;
+       // UserTypeDLL.SelectedValue=null;
         ChildIDTB.Text = "";
         MainTeacherCB.Checked = false;
         ClassOtDLL.Visible = false;

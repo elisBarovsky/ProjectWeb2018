@@ -263,7 +263,7 @@ public partial class UpdateUser : System.Web.UI.Page
                 if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
 
                 Users MainTeacherUser = new Users();
-                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
+                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain);
             }
             else if (UserTypeDLL.SelectedValue == "3")
             {
@@ -271,7 +271,7 @@ public partial class UpdateUser : System.Web.UI.Page
                 int num4 = UsersParentUser.UpdateParent(ChildIDTB.Text, UserIDTB.Text); ;
             }
 
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש עודכן בהצלחה'); location.href='UpdateUser.aspx';", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש עודכן בהצלחה'); location.href='AUpdateUser.aspx';", true);
         }
         else
         {

@@ -17,7 +17,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
         <h2 style="text-align: right">ניהול משתמשים</h2>
-        <div class="btn-group" style="position: center">
+        <div class="btn-group" style="position: fixed; left: 40%;">
             <button type="button" class="wrapper btn btn-primary " onclick="location.href = 'AAddNewUser.aspx';">הוספה  </button>
             <button type="button" class="wrapper btn btn-primary active " onclick="location.href = 'AUpdateUser.aspx';">עדכון</button>
         </div>
@@ -127,7 +127,7 @@
         </table>
         <br />
         <asp:Button ID="UpdateUserBTN" runat="server" CssClass="form-btn" Text="עדכן משתמש" OnClick="UpdateUserBTN_Click" />
-        <asp:Label ID="MessegaeLBL" runat="server" Text="" style="text-align: right"></asp:Label>
+        <asp:Label ID="MessegaeLBL" runat="server" Text="" Style="text-align: right"></asp:Label>
 
     </div>
 </asp:Content>

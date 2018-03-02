@@ -275,7 +275,7 @@ public class DBconnection
         return CodeClass;
     }
 
-    public int AddTeacher(string UserID, string IsMain,string ClassOt)
+    public int AddTeacher(string UserID, string IsMain)
     {
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Teachers] ([TeacherID] ,[IsMainTeacher]) VALUES ('"+ UserID + "' ,'"+ IsMain + "')";

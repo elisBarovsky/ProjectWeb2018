@@ -158,9 +158,9 @@ public class Users
         return db.UpdatePupil(userID, CodePgroup, CodeClass);
     }
 
-    public int AddTeacher(string UserID, string IsMain, string ClassOt)
+    public int AddTeacher(string UserID, string IsMain )
     {
-        return db.AddTeacher(UserID, IsMain, ClassOt);
+        return db.AddTeacher(UserID, IsMain);
     }
 
     public int UpdateTeacher(string UserID, string IsMain, string ClassOt)
