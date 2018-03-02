@@ -236,7 +236,7 @@ public class DBconnection
         //check empty cells.
         for (int i = 0; i < matrix.Count; i++)
         {
-            cStr = "INSERT INTO [dbo].[Timetable] (TimeTableYear, ClassCode) values (getDate()," + int.Parse(matrix[i]["classCode"]) + ")";
+            cStr = "INSERT INTO [dbo].[Timetable] values (getdate()," + int.Parse(matrix[i]["classCode"]) + ")";
             cmd = CreateCommand(cStr, con);
 
             for (int j = 0; j < matrix[i].Count; j++)

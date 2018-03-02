@@ -42,12 +42,13 @@ public partial class timeTable : System.Web.UI.Page
             for (int j = 0; j < 6; j++)
             {
                 TableCell cell = new TableCell();
+                cell.CssClass = "DDL";
                 DropDownList dSubject = new DropDownList();
                 dSubject.ID = "DDLsubject" + counter;
-                dSubject.CssClass = "DDL";
-                dSubject.DataSource = subjects;
-                dSubject.DataValueField = "Key";
                 dSubject.DataTextField = "Value";
+                dSubject.DataValueField = "Key";
+                dSubject.DataSource = subjects;
+
                 dSubject.DataBind();
                 cell.Controls.Add(dSubject);
                 cell.Controls.Add(new HtmlGenericControl("br"));
@@ -95,7 +96,7 @@ public partial class timeTable : System.Web.UI.Page
                 if (CodeLesson != "0" && teacherID != "0")
                 {
                     Dictionary<string, string> lessonInTimeTable = new Dictionary<string, string>();
-                    lessonInTimeTable.Add("className", classCode); //className
+                    lessonInTimeTable.Add("classCode", classCode); //className
                     lessonInTimeTable.Add("CodeWeekDay", j.ToString()); //numDay
                     lessonInTimeTable.Add("ClassTimeCode", j.ToString()); //numLesson - 1 is the first lesson.
                     lessonInTimeTable.Add("CodeLesson", CodeLesson);
