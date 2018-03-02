@@ -230,6 +230,45 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
+    public void InsertTimeTable(List<Dictionary<string, string>> matrix)
+    {
+        SqlCommand cmd; string cStr;
+        //check empty cells.
+        for (int i = 0; i < matrix.Count; i++)
+        {
+            cStr = "INSERT INTO [dbo].[Timetable] (TimeTableYear, ClassCode) values (getDate()," + int.Parse(matrix[i]["classCode"]) + ")";
+            cmd = CreateCommand(cStr, con);
+
+            for (int j = 0; j < matrix[i].Count; j++)
+            {
+                int TimeTableCode = GetLastTimeTableCode();
+                int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
+                int ClassTimeCode = int.Parse(matrix[i]["ClassTimeCode"]);
+                int CodeLesson = int.Parse(matrix[i]["CodeLesson"]);
+                string TeacherId = matrix[i]["TeacherID"];
+
+                cStr = "INSERT INTO [dbo].[TimetableLesson] values ("+TimeTableCode+", "+CodeWeekDay+", "+ClassTimeCode+", "+CodeLesson+", '"+TeacherId+"')";
+                cmd = CreateCommand(cStr, con);
+
+            }
+        }
+    }
+
+    public int GetLastTimeTableCode()
+    {
+        int TTC = 0;
+        String cStr;
+        cStr = "select max(TimeTableCode) from TimeTable";
+        SqlCommand cmd = new SqlCommand(cStr, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+        while (dr.Read())
+        {
+            TTC = int.Parse(dr[0].ToString());
+        }
+        return TTC;
+    }
+
     public int UpdateUser(string userID, string userFName, string userLName, string birthDate, string userImg, string userName, string userPassword, string phoneNumber)
     {
         SqlCommand cmd;

@@ -9,7 +9,7 @@
     <div class="container">
   <h2>מערכת שעות</h2>
   <%--<p>The .btn-group class creates a button group:</p>--%>
-  <div class="btn-group">
+  <div class="btn-group" style=" position: fixed;  left: 40%;">
     <button type="button" class="btn btn-primary" onclick="location.href = 'AUpdateTimeTable.aspx';" >עדכון מערכת שעות</button>
     <button type="button" class="btn btn-primary active"  onclick="location.href = 'ANewTimeTable.aspx';">יצירת מערכת שעות</button>
   </div>

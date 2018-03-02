@@ -4,23 +4,21 @@ using System.Linq;
 using System.Web;
 
 /// <summary>
-/// Summary description for Subject
+/// Summary description for TimeTable
 /// </summary>
-public class Subject
+public class TimeTable
 {
-    public int subjectCode { get; set; }
-    public string name { get; set; }
     DBconnection db = new DBconnection();
 
-    public Subject()
+    public TimeTable()
     {
         //
         // TODO: Add constructor logic here
         //
     }
 
-    public Dictionary<int, string> getSubjects() {
-
-        return db.GetSubjects();
+    public void InsertTimeTable(List<Dictionary<string, string>> matrix)
+    {
+        db.InsertTimeTable(matrix);
     }
 }
