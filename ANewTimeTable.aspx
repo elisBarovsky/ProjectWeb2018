@@ -7,9 +7,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div class="container">
-  <h2>מערכת שעות</h2>
-  <%--<p>The .btn-group class creates a button group:</p>--%>
+  <h2 style="text-align: right">מערכת שעות</h2>
   <div class="btn-group" style=" position: relative;  left: 40%;">
+=======
+  <div class="btn-group">
     <button type="button" class="btn btn-primary" onclick="location.href = 'AUpdateTimeTable.aspx';" >עדכון מערכת שעות</button>
     <button type="button" class="btn btn-primary active"  onclick="location.href = 'ANewTimeTable.aspx';">יצירת מערכת שעות</button>
   </div>
