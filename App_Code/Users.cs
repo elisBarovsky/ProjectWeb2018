@@ -266,5 +266,10 @@ public class Users
         return db.ChangeFirstLogin(id);
     }
 
+    public Dictionary<string, string> GetTeachers()
+    {
+        return db.GetTeachers();
+    }
+
 }
 

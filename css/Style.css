@@ -217,4 +217,19 @@ input {
     margin: auto;
 }
 
+#TimeTable {
+    width: 100%;
+    border: 2px solid blue;
+}
 
+TableRow, tableCell {
+    min-height: 20px;
+}
+
+#TimeTable TableRow, #TimeTable tableCell {
+    border: 2px solid blue;
+}
+
+.DDL {
+    width: 100%;
+}

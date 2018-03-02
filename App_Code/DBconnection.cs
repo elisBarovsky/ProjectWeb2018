@@ -154,6 +154,7 @@ public class DBconnection
         }
         return UserInfo;
     }
+
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday) {
         String selectSTR = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQAnswer FROM dbo.SecurityQ INNER JOIN" +
             "  dbo.Users 	ON dbo.SecurityQ.CodeSecurityQ = dbo.Users.SecurityQCode INNER" +
@@ -352,6 +353,24 @@ public class DBconnection
         return l;
     }
 
+    public Dictionary<string, string> GetTeachers()
+    {
+        String selectSTR = "SELECT UserID, UserFName + ' ' + UserLName AS FullName FROM Users WHERE (CodeUserType = 2)";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string UserID, TeacherFullName;
+        Dictionary<string, string> l = new Dictionary<string, string>();
+
+        l.Add("0", "-");
+        while (dr.Read())
+        {
+            UserID = dr["UserID"].ToString();
+            TeacherFullName = dr["FullName"].ToString();
+            l.Add(UserID, TeacherFullName);
+        }
+        return l;
+    }
+
     public Dictionary<string, string> FillUsers(string CodeUserType)
     {
         String selectSTR = "SELECT(UserLName+' '+ UserFName) as UserName, UserID" +
@@ -366,6 +385,25 @@ public class DBconnection
             UserID = dr["UserID"].ToString();
             UserName = dr["UserName"].ToString();
             l.Add(UserID, UserName);
+        }
+        return l;
+    }
+
+    public Dictionary<int, string> GetSubjects()
+    {
+        String selectSTR = "SELECT DISTINCT * FROM [Lessons] ORDER BY [LessonName]";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        int SubjectID;
+        string SubjectName;
+        Dictionary<int, string> l = new Dictionary<int, string>();
+
+        l.Add(0, "-");
+        while (dr.Read())
+        {
+            SubjectID = int.Parse(dr["CodeLesson"].ToString());
+            SubjectName = dr["LessonName"].ToString();
+            l.Add(SubjectID, SubjectName);
         }
         return l;
     }
