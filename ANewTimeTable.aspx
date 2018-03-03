@@ -27,13 +27,13 @@
            
         <asp:table id = "TimeTable" runat="server">
             <asp:TableRow>
-                <asp:tableCell>שישי</asp:tableCell>
-                <asp:tableCell>חמישי</asp:tableCell>
-                <asp:tableCell>רביעי</asp:tableCell>
-                <asp:tableCell>שלישי</asp:tableCell>
-                <asp:tableCell>שני</asp:tableCell>
-                <asp:tableCell>ראשון</asp:tableCell>
                 <asp:tableCell>שיעור</asp:tableCell>
+                <asp:tableCell>ראשון</asp:tableCell>
+                <asp:tableCell>שני</asp:tableCell>
+                <asp:tableCell>שלישי</asp:tableCell>
+                <asp:tableCell>רביעי</asp:tableCell>
+                <asp:tableCell>חמישי</asp:tableCell>
+                <asp:tableCell>שישי</asp:tableCell>
             </asp:TableRow>
         </asp:table>
         <br /><br />

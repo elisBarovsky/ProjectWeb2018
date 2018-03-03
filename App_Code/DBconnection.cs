@@ -241,15 +241,17 @@ public class DBconnection
 
             for (int j = 0; j < matrix[i].Count; j++)
             {
-                int TimeTableCode = GetLastTimeTableCode();
-                int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
-                int ClassTimeCode = int.Parse(matrix[i]["ClassTimeCode"]);
-                int CodeLesson = int.Parse(matrix[i]["CodeLesson"]);
-                string TeacherId = matrix[i]["TeacherID"];
+                if (matrix[i].FirstOrDefault().Key != "0")
+                {
+                    int TimeTableCode = GetLastTimeTableCode();
+                    int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
+                    int ClassTimeCode = int.Parse(matrix[i]["ClassTimeCode"]);
+                    int CodeLesson = int.Parse(matrix[i]["CodeLesson"]);
+                    string TeacherId = matrix[i]["TeacherID"];
 
-                cStr = "INSERT INTO [dbo].[TimetableLesson] values ("+TimeTableCode+", "+CodeWeekDay+", "+ClassTimeCode+", "+CodeLesson+", '"+TeacherId+"')";
-                cmd = CreateCommand(cStr, con);
-
+                    cStr = "INSERT INTO [dbo].[TimetableLesson] values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
+                    cmd = CreateCommand(cStr, con);
+                }
             }
         }
     }

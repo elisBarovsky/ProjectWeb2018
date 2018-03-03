@@ -34,11 +34,11 @@ public partial class timeTable : System.Web.UI.Page
         int counter = 1;
         Dictionary<int, string> subjects = subject.getSubjects();
         Dictionary<string, string> teachers = user.GetTeachers();
-
+        //rows ^
         for (int i = 0; i < 9; i++)
         {
             TableRow tr = new TableRow();
-
+            //the days <>
             for (int j = 0; j < 6; j++)
             {
                 TableCell cell = new TableCell();
@@ -78,14 +78,14 @@ public partial class timeTable : System.Web.UI.Page
     {
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
         string classCode = ddl_clases.SelectedValue;
-        string CodeLesson;
+        string CodeLesson; //מקצוע
         string teacherID;
         TimeTable TT = new TimeTable();
 
-        // rows - the days.
+        // rows - ^.
         for (int i = 1; i < TimeTable.Rows.Count; i++)
         {
-            // cells - j = 1, it is all the first lesson in the week.
+            // cells - the days <>.
             for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
             {
                 string subjectID = "DDLsubject" + (i * j);
