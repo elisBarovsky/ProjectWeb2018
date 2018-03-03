@@ -234,14 +234,17 @@ public class DBconnection
     {
         SqlCommand cmd; string cStr;
         //check empty cells.
+
+        cStr = "INSERT INTO [dbo].[Timetable] values (" + int.Parse(matrix[0]["classCode"]) + ")";
+        cmd = CreateCommand(cStr, con);
+        ExecuteNonQuery(cmd);
+
         for (int i = 0; i < matrix.Count; i++)
         {
-            cStr = "INSERT INTO [dbo].[Timetable] values (getdate()," + int.Parse(matrix[i]["classCode"]) + ")";
-            cmd = CreateCommand(cStr, con);
-
-            for (int j = 0; j < matrix[i].Count; j++)
-            {
-                if (matrix[i].FirstOrDefault().Key != "0")
+            SqlConnection conn = connect("Betsefer");
+            //for (int j = 0; j < matrix[i].Count; j++)
+            //{
+                if (matrix[i]["classCode"] != null)
                 {
                     int TimeTableCode = GetLastTimeTableCode();
                     int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
@@ -249,19 +252,21 @@ public class DBconnection
                     int CodeLesson = int.Parse(matrix[i]["CodeLesson"]);
                     string TeacherId = matrix[i]["TeacherID"];
 
-                    cStr = "INSERT INTO [dbo].[TimetableLesson] values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
-                    cmd = CreateCommand(cStr, con);
-                }
+                   
+                    cStr = "INSERT INTO [dbo].[TimetableLesson] (TimeTableCode, CodeWeekDay, ClassTimeCode, CodeLesson, TeacherId) values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
+                    cmd = CreateCommand(cStr, conn);
+                    ExecuteNonQuery(cmd);
             }
+        //}
         }
     }
 
     public int GetLastTimeTableCode()
     {
         int TTC = 0;
-        String cStr;
-        cStr = "select max(TimeTableCode) from TimeTable";
-        SqlCommand cmd = new SqlCommand(cStr, con);
+        SqlConnection conn = connect("Betsefer");
+        String cStr = "select max(TimeTableCode) from dbo.TimeTable";
+        SqlCommand cmd = new SqlCommand(cStr, conn);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
         while (dr.Read())

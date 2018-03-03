@@ -230,9 +230,6 @@ TableRow, tableCell {
     border: 2px solid blue;
 }
 
-#TimeTable tr, #TimeTable td {
-    border: 2px solid blue;
-}
 
 .DDL {
     width: 100%;

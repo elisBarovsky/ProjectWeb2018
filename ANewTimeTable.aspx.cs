@@ -38,6 +38,9 @@ public partial class timeTable : System.Web.UI.Page
         for (int i = 0; i < 9; i++)
         {
             TableRow tr = new TableRow();
+            TableCell lessonNumber = new TableCell();
+            lessonNumber.Text = (i + 1).ToString();
+            tr.Cells.Add(lessonNumber);
             //the days <>
             for (int j = 0; j < 6; j++)
             {
@@ -66,9 +69,7 @@ public partial class timeTable : System.Web.UI.Page
 
                 counter++;
             }
-            TableCell lessonNumber = new TableCell();
-            lessonNumber.Text = (i + 1).ToString();
-            tr.Cells.Add(lessonNumber);
+            
             TimeTable.Rows.Add(tr);
         }
 
@@ -98,7 +99,7 @@ public partial class timeTable : System.Web.UI.Page
                     Dictionary<string, string> lessonInTimeTable = new Dictionary<string, string>();
                     lessonInTimeTable.Add("classCode", classCode); //className
                     lessonInTimeTable.Add("CodeWeekDay", j.ToString()); //numDay
-                    lessonInTimeTable.Add("ClassTimeCode", j.ToString()); //numLesson - 1 is the first lesson.
+                    lessonInTimeTable.Add("ClassTimeCode", i.ToString()); //numLesson - 1 is the first lesson.
                     lessonInTimeTable.Add("CodeLesson", CodeLesson);
                     lessonInTimeTable.Add("TeacherID", teacherID);
 
@@ -107,7 +108,7 @@ public partial class timeTable : System.Web.UI.Page
                 else
                 {
                     Dictionary<string, string> empty = new Dictionary<string, string>();
-                    empty.Add("0", "empty");
+                    empty.Add("classCode", null);
                     matrix.Add(empty);
                 }
             }
