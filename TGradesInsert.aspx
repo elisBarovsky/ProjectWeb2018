@@ -2,11 +2,11 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
       <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-            position: center;
-        }
-    </style>
+          .auto-style1 {
+              width: 100%;
+              position: center;
+          }
+      </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
      <div class="container">
@@ -45,7 +45,34 @@
             <tr>
                 <td align="center" colspan="4"">
                    
-                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                    <asp:GridView ID="GridView1" runat="server" AllowSorting="True" AutoGenerateColumns="False" BackColor="#CCCCCC" BorderColor="#999999" BorderStyle="Solid" BorderWidth="3px" CellPadding="4" CellSpacing="2" DataKeyNames="UserID" DataSourceID="SqlDataSource1" ForeColor="Black">
+                        <Columns>
+                            <asp:CommandField ShowEditButton="True" />
+                            <asp:BoundField DataField="Grade" HeaderText="ציון" SortExpression="Grade" />
+                            <asp:BoundField DataField="StudentName" HeaderText="שם תלמיד" ReadOnly="True" SortExpression="StudentName" />
+                            <asp:BoundField DataField="UserID" HeaderText="תעודת זהות תלמיד" ReadOnly="True" SortExpression="UserID" />
+                        </Columns>
+                        <FooterStyle BackColor="#CCCCCC" />
+                        <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                        <PagerStyle BackColor="#CCCCCC" ForeColor="Black" HorizontalAlign="Left" />
+                        <RowStyle BackColor="White" />
+                        <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                        <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                        <SortedAscendingHeaderStyle BackColor="#808080" />
+                        <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                        <SortedDescendingHeaderStyle BackColor="#383838" />
+                    </asp:GridView>
+
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" InsertCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade
+FROM            dbo.Users Full outer JOIN
+                         dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
+						 where dbo.Users.CodeUserType='4'" SelectCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade
+FROM            dbo.Users Full outer JOIN
+                         dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
+						 where dbo.Users.CodeUserType='4'" UpdateCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade
+FROM            dbo.Users Full outer JOIN
+                         dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
+						 where dbo.Users.CodeUserType='4'"></asp:SqlDataSource>
 
                 </td>
 
