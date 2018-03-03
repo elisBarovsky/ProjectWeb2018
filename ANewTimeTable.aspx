@@ -9,8 +9,6 @@
     <div class="container">
   <h2 style="text-align: right">מערכת שעות</h2>
   <div class="btn-group" style=" position: relative;  left: 40%;">
-=======
-  <div class="btn-group">
     <button type="button" class="btn btn-primary" onclick="location.href = 'AUpdateTimeTable.aspx';" >עדכון מערכת שעות</button>
     <button type="button" class="btn btn-primary active"  onclick="location.href = 'ANewTimeTable.aspx';">יצירת מערכת שעות</button>
   </div>
@@ -38,6 +36,6 @@
         </asp:table>
         <br /><br />
         <asp:Button ID="ButtonSave" CssClass="form-btn"  runat="server" Text="שמור" OnClick="ButtonSave_Click" />
-</div>
+        </div>
 </asp:Content>
 
