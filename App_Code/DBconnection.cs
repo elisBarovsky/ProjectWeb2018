@@ -302,24 +302,24 @@ public class DBconnection
 
     public int UpdatePupil(string userID, string CodePgroup, string ClassOt)
     {
-        SqlCommand cmd;
-        String cStr = "UPDATE[dbo].[Pupil] [CodePgroup]='" + CodePgroup + "',[CodeClass]='" + GetCodeClass(ClassOt) + "' where [UserID]='" + userID + "'";
+        SqlCommand cmd;                                                                      //GetCodeClass(ClassOt)
+        String cStr = "UPDATE[dbo].[Pupil] [CodePgroup]='" + CodePgroup + "',[CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    public string GetCodeClass(string ClassOt)
-    {
-        String selectSTR = "select ClassCode * from Class where TotalName= '"+ ClassOt + "'";
-        SqlCommand cmd = new SqlCommand(selectSTR, con);
-        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-        string CodeClass="";
-        while (dr.Read())
-        {
-            CodeClass = dr["ClassCode"].ToString();
-        }
-        return CodeClass;
-    }
+    //public string GetCodeClass(string ClassOt)
+    //{
+    //    String selectSTR = "select ClassCode from Class where TotalName= '"+ ClassOt + "'";
+    //    SqlCommand cmd = new SqlCommand(selectSTR, con);
+    //    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+    //    string CodeClass="";
+    //    while (dr.Read())
+    //    {
+    //        CodeClass = dr["ClassCode"].ToString();
+    //    }
+    //    return CodeClass;
+    //}
 
     public int AddTeacher(string UserID, string IsMain)
     {
