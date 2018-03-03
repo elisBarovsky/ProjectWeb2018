@@ -64,13 +64,11 @@
                     </asp:GridView>
 
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" InsertCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade
-FROM            dbo.Users Full outer JOIN
+FROM            dbo.Users Full outer JOIN  dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID where dbo.Users.CodeUserType='4'" 
+                        SelectCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade FROM     dbo.Users Full outer JOIN
                          dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
-						 where dbo.Users.CodeUserType='4'" SelectCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade
-FROM            dbo.Users Full outer JOIN
-                         dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
-						 where dbo.Users.CodeUserType='4'" UpdateCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade
-FROM            dbo.Users Full outer JOIN
+						 where dbo.Users.CodeUserType='4'" 
+                        UpdateCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade FROM dbo.Users Full outer JOIN
                          dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
 						 where dbo.Users.CodeUserType='4'"></asp:SqlDataSource>
 
