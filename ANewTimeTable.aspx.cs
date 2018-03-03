@@ -11,8 +11,9 @@ public partial class timeTable : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
 
-            CreateEmptyTimeTable();
-        
+        CreateEmptyTimeTable();
+
+
     }
 
     protected void FillFirstItem(object sender, EventArgs e)
@@ -69,7 +70,7 @@ public partial class timeTable : System.Web.UI.Page
 
                 counter++;
             }
-            
+
             TimeTable.Rows.Add(tr);
         }
 
@@ -82,6 +83,7 @@ public partial class timeTable : System.Web.UI.Page
         string CodeLesson; //מקצוע
         string teacherID;
         TimeTable TT = new TimeTable();
+        int counter = 1;
 
         // rows - ^.
         for (int i = 1; i < TimeTable.Rows.Count; i++)
@@ -89,8 +91,8 @@ public partial class timeTable : System.Web.UI.Page
             // cells - the days <>.
             for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
             {
-                string subjectID = "DDLsubject" + (i * j);
-                string TID = "DDLteacher" + (i * j);
+                string subjectID = "DDLsubject" + counter;
+                string TID = "DDLteacher" + counter;
                 CodeLesson = (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue;
                 teacherID = (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue;
 
@@ -111,6 +113,8 @@ public partial class timeTable : System.Web.UI.Page
                     empty.Add("classCode", null);
                     matrix.Add(empty);
                 }
+
+                counter++;
             }
         }
         TT.InsertTimeTable(matrix);
