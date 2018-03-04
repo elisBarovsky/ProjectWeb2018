@@ -99,13 +99,13 @@ public partial class timeTable : System.Web.UI.Page
                 {
                     this.AlertBoxMessage.InnerText = "לא ניתן להזין מורה ללא מקצוע נלמד.";
                     this.AlertBox.Visible = true;
-                    flag = true; ;
+                    flag = true; 
                 }
                 else if (CodeLesson == "0" && teacherID != "0")
                 {
                     this.AlertBoxMessage.InnerText = "שים לב כי הוזן מקצוע ללא מורה.";
                     this.AlertBox.Visible = true;
-                    flag = true; ;
+                    flag = true;
                 }
                 else if(CodeLesson != "0" && teacherID != "0")
                 {

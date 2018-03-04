@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -25,5 +26,15 @@ public class Grades
     public Dictionary<string, string> FillLessons()
     {
         return dbT.FillLessons();
+    }
+
+    public DataTable PupilList(string ClassOtID)
+    {
+        return dbT.PupilList(ClassOtID);
+    }
+
+    public int InsertGrade(string PupilID,string TeacherID,string CodeLesson, string ExamDate, int Grade)
+    {
+        return dbT.InsertGrade(PupilID, TeacherID, CodeLesson, ExamDate, Grade);
     }
 }

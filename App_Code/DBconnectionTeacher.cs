@@ -14,7 +14,7 @@ public class DBconnectionTeacher
 {
     public SqlDataAdapter da;
     public DataTable dt;
-
+    public DataSet ds; 
     SqlConnection con = new SqlConnection();
 
     public DBconnectionTeacher()
@@ -41,6 +41,17 @@ public class DBconnectionTeacher
         cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
         cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
         return cmd;
+    }
+
+    public DataTable PupilList(string ClassOtID)
+    {
+       string selectSTR = " SELECT dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.Grades.Grade" +
+                         " FROM dbo.Pupil INNER JOIN dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID Full outer JOIN dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID where dbo.Pupil.CodeClass = '" + ClassOtID + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("PupilsDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
     }
 
     public string GetUserType(string UserID, string password)
@@ -90,6 +101,14 @@ public class DBconnectionTeacher
     {
         SqlCommand cmd;
         String cStr = "update[dbo].[Users] set[LoginPassword] = ('" + Password + "') WHERE UserID = '" + userID + "'";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
+    public int InsertGrade(string PupilID, string TeacherID, string CodeLesson, string ExamDate, int Grade)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[Grades]  ([PupilID] ,[TeacherID],[CodeLesson],[ExamDate],[Grade])   VALUES ('"+ PupilID + "','"+ TeacherID + "','"+ CodeLesson + "' ,'"+ ExamDate + "' ,"+ Grade + ")";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd);
     }

@@ -12,10 +12,53 @@ public partial class TGrades : System.Web.UI.Page
         if (!IsPostBack)
         {
             ClearAll();
+            FillClasses();
+            FillSubjects();
         }
     }
 
-    protected void FillClasses(object sender, EventArgs e)
+    protected void FillPupils(object sender, EventArgs e)
+    {
+        Dictionary<string, string> Classes = new Dictionary<string, string>();
+        Classes = (Dictionary<string, string>)(Session["ClassesList"]);
+        string ClassCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
+
+        Grades ClassPupilGrades = new Grades();
+
+        GridView1.DataSource = ClassPupilGrades.PupilList(ClassCode);
+        GridView1.DataBind();
+    }
+
+    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    {
+        GridView1.EditIndex = e.NewEditIndex;
+        FillPupils(sender,e);
+    }
+
+    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        GridView1.EditIndex = -1;
+        FillPupils(sender, e); 
+    }
+
+    protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        string PupilID = (string)e.NewValues["UserID"];
+        string PupilName = (string)e.NewValues["PupilName"];
+        string Grade = (string)e.NewValues["Grade"];
+        string TeacherId = Request.Cookies["UserID"].Value;
+
+        // Update here the database record for the selected patientID
+        Dictionary<string, string> Lessons = new Dictionary<string, string>();
+        Lessons = (Dictionary<string, string>)(Session["LessonsList"]);
+
+        Grades InsertPupilGrade = new Grades();
+        InsertPupilGrade.InsertGrade(PupilID, TeacherId, KeyByValue(Lessons, ChooseLessonsDLL.SelectedValue), Calendar1.SelectedDate.ToShortDateString(), int.Parse(Grade));
+        GridView1.EditIndex = -1;
+        FillPupils(sender, e);
+    }
+
+    protected void FillClasses()
     {
         Dictionary<string, string> Classes = new Dictionary<string, string>();
         Grades ClassGrade = new Grades();
@@ -25,14 +68,14 @@ public partial class TGrades : System.Web.UI.Page
         Session["ClassesList"] = Classes;
     }
 
-    protected void FillSubjects(object sender, EventArgs e)
+    protected void FillSubjects()
     {
         Dictionary<string, string> Lessons = new Dictionary<string, string>();
         Grades ClassGrade = new Grades();
         Lessons = ClassGrade.FillLessons();
         ChooseLessonsDLL.DataSource = Lessons.Values;
         ChooseLessonsDLL.DataBind();
-        Session["ClassesList"] = Lessons;
+        Session["LessonsList"] = Lessons;
     }
 
     protected void AddGrades_Click(object sender, EventArgs e)
@@ -75,4 +118,6 @@ public partial class TGrades : System.Web.UI.Page
         //MainTeacher.Visible = false;
         //MainTeacherCB.Visible = false;
     }
+
+
 }
