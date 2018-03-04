@@ -22,7 +22,10 @@
                     </td>
                 </tr>
             </table>
-           
+        <div runat="server" id="AlertBox" class="alertBox" Visible="false">
+            <div runat="server" id="AlertBoxMessage"></div>
+            <button onclick="closeAlert.call(this, event)">Ok</button>
+        </div>
         <asp:table id = "TimeTable" runat="server">
             <asp:TableRow>
                 <asp:tableCell>שיעור</asp:tableCell>

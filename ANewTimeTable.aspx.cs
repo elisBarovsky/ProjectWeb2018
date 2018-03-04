@@ -84,9 +84,9 @@ public partial class timeTable : System.Web.UI.Page
         string teacherID;
         TimeTable TT = new TimeTable();
         int counter = 1;
-
+        bool flag = false;
         // rows - ^.
-        for (int i = 1; i < TimeTable.Rows.Count; i++)
+        for (int i = 1; !flag && i < TimeTable.Rows.Count; i++)
         {
             // cells - the days <>.
             for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
@@ -95,8 +95,19 @@ public partial class timeTable : System.Web.UI.Page
                 string TID = "DDLteacher" + counter;
                 CodeLesson = (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue;
                 teacherID = (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue;
-
-                if (CodeLesson != "0" && teacherID != "0")
+                if (CodeLesson != "0" && teacherID == "0")
+                {
+                    this.AlertBoxMessage.InnerText = "לא ניתן להזין מורה ללא מקצוע נלמד.";
+                    this.AlertBox.Visible = true;
+                    flag = true; ;
+                }
+                else if (CodeLesson == "0" && teacherID != "0")
+                {
+                    this.AlertBoxMessage.InnerText = "שים לב כי הוזן מקצוע ללא מורה.";
+                    this.AlertBox.Visible = true;
+                    flag = true; ;
+                }
+                else if(CodeLesson != "0" && teacherID != "0")
                 {
                     Dictionary<string, string> lessonInTimeTable = new Dictionary<string, string>();
                     lessonInTimeTable.Add("classCode", classCode); //className
