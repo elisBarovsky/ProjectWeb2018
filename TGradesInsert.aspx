@@ -67,7 +67,7 @@
                        SelectCommand="SELECT    dbo.Users.UserID,( dbo.Users.UserFName+' '+ dbo.Users.UserLName)as StudentName, dbo.Grades.Grade FROM     dbo.Users Full outer JOIN
                          dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID AND dbo.Users.UserID = dbo.Grades.TeacherID
 						 where dbo.Users.CodeUserType='4'"                        
-                        InsertCommand="INSERT INTO Grades (CompanyName,Phone) VALUES (@CoName,@Phone)">          ////////********************
+                        InsertCommand="INSERT INTO Grades (CompanyName,Phone) VALUES (@CoName,@Phone)">       
                          <insertparameters>
                               <asp:formparameter name="CoName" formfield="CompanyNameBox" />
                               <asp:formparameter name="Phone"  formfield="PhoneBox" />
