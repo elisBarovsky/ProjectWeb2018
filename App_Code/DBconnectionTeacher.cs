@@ -54,6 +54,19 @@ public class DBconnectionTeacher
         return dtt = ds.Tables[0];
     }
 
+    public DataTable FilterNotes(string FilterType,string ValueFilter)
+    {
+        string selectSTR = " SELECT  dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.NoteType.NoteName, dbo.GivenNotes.Comment" +
+                          " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
+                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType " +
+                          " where '"+ FilterType + "'='" + ValueFilter + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("NotesDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[1];
+        return dtt = ds.Tables[1];
+    }
+
     public string GetUserType(string UserID, string password)
     {
         String selectSTR = "SELECT CodeUserType  FROM Users where UserID  = '" + UserID + "' and LoginPassword  = '" + password + "'";
@@ -109,6 +122,31 @@ public class DBconnectionTeacher
     {
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Grades]  ([PupilID] ,[TeacherID],[CodeLesson],[ExamDate],[Grade])   VALUES ('"+ PupilID + "','"+ TeacherID + "','"+ CodeLesson + "' ,'"+ ExamDate + "' ,"+ Grade + ")";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
+    public Dictionary<string, string> FillNotes()
+    {
+        String selectSTR = "SELECT CodeNoteType,NoteName FROM NoteType ";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string CodeNoteType, NoteName;
+        Dictionary<string, string> l = new Dictionary<string, string>();
+        l.Add("0", "בחר");
+        while (dr.Read())
+        {
+            CodeNoteType = dr["CodeNoteType"].ToString();
+            NoteName = dr["NoteName"].ToString();
+            l.Add(CodeNoteType, NoteName);
+        }
+        return l;
+    }
+
+    public int InsertNotes(string PupilID, string CodeNoteType, string NoteDate, string TeacherID, string Comment)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[GivenNotes]  ([PupilID] ,[CodeNoteType],[NoteDate],[TeacherID],[Comment])   VALUES ('" + PupilID + "','" + CodeNoteType + "','" + NoteDate + "' ,'" + TeacherID + "' ,'" + Comment + "')";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd);
     }

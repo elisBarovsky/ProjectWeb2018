@@ -40,7 +40,7 @@
                 <td>תאריך בחינה</td>
             </tr>
             <tr>
-                <td align="center" colspan="4"">
+                <td align="center" colspan="4">
                     <asp:GridView ID="GridView1" runat="server" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit"
                       OnRowUpdating="GridView1_RowUpdating" >
                     <Columns>
