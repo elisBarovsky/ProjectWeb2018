@@ -7,11 +7,13 @@ using System.Web.UI.WebControls;
 
 public partial class TNotesHistory : System.Web.UI.Page
 {
+    Dictionary<string, string> List = new Dictionary<string, string>();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            //hide(false);
+            hide(false);
             FillClasses();
             FillSubjects();
             FillNotes();
@@ -20,45 +22,30 @@ public partial class TNotesHistory : System.Web.UI.Page
 
     protected void FilterNotes_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string FilterType = "";
-        string ValueFilter = "";
-
         if (FilterNotes.SelectedValue=="1")//מקצוע
         {
             hide(false);
             ChooseLessonsDLL.Visible = true;
-            FilterType ="";
-            ValueFilter ="";
         }
         else if (FilterNotes.SelectedValue == "2")//הערת משמעת
         {
             hide(false);
             NotesDLL.Visible = true;
-            FilterType = "dbo.NoteType.CodeNoteType";
-            ValueFilter ="";
         }
         else if (FilterNotes.SelectedValue == "3")//תלמיד
         {
             hide(false);
-            PupilsDLL.Visible = true;
-            FilterType = "dbo.Pupil.UserID";
-            ValueFilter ="";
+            ChooseClassDLL.Visible = true;
         }
         else//מורה
         {
             hide(false);
-            FilterType = "dbo.GivenNotes.TeacherID";
-            ValueFilter ="";
         }
-
-        Notes FilterNote = new Notes();
-
-        GridView1.DataSource = FilterNote.FilterNotes(FilterType, ValueFilter);
-        GridView1.DataBind();
     }
 
     protected void FillPupils(object sender, EventArgs e)
     {
+        PupilsDLL.Visible = true;
         string ClassCode = "";
         Dictionary<string, string> Classes = new Dictionary<string, string>();
         Classes = (Dictionary<string, string>)(Session["ClassesList"]);
@@ -122,5 +109,40 @@ public partial class TNotesHistory : System.Web.UI.Page
         ChooseLessonsDLL.Visible = ans;
         NotesDLL.Visible = ans;
         PupilsDLL.Visible = ans;
+        ChooseClassDLL.Visible = ans;
+    }
+
+    protected void FilterNotesBTN_Click(object sender, EventArgs e)
+    {
+        string FilterType = "";
+        string ValueFilter = "";
+
+        if (FilterNotes.SelectedValue == "1")//מקצוע
+        {
+            List = (Dictionary<string, string>)(Session["LessonsList"]);
+            FilterType = "dbo.GivenNotes.LessonsCode";
+            ValueFilter = KeyByValue(List, ChooseLessonsDLL.SelectedValue);
+        }
+        else if (FilterNotes.SelectedValue == "2")//הערת משמעת
+        {
+            List = (Dictionary<string, string>)(Session["NotesList"]);
+            FilterType = "dbo.NoteType.CodeNoteType";
+            ValueFilter = KeyByValue(List, NotesDLL.SelectedValue);
+        }
+        else if (FilterNotes.SelectedValue == "3")//תלמיד
+        {
+            List = (Dictionary<string, string>)(Session["PupilsList"]);
+            FilterType = "dbo.Pupil.UserID";
+            ValueFilter = KeyByValue(List, PupilsDLL.SelectedValue);
+        }
+        else//מורה
+        {
+            FilterType = "dbo.GivenNotes.TeacherID";
+            ValueFilter = Request.Cookies["UserID"].Value;
+        }
+
+        Notes FilterNote = new Notes();
+        GridView1.DataSource = FilterNote.FilterNotes(FilterType, ValueFilter);
+        GridView1.DataBind();
     }
 }

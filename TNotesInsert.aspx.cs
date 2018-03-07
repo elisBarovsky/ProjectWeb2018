@@ -11,7 +11,6 @@ public partial class TNotesInsert : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            ClearAll();
             FillClasses();
             FillSubjects();
             FillNotes();
@@ -78,31 +77,8 @@ public partial class TNotesInsert : System.Web.UI.Page
         return key;
     }
 
-    protected void ClearAll()
-    {
-        //UserIDTB.Text = "";
-        //FNameTB.Text = "";
-        //LNameTB.Text = "";
-        //Calendar1.SelectedDate = Calendar1.TodaysDate;
-        //UserNameTB.Text = "";
-        //PasswordTB.Text = "";
-        //TelephoneNumberTB.Text = "";
-        //ChildIDTB.Text = "";
-        //UserIMG.ImageUrl = "";
-        //UserIMG.Visible = false;
-        //BirthDateTB.Text = "";
-        //ChangeBdateCB.Visible = false;
-        //ChangeBdateCB.Checked = false;
-        //Calendar1.Visible = false;
-        //ChildIDTB.Visible = false;
-        //ChildIDLBL.Visible = false;
-        //MainTeacher.Visible = false;
-        //MainTeacherCB.Visible = false;
-    }
-
-
     protected void AddNotes_Click(object sender, EventArgs e)
-    {
+     {
         string date = DateTime.Today.ToShortDateString();
         string TeacherId = Request.Cookies["UserID"].Value;
         Dictionary<string, string> NotesList = new Dictionary<string, string>();
@@ -110,13 +86,17 @@ public partial class TNotesInsert : System.Web.UI.Page
 
         Dictionary<string, string> PupilList = new Dictionary<string, string>();
         PupilList = (Dictionary<string, string>)(Session["PupilsList"]);
+
+        Dictionary<string, string> LessonsList = new Dictionary<string, string>();
+        LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
+
         string PupilID = KeyByValue(PupilList, PupilsDLL.SelectedValue);
         string NoteID = KeyByValue(NotesList, NotesDLL.SelectedValue);
-
+        string LessonID = KeyByValue(LessonsList, ChooseLessonsDLL.SelectedValue);
 
         Notes InsertPupilNote = new Notes();
 
-        int res1 = InsertPupilNote.InsertNotes(PupilID, NoteID, date, TeacherId, TNoteTB.Text);
+        int res1 = InsertPupilNote.InsertNotes(PupilID, NoteID, date, TeacherId, LessonID, TNoteTB.Text);
         if (res1 == 1)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הערה נוספה בהצלחה'); location.href='TNotesInsert.aspx';", true);

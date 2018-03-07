@@ -56,15 +56,15 @@ public class DBconnectionTeacher
 
     public DataTable FilterNotes(string FilterType,string ValueFilter)
     {
-        string selectSTR = " SELECT  dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.NoteType.NoteName, dbo.GivenNotes.Comment" +
+        string selectSTR = " SELECT  dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.NoteType.NoteName, dbo.Lessons.LessonName, dbo.GivenNotes.NoteDate, dbo.GivenNotes.Comment" +
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
-                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType " +
-                          " where '"+ FilterType + "'='" + ValueFilter + "'";
+                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
+                          " where "+ FilterType + "='" + ValueFilter + "'";
         SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
         DataSet ds = new DataSet("NotesDS");
         daa.Fill(ds);
-        DataTable dtt = ds.Tables[1];
-        return dtt = ds.Tables[1];
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
     }
 
     public string GetUserType(string UserID, string password)
@@ -143,10 +143,10 @@ public class DBconnectionTeacher
         return l;
     }
 
-    public int InsertNotes(string PupilID, string CodeNoteType, string NoteDate, string TeacherID, string Comment)
+    public int InsertNotes(string PupilID, string CodeNoteType, string NoteDate, string TeacherID,string LessonsCode, string Comment)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[GivenNotes]  ([PupilID] ,[CodeNoteType],[NoteDate],[TeacherID],[Comment])   VALUES ('" + PupilID + "','" + CodeNoteType + "','" + NoteDate + "' ,'" + TeacherID + "' ,'" + Comment + "')";
+        String cStr = "INSERT INTO [dbo].[GivenNotes]  ([PupilID] ,[CodeNoteType],[NoteDate],[TeacherID],[LessonsCode],[Comment])   VALUES ('" + PupilID + "','" + CodeNoteType + "','" + NoteDate + "' ,'" + TeacherID + "' ,'" + LessonsCode + "','"+ Comment + "')";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd);
     }

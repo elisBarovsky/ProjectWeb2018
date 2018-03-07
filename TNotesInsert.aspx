@@ -42,7 +42,7 @@
                 <td>בחר הערת משמעת
                 </td>
                 <td>
-                    <asp:DropDownList ID="PupilsDLL" runat="server" AutoPostBack="true" ></asp:DropDownList>
+                    <asp:DropDownList ID="PupilsDLL" runat="server"  ></asp:DropDownList>
                 </td>
                 <td>בחר תלמיד
                 </td>
