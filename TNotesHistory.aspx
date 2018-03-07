@@ -27,7 +27,8 @@
                     <asp:DropDownList ID="ChooseLessonsDLL" runat="server"></asp:DropDownList>
                     <asp:DropDownList ID="NotesDLL" runat="server"></asp:DropDownList>
                     <asp:DropDownList ID="PupilsDLL" runat="server" AutoPostBack="true" CssClass="auto-style1"></asp:DropDownList>
-                <td>
+                <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
+                      <td>
                     <asp:RadioButtonList ID="FilterNotes" runat="server" repeatdirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="FilterNotes_SelectedIndexChanged">
                         <asp:ListItem Text="מקצוע" Value="1" />
                         <asp:ListItem Text="הערת משמעת" Value="2" />

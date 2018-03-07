@@ -11,7 +11,10 @@ public partial class TNotesHistory : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            hide(false);
+            //hide(false);
+            FillClasses();
+            FillSubjects();
+            FillNotes();
         }
     }
 
@@ -52,6 +55,66 @@ public partial class TNotesHistory : System.Web.UI.Page
 
         GridView1.DataSource = FilterNote.FilterNotes(FilterType, ValueFilter);
         GridView1.DataBind();
+    }
+
+    protected void FillPupils(object sender, EventArgs e)
+    {
+        string ClassCode = "";
+        Dictionary<string, string> Classes = new Dictionary<string, string>();
+        Classes = (Dictionary<string, string>)(Session["ClassesList"]);
+        ClassCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
+
+        Users Pupil = new Users();
+        Dictionary<string, string> pupils = new Dictionary<string, string>();
+
+        pupils = Pupil.getPupils(ClassCode);
+        PupilsDLL.DataSource = pupils.Values;
+        PupilsDLL.DataBind();
+        Session["PupilsList"] = pupils;
+    }
+
+    protected void FillNotes()
+    {
+        Dictionary<string, string> Notes = new Dictionary<string, string>();
+        Notes PupilNote = new Notes();
+        Notes = PupilNote.FillNotes();
+        NotesDLL.DataSource = Notes.Values;
+        NotesDLL.DataBind();
+        Session["NotesList"] = Notes;
+    }
+
+    protected void FillClasses()
+    {
+        Dictionary<string, string> Classes = new Dictionary<string, string>();
+        Grades ClassGrade = new Grades();
+        Classes = ClassGrade.FillClassOt();
+        ChooseClassDLL.DataSource = Classes.Values;
+        ChooseClassDLL.DataBind();
+        Session["ClassesList"] = Classes;
+    }
+
+    protected void FillSubjects()
+    {
+        Dictionary<string, string> Lessons = new Dictionary<string, string>();
+        Grades ClassGrade = new Grades();
+        Lessons = ClassGrade.FillLessons();
+        ChooseLessonsDLL.DataSource = Lessons.Values;
+        ChooseLessonsDLL.DataBind();
+        Session["LessonsList"] = Lessons;
+    }
+
+    public static string KeyByValue(Dictionary<string, string> dict, string val)
+    {
+        string key = null;
+        foreach (KeyValuePair<string, string> pair in dict)
+        {
+            if (pair.Value == val)
+            {
+                key = pair.Key;
+                break;
+            }
+        }
+        return key;
     }
 
     public void hide(bool ans)
