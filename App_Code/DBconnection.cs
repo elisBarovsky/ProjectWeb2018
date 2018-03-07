@@ -497,35 +497,28 @@ public class DBconnection
 
     public List<Dictionary<string, string>> GetTimeTableAcordingToClassCode(int classCode)
     {
+        //keep just one time table for a class. no history.
         List<Dictionary<string, string>> TT = new List<Dictionary<string, string>>();
-        Dictionary<string, string> TT = new Dictionary<string, string>();
 
-             SqlCommand cmd; string cStr;
-        //check empty cells.
+        SqlCommand cmd; string cStr;
 
-        cStr = "INSERT INTO [dbo].[Timetable] values (" + int.Parse(matrix[0]["classCode"]) + ")";
+        cStr = "select [dbo].[TimetableLesson].TimeTableCode, [dbo].[TimetableLesson].CodeWeekDay, [dbo].[TimetableLesson].ClassTimeCode, [dbo].[TimetableLesson].CodeLesson, [dbo].[TimetableLesson].TeacherId from [dbo].[TimetableLesson] inner join[dbo].[Timetable] on[dbo].[TimetableLesson].TimeTableCode = [dbo].[Timetable].TimeTableCode where[dbo].[Timetable].ClassCode = " + classCode;
         cmd = CreateCommand(cStr, con);
-        ExecuteNonQuery(cmd);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-        for (int i = 0; i < matrix.Count; i++)
+        while (dr.Read())
         {
-            SqlConnection conn = connect("Betsefer");
+            Dictionary<string, string> lesson = new Dictionary<string, string>();
+            lesson.Add("TimeTableCode", dr["TimeTableCode"].ToString());
+            lesson.Add("CodeWeekDay", dr["CodeWeekDay"].ToString());
+            lesson.Add("ClassTimeCode", dr["ClassTimeCode"].ToString());
+            lesson.Add("CodeLesson", dr["CodeLesson"].ToString());
+            lesson.Add("TeacherId", dr["TeacherId"].ToString());
 
-            if (matrix[i]["classCode"] != null)
-            {
-                int TimeTableCode = GetLastTimeTableCode();
-                int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
-                int ClassTimeCode = int.Parse(matrix[i]["ClassTimeCode"]);
-                int CodeLesson = int.Parse(matrix[i]["CodeLesson"]);
-                string TeacherId = matrix[i]["TeacherID"];
-
-
-                cStr = "INSERT INTO [dbo].[TimetableLesson] (TimeTableCode, CodeWeekDay, ClassTimeCode, CodeLesson, TeacherId) values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
-                cmd = CreateCommand(cStr, conn);
-                return ExecuteNonQuery(cmd);
-            }
+            TT.Add(lesson);
         }
-        return 0;
+
+        return TT;
     }
 }
 

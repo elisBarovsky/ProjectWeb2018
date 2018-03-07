@@ -19,7 +19,7 @@
             <table>
                 <tr>
                     <td>
-                        <asp:DropDownList ID="ddl_clases" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
+                        <asp:DropDownList ID="ddl_clases" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged"></asp:DropDownList>
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator_Class" runat="server" ControlToValidate="ddl_clases" ErrorMessage="עליך לבחור כיתה" InitialValue="0"></asp:RequiredFieldValidator>
                         <asp:SqlDataSource ID="DSclasses" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT DISTINCT [ClassCode], [TotalName] FROM [Class] ORDER BY [TotalName]"></asp:SqlDataSource>
                     </td>
@@ -30,7 +30,7 @@
             <button onclick="closeAlert.call(this, event)">Ok</button>
         </div>
         <asp:table id = "TimeTable" runat="server">
-            <asp:TableRow>
+            <%--<asp:TableRow>
                 <asp:tableCell>שיעור</asp:tableCell>
                 <asp:tableCell>ראשון</asp:tableCell>
                 <asp:tableCell>שני</asp:tableCell>
@@ -38,7 +38,7 @@
                 <asp:tableCell>רביעי</asp:tableCell>
                 <asp:tableCell>חמישי</asp:tableCell>
                 <asp:tableCell>שישי</asp:tableCell>
-            </asp:TableRow>
+            </asp:TableRow>--%>
         </asp:table>
         <br /><br />
         <asp:Button ID="ButtonSave" CssClass="form-btn"  runat="server" Text="שמור" visible="true" OnClick="ButtonSave_Click" />

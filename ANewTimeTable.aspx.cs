@@ -35,6 +35,9 @@ public partial class timeTable : System.Web.UI.Page
         int counter = 1;
         Dictionary<int, string> subjects = subject.getSubjects();
         Dictionary<string, string> teachers = user.GetTeachers();
+
+        FillDaysTitles();
+
         //rows ^
         for (int i = 0; i < 9; i++)
         {
@@ -76,6 +79,22 @@ public partial class timeTable : System.Web.UI.Page
 
     }
 
+    protected void FillDaysTitles()
+    {
+        string[] days = new string[] { "שיעור", "ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי" };
+        //TimeTable;
+        TableRow tr = new TableRow();
+        
+        for (int i = 0; i < days.Length; i++)
+        {
+            TableCell cell = new TableCell();
+            cell.Text = days[i];
+            tr.Cells.Add(cell);
+        }
+        TimeTable.Rows.Add(tr);
+        TimeTable.DataBind();
+    }
+
     protected void ButtonSave_Click(object sender, EventArgs e)
     {
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
@@ -97,7 +116,6 @@ public partial class timeTable : System.Web.UI.Page
                 teacherID = (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue;
                 if (CodeLesson != "0" && teacherID == "0")
                 {
-//<<<<<<< HEAD
                     flag = true;
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא ניתן להזין מורה ללא מקצוע נלמד.');", true);
                 }
@@ -105,21 +123,14 @@ public partial class timeTable : System.Web.UI.Page
                 {
                     flag = true;
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן להזין מקצוע ללא מורה.');", true);
-
-//=======
                     this.AlertBoxMessage.InnerText = "לא ניתן להזין מורה ללא מקצוע נלמד.";
                     this.AlertBox.Visible = true;
-                    flag = true; 
                 }
                 else if (CodeLesson == "0" && teacherID != "0")
                 {
                     this.AlertBoxMessage.InnerText = "שים לב כי הוזן מקצוע ללא מורה.";
                     this.AlertBox.Visible = true;
                     flag = true;
-//<<<<<<< HEAD
-//>>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
-//=======
-//>>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
                 }
                 else if (CodeLesson != "0" && teacherID != "0")
                 {
@@ -191,5 +202,97 @@ public partial class timeTable : System.Web.UI.Page
                 counter++;
             }
         }
+
+    }
+
+    protected void ddl_clases_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (ButtonUpdate.Visible == true)
+        {
+                int classCode = ddl_clases.SelectedIndex;
+            FillTimeTableAccordingToClassCode(classCode);
+        }
+    }
+
+    protected void FillTimeTableAccordingToClassCode(int classCode)
+    {
+        Subject subject = new Subject();
+        Users user = new Users();
+        int counter = 1;
+        TimeTable TT = new TimeTable();
+
+        //TT from the DB
+        List<Dictionary<string, string>> allLessons = TT.GetTimeTableAcordingToClassCode(classCode);
+
+        //fill the DDL
+        Dictionary<int, string> subjects = subject.getSubjects();
+        Dictionary<string, string> teachers = user.GetTeachers();
+
+        //rows ^
+        for (int i = 1; i < 10; i++)
+        {
+            TableRow tr = new TableRow();
+            TableCell lessonNumber = new TableCell();
+            lessonNumber.Text = (i + 1).ToString();
+            tr.Cells.Add(lessonNumber);
+            //the days <>
+            for (int j = 1; j < 7; j++)
+            {
+                Dictionary<string, string> lessonInTT = ReturnIfLessonExsistsInTT(i, j, allLessons);
+                TableCell cell = new TableCell();
+                cell.CssClass = "DDL";
+                DropDownList dSubject = new DropDownList();
+                dSubject.ID = "DDLsubject" + counter;
+                dSubject.DataTextField = "Value";
+                dSubject.DataValueField = "Key";
+                dSubject.DataSource = subjects;
+
+                
+
+                DropDownList dTeacher = new DropDownList();
+                dTeacher.ID = "DDLteacher" + counter;
+                dTeacher.CssClass = "DDL";
+                dTeacher.DataSource = teachers;
+                dTeacher.DataValueField = "Key";
+                dTeacher.DataTextField = "Value";
+
+                if (lessonInTT.Count > 0)
+                {
+                    dSubject.SelectedValue = lessonInTT["CodeLesson"].ToString();
+                    dTeacher.SelectedValue = lessonInTT["TeacherId"].ToString();
+                }
+
+                dSubject.DataBind();
+                cell.Controls.Add(dSubject);
+                cell.Controls.Add(new HtmlGenericControl("br"));
+
+                dTeacher.DataBind();
+                cell.Controls.Add(dTeacher);
+                tr.Cells.Add(cell);
+                cell.Controls.Add(new HtmlGenericControl("br"));
+
+                counter++;
+            }
+
+            TimeTable.Rows.Add(tr);
+        }
+
+    }
+
+    protected Dictionary<string, string> ReturnIfLessonExsistsInTT(int lessonNumber, int weekDay, List<Dictionary<string, string>> TimeTable)
+    {
+        //return just the specific lesson if exists in row number and day.
+        Dictionary<string, string> lessonInTT = new Dictionary<string, string>();
+
+        for (int i = 0; i < TimeTable.Count; i++)
+        {
+            Dictionary<string, string> tempLesson = TimeTable[i];
+            if (tempLesson["ClassTimeCode"] == lessonNumber.ToString() && tempLesson["CodeWeekDay"] == weekDay.ToString())
+            {
+                return lessonInTT = tempLesson;
+            }
+        }
+
+        return lessonInTT;
     }
 }
