@@ -230,7 +230,7 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    public void InsertTimeTable(List<Dictionary<string, string>> matrix)
+    public int InsertTimeTable(List<Dictionary<string, string>> matrix)
     {
         SqlCommand cmd; string cStr;
         //check empty cells.
@@ -255,10 +255,11 @@ public class DBconnection
                    
                     cStr = "INSERT INTO [dbo].[TimetableLesson] (TimeTableCode, CodeWeekDay, ClassTimeCode, CodeLesson, TeacherId) values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
                     cmd = CreateCommand(cStr, conn);
-                    ExecuteNonQuery(cmd);
+                    return ExecuteNonQuery(cmd);
             }
         //}
         }
+        return 0;
     }
 
     public int GetLastTimeTableCode()

@@ -17,8 +17,8 @@ public class TimeTable
         //
     }
 
-    public void InsertTimeTable(List<Dictionary<string, string>> matrix)
+    public int InsertTimeTable(List<Dictionary<string, string>> matrix)
     {
-        db.InsertTimeTable(matrix);
+        return db.InsertTimeTable(matrix);
     }
 }

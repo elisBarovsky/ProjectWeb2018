@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class TGrades : System.Web.UI.Page
+public partial class TNotesInsert : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -14,48 +14,34 @@ public partial class TGrades : System.Web.UI.Page
             ClearAll();
             FillClasses();
             FillSubjects();
+            FillNotes();
         }
     }
 
     protected void FillPupils(object sender, EventArgs e)
     {
+        string ClassCode = "";
         Dictionary<string, string> Classes = new Dictionary<string, string>();
         Classes = (Dictionary<string, string>)(Session["ClassesList"]);
-        string ClassCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
+        ClassCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
 
-        Grades ClassPupilGrades = new Grades();
+        Users Pupil = new Users();
+        Dictionary<string, string> pupils = new Dictionary<string, string>();
 
-        GridView1.DataSource = ClassPupilGrades.PupilList(ClassCode);
-        GridView1.DataBind();
+        pupils = Pupil.getPupils(ClassCode);
+        PupilsDLL.DataSource = pupils.Values;
+        PupilsDLL.DataBind();
+        Session["PupilsList"] = pupils;
     }
 
-    protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
+    protected void FillNotes()
     {
-        GridView1.EditIndex = e.NewEditIndex;
-        FillPupils(sender,e);
-    }
-
-    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-    {
-        GridView1.EditIndex = -1;
-        FillPupils(sender, e); 
-    }
-
-    protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
-    {
-        string PupilID = (string)e.NewValues["UserID"];
-        string PupilName = (string)e.NewValues["PupilName"];
-        string Grade = (string)e.NewValues["Grade"];
-        string TeacherId = Request.Cookies["UserID"].Value;
-
-        // Update here the database record for the selected patientID
-        Dictionary<string, string> Lessons = new Dictionary<string, string>();
-        Lessons = (Dictionary<string, string>)(Session["LessonsList"]);
-
-        Grades InsertPupilGrade = new Grades();
-        InsertPupilGrade.InsertGrade(PupilID, TeacherId, KeyByValue(Lessons, ChooseLessonsDLL.SelectedValue), Calendar1.SelectedDate.ToShortDateString(), int.Parse(Grade));
-        GridView1.EditIndex = -1;
-        FillPupils(sender, e);
+        Dictionary<string, string> Notes = new Dictionary<string, string>();
+        Notes PupilNote = new Notes();
+        Notes = PupilNote.FillNotes();
+        NotesDLL.DataSource = Notes.Values;
+        NotesDLL.DataBind();
+        Session["NotesList"] = Notes;
     }
 
     protected void FillClasses()
@@ -76,11 +62,6 @@ public partial class TGrades : System.Web.UI.Page
         ChooseLessonsDLL.DataSource = Lessons.Values;
         ChooseLessonsDLL.DataBind();
         Session["LessonsList"] = Lessons;
-    }
-
-    protected void AddGrades_Click(object sender, EventArgs e)
-    {
-
     }
 
     public static string KeyByValue(Dictionary<string, string> dict, string val)
@@ -120,4 +101,29 @@ public partial class TGrades : System.Web.UI.Page
     }
 
 
+    protected void AddNotes_Click(object sender, EventArgs e)
+    {
+        string date = DateTime.Today.ToShortDateString();
+        string TeacherId = Request.Cookies["UserID"].Value;
+        Dictionary<string, string> NotesList = new Dictionary<string, string>();
+        NotesList = (Dictionary<string, string>)(Session["NotesList"]);
+
+        Dictionary<string, string> PupilList = new Dictionary<string, string>();
+        PupilList = (Dictionary<string, string>)(Session["PupilsList"]);
+        string PupilID = KeyByValue(PupilList, PupilsDLL.SelectedValue);
+        string NoteID = KeyByValue(NotesList, NotesDLL.SelectedValue);
+
+
+        Notes InsertPupilNote = new Notes();
+
+        int res1 = InsertPupilNote.InsertNotes(PupilID, NoteID, date, TeacherId, TNoteTB.Text);
+        if (res1 == 1)
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הערה נוספה בהצלחה'); location.href='TNotesInsert.aspx';", true);
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בהוספת הערת משמעת, בדוק נתונים');", true);
+        }
+    }
 }

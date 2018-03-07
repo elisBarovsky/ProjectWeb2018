@@ -97,17 +97,28 @@ public partial class timeTable : System.Web.UI.Page
                 teacherID = (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue;
                 if (CodeLesson != "0" && teacherID == "0")
                 {
+<<<<<<< HEAD
+                    flag = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא ניתן להזין מורה ללא מקצוע נלמד.');", true);
+                }
+                else if (CodeLesson == "0" && teacherID != "0")
+                {
+                    flag = true;
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן להזין מקצוע ללא מורה.');", true);
+
+=======
                     this.AlertBoxMessage.InnerText = "לא ניתן להזין מורה ללא מקצוע נלמד.";
                     this.AlertBox.Visible = true;
-                    flag = true; ;
+                    flag = true; 
                 }
                 else if (CodeLesson == "0" && teacherID != "0")
                 {
                     this.AlertBoxMessage.InnerText = "שים לב כי הוזן מקצוע ללא מורה.";
                     this.AlertBox.Visible = true;
-                    flag = true; ;
+                    flag = true;
+>>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
                 }
-                else if(CodeLesson != "0" && teacherID != "0")
+                else if (CodeLesson != "0" && teacherID != "0")
                 {
                     Dictionary<string, string> lessonInTimeTable = new Dictionary<string, string>();
                     lessonInTimeTable.Add("classCode", classCode); //className
@@ -128,6 +139,54 @@ public partial class timeTable : System.Web.UI.Page
                 counter++;
             }
         }
-        TT.InsertTimeTable(matrix);
+        if (!flag)
+        {
+            int rowsAffected = TT.InsertTimeTable(matrix);
+            if (rowsAffected > 0)
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ANewTimeTable.aspx';", true);
+            }
+            else
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('קרתה תקלה בעת שמירת המערכת. נא צור קשר עם שירות הלקוחות בטלפון: 1-800-400-400 AIG');", true);
+            }
+
+        }
+    }
+
+    protected void PreparePageToUpdate(object sender, EventArgs e)
+    {
+        updateB.CssClass = "btn btn-primary active";
+        addB.CssClass = "btn btn-primary";
+        ButtonSave.Visible = false;
+        ButtonUpdate.Visible = true;
+        ClearTimeTable();
+    }
+
+    protected void PreparePageToAddNew(object sender, EventArgs e)
+    {
+        addB.CssClass = "btn btn-primary active";
+        updateB.CssClass = "btn btn-primary";
+        ButtonSave.Visible = true;
+        ButtonUpdate.Visible = false;
+        ClearTimeTable();
+    }
+
+    protected void ClearTimeTable()
+    {
+        int counter = 1;
+        for (int i = 0; i < TimeTable.Rows.Count; i++)
+        {
+            // cells - the days <>.
+            for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
+            {
+                string subjectID = "DDLsubject" + counter;
+                string TID = "DDLteacher" + counter;
+                (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue = "0";
+                (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue = "0";
+
+                counter++;
+            }
+        }
     }
 }

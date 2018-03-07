@@ -3,14 +3,17 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="css/Style.css" rel="stylesheet" />
 
+
+
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div class="container">
   <h2 style="text-align: right">מערכת שעות</h2>
   <div class="btn-group" style=" position: relative;  left: 40%;">
-    <button type="button" class="btn btn-primary" onclick="location.href = 'AUpdateTimeTable.aspx';" >עדכון מערכת שעות</button>
-    <button type="button" class="btn btn-primary active"  onclick="location.href = 'ANewTimeTable.aspx';">יצירת מערכת שעות</button>
+    <asp:button runat="server" ID="updateB" class="btn btn-primary" text="עדכן מערכת" onclick="PreparePageToUpdate"></asp:button>
+    <asp:button runat="server" ID="addB" class="btn btn-primary active" text="צור מערכת חדשה" onclick="PreparePageToAddNew"></asp:button>
   </div>
         <br /><br />
             <table>
@@ -38,7 +41,8 @@
             </asp:TableRow>
         </asp:table>
         <br /><br />
-        <asp:Button ID="ButtonSave" CssClass="form-btn"  runat="server" Text="שמור" OnClick="ButtonSave_Click" />
+        <asp:Button ID="ButtonSave" CssClass="form-btn"  runat="server" Text="שמור" visible="true" OnClick="ButtonSave_Click" />
+        <asp:Button ID="ButtonUpdate" CssClass="form-btn"  runat="server" Text="עדכן" Visible="false"/>
         </div>
 </asp:Content>
 
