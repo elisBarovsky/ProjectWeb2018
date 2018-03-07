@@ -28,7 +28,7 @@
             <a href="TGradesInsert.aspx" class="w3-bar-item w3-button w3-hover-blue" style="text-align: right"> ציונים</a>
             <a href="TNotesInsert.aspx" class="w3-bar-item w3-button w3-hover-red" style="text-align: right"> הערות משמעת</a>
             <a href="#" class="w3-bar-item w3-button w3-hover-green" style="text-align: right"> שיעורי בית</a>
-            <a href="#" class="w3-bar-item w3-button w3-hover-blue" style="text-align: right">צפייה בדף קשר</a>
+            <a href="TTelphoneNumbers.aspx" class="w3-bar-item w3-button w3-hover-blue" style="text-align: right">צפייה בדף קשר</a>
             <a href="TeacherMasseges.aspx" class="w3-bar-item w3-button w3-hover-red" style="text-align: right">הודעות</a>
             <a href="TCalender.aspx" class="w3-bar-item w3-button w3-hover-blue" style="text-align: right">לוח שנה</a>
             <a href="TParentDay.aspx" class="w3-bar-item w3-button w3-hover-red" style="text-align: right">יום הורים</a>

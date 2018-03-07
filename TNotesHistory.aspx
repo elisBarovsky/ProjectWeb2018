@@ -31,7 +31,7 @@
                     <asp:DropDownList ID="ChooseLessonsDLL" runat="server"></asp:DropDownList>
                     <asp:DropDownList ID="NotesDLL" runat="server"></asp:DropDownList>
                     <asp:DropDownList ID="PupilsDLL" runat="server" AutoPostBack="true" CssClass="auto-style1"></asp:DropDownList>
-                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
+                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList></td>
                 <td align="right">
                     <asp:RadioButtonList ID="FilterNotes" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="FilterNotes_SelectedIndexChanged" Width="365px">
                         <asp:ListItem Text="מקצוע" Value="1" />
@@ -45,7 +45,10 @@
             </tr>
             <tr>
                 <td colspan="3" align="center">
-                    <asp:GridView ID="GridView1" runat="server"></asp:GridView>
+                    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" BorderStyle="Dashed" HeaderStyle-HorizontalAlign="Right">
+                        <PagerStyle HorizontalAlign="Right" />
+                        <RowStyle HorizontalAlign="Right" />
+                    </asp:GridView>
                 </td>
             </tr>
         </table>
