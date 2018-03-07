@@ -21,4 +21,9 @@ public class TimeTable
     {
         return db.InsertTimeTable(matrix);
     }
+
+    public Dictionary<string, string> GetTimeTableAcordingToClassCode(int classCode)
+    {
+        return db.GetTimeTableAcordingToClassCode(classCode);
+    }
 }

@@ -97,7 +97,7 @@ public partial class timeTable : System.Web.UI.Page
                 teacherID = (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue;
                 if (CodeLesson != "0" && teacherID == "0")
                 {
-<<<<<<< HEAD
+//<<<<<<< HEAD
                     flag = true;
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא ניתן להזין מורה ללא מקצוע נלמד.');", true);
                 }
@@ -106,7 +106,7 @@ public partial class timeTable : System.Web.UI.Page
                     flag = true;
                     ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן להזין מקצוע ללא מורה.');", true);
 
-=======
+//=======
                     this.AlertBoxMessage.InnerText = "לא ניתן להזין מורה ללא מקצוע נלמד.";
                     this.AlertBox.Visible = true;
                     flag = true; 
@@ -116,10 +116,10 @@ public partial class timeTable : System.Web.UI.Page
                     this.AlertBoxMessage.InnerText = "שים לב כי הוזן מקצוע ללא מורה.";
                     this.AlertBox.Visible = true;
                     flag = true;
-<<<<<<< HEAD
->>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
-=======
->>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
+//<<<<<<< HEAD
+//>>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
+//=======
+//>>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
                 }
                 else if (CodeLesson != "0" && teacherID != "0")
                 {
@@ -178,7 +178,7 @@ public partial class timeTable : System.Web.UI.Page
     protected void ClearTimeTable()
     {
         int counter = 1;
-        for (int i = 0; i < TimeTable.Rows.Count; i++)
+        for (int i = 1; i < TimeTable.Rows.Count; i++)
         {
             // cells - the days <>.
             for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)

@@ -242,8 +242,7 @@ public class DBconnection
         for (int i = 0; i < matrix.Count; i++)
         {
             SqlConnection conn = connect("Betsefer");
-            //for (int j = 0; j < matrix[i].Count; j++)
-            //{
+
                 if (matrix[i]["classCode"] != null)
                 {
                     int TimeTableCode = GetLastTimeTableCode();
@@ -257,7 +256,6 @@ public class DBconnection
                     cmd = CreateCommand(cStr, conn);
                     return ExecuteNonQuery(cmd);
             }
-        //}
         }
         return 0;
     }
@@ -495,6 +493,39 @@ public class DBconnection
                 con.Close();
             }
         }
+    }
+
+    public List<Dictionary<string, string>> GetTimeTableAcordingToClassCode(int classCode)
+    {
+        List<Dictionary<string, string>> TT = new List<Dictionary<string, string>>();
+        Dictionary<string, string> TT = new Dictionary<string, string>();
+
+             SqlCommand cmd; string cStr;
+        //check empty cells.
+
+        cStr = "INSERT INTO [dbo].[Timetable] values (" + int.Parse(matrix[0]["classCode"]) + ")";
+        cmd = CreateCommand(cStr, con);
+        ExecuteNonQuery(cmd);
+
+        for (int i = 0; i < matrix.Count; i++)
+        {
+            SqlConnection conn = connect("Betsefer");
+
+            if (matrix[i]["classCode"] != null)
+            {
+                int TimeTableCode = GetLastTimeTableCode();
+                int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
+                int ClassTimeCode = int.Parse(matrix[i]["ClassTimeCode"]);
+                int CodeLesson = int.Parse(matrix[i]["CodeLesson"]);
+                string TeacherId = matrix[i]["TeacherID"];
+
+
+                cStr = "INSERT INTO [dbo].[TimetableLesson] (TimeTableCode, CodeWeekDay, ClassTimeCode, CodeLesson, TeacherId) values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
+                cmd = CreateCommand(cStr, conn);
+                return ExecuteNonQuery(cmd);
+            }
+        }
+        return 0;
     }
 }
 
