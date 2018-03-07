@@ -21,9 +21,9 @@ public partial class login : System.Web.UI.Page
     protected void SaveLoginCookie(string ID, string password)
     {
         Response.Cookies["UserID"].Value = ID;
-        Response.Cookies["UserID"].Expires = DateTime.Now.AddMinutes(10);
+        Response.Cookies["UserID"].Expires = DateTime.Now.AddMinutes(90);
         Response.Cookies["UserPassword"].Value = password;
-        Response.Cookies["UserPassword"].Expires = DateTime.Now.AddMinutes(10);
+        Response.Cookies["UserPassword"].Expires = DateTime.Now.AddMinutes(90);
     }
 
     protected void FillSecurityQ()

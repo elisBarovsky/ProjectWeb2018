@@ -116,6 +116,9 @@ public partial class timeTable : System.Web.UI.Page
                     this.AlertBoxMessage.InnerText = "שים לב כי הוזן מקצוע ללא מורה.";
                     this.AlertBox.Visible = true;
                     flag = true;
+<<<<<<< HEAD
+>>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
+=======
 >>>>>>> 5f4064e1e0fff68c42d8d4dca10cf800de452ea3
                 }
                 else if (CodeLesson != "0" && teacherID != "0")

@@ -14,7 +14,7 @@ public class DBconnectionTeacher
 {
     public SqlDataAdapter da;
     public DataTable dt;
-
+    public DataSet ds; 
     SqlConnection con = new SqlConnection();
 
     public DBconnectionTeacher()
@@ -41,6 +41,30 @@ public class DBconnectionTeacher
         cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
         cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
         return cmd;
+    }
+
+    public DataTable PupilList(string ClassOtID)
+    {
+       string selectSTR = " SELECT dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.Grades.Grade" +
+                         " FROM dbo.Pupil INNER JOIN dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID Full outer JOIN dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID where dbo.Pupil.CodeClass = '" + ClassOtID + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("PupilsDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
+    }
+
+    public DataTable FilterNotes(string FilterType,string ValueFilter)
+    {
+        string selectSTR = " SELECT  dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.NoteType.NoteName, dbo.GivenNotes.Comment" +
+                          " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
+                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType " +
+                          " where '"+ FilterType + "'='" + ValueFilter + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("NotesDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[1];
+        return dtt = ds.Tables[1];
     }
 
     public string GetUserType(string UserID, string password)
@@ -90,6 +114,39 @@ public class DBconnectionTeacher
     {
         SqlCommand cmd;
         String cStr = "update[dbo].[Users] set[LoginPassword] = ('" + Password + "') WHERE UserID = '" + userID + "'";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
+    public int InsertGrade(string PupilID, string TeacherID, string CodeLesson, string ExamDate, int Grade)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[Grades]  ([PupilID] ,[TeacherID],[CodeLesson],[ExamDate],[Grade])   VALUES ('"+ PupilID + "','"+ TeacherID + "','"+ CodeLesson + "' ,'"+ ExamDate + "' ,"+ Grade + ")";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
+    public Dictionary<string, string> FillNotes()
+    {
+        String selectSTR = "SELECT CodeNoteType,NoteName FROM NoteType ";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string CodeNoteType, NoteName;
+        Dictionary<string, string> l = new Dictionary<string, string>();
+        l.Add("0", "בחר");
+        while (dr.Read())
+        {
+            CodeNoteType = dr["CodeNoteType"].ToString();
+            NoteName = dr["NoteName"].ToString();
+            l.Add(CodeNoteType, NoteName);
+        }
+        return l;
+    }
+
+    public int InsertNotes(string PupilID, string CodeNoteType, string NoteDate, string TeacherID, string Comment)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[GivenNotes]  ([PupilID] ,[CodeNoteType],[NoteDate],[TeacherID],[Comment])   VALUES ('" + PupilID + "','" + CodeNoteType + "','" + NoteDate + "' ,'" + TeacherID + "' ,'" + Comment + "')";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd);
     }
