@@ -163,6 +163,15 @@ public class DBconnectionTeacher
         return ExecuteNonQuery(cmd);
     }
 
+    public int InserHomeWork(string LessonsCode, string HWInfo, string TeacherID, string CodeClass, string HWDate, bool IsLehagasha)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[HomeWork] ([LessonsCode] ,[HWInfo],[TeacherID],[CodeClass],[HWDate],[IsLehagasha]) " +
+                   " VALUES ('" + LessonsCode + "','" + HWInfo + "','" + TeacherID + "' ,'" + CodeClass + "' ,'" + HWDate + "','" + IsLehagasha + "')";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
     public Dictionary<string, string> FillLessons()
     {
         String selectSTR = "SELECT CodeLesson, LessonName from Lessons";
