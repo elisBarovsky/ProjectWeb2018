@@ -19,8 +19,8 @@
             <table>
                 <tr>
                     <td>
-                        <asp:DropDownList ID="ddl_clases" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged"></asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator_Class" runat="server" ControlToValidate="ddl_clases" ErrorMessage="עליך לבחור כיתה" InitialValue="0"></asp:RequiredFieldValidator>
+                        <asp:DropDownList ID="ddl_clases" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                        <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator_Class" runat="server" ControlToValidate="ddl_clases" ErrorMessage="עליך לבחור כיתה" InitialValue="0"></asp:RequiredFieldValidator>--%>
                         <asp:SqlDataSource ID="DSclasses" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT DISTINCT [ClassCode], [TotalName] FROM [Class] ORDER BY [TotalName]"></asp:SqlDataSource>
                     </td>
                 </tr>
