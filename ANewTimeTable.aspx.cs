@@ -10,10 +10,10 @@ public partial class timeTable : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!Page.IsPostBack)
-        {
+        //if (!Page.IsPostBack)
+        //{
             CreateEmptyTimeTable();
-        }
+        //}
 
 }
 
@@ -101,6 +101,7 @@ public partial class timeTable : System.Web.UI.Page
         if (ddl_clases.SelectedValue == "0")
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן לשמור מערכת ללא בחירת כיתה.');", true);
+            //CreateEmptyTimeTable();
             return;
         }
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
@@ -212,7 +213,7 @@ public partial class timeTable : System.Web.UI.Page
             FillTimeTableAccordingToClassCode(classCode);
             return;
         }
-        CreateEmptyTimeTable();
+        //CreateEmptyTimeTable();
 
     }
 
@@ -226,63 +227,26 @@ public partial class timeTable : System.Web.UI.Page
         //TT from the DB
         List<Dictionary<string, string>> allLessons = TT.GetTimeTableAcordingToClassCode(classCode);
         CreateEmptyTimeTable();
-        //fill the DDL
-        //Dictionary<int, string> subjects = subject.getSubjects();
-        //Dictionary<string, string> teachers = user.GetTeachers();
 
         //rows ^
         for (int i = 1; i < TimeTable.Rows.Count; i++)
         {
-            //TableRow tr = new TableRow();
-            //TableCell lessonNumber = new TableCell();
-            //lessonNumber.Text = (i).ToString();
-            //tr.Cells.Add(lessonNumber);
-            //the days <>
+        
             for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
             {
                 Dictionary<string, string> lessonInTT = ReturnIfLessonExsistsInTT(i, j, allLessons);
-                //TableCell cell = new TableCell();
-                //cell.CssClass = "DDL";
-                //DropDownList dSubject = new DropDownList();
-                //dSubject.ID = "DDLsubject" + counter;
-                //dSubject.DataTextField = "Value";
-                //dSubject.DataValueField = "Key";
-                //dSubject.DataSource = subjects;
-
-                
-
-                //DropDownList dTeacher = new DropDownList();
-                //dTeacher.ID = "DDLteacher" + counter;
-                //dTeacher.CssClass = "DDL";
-                //dTeacher.DataSource = teachers;
-                //dTeacher.DataValueField = "Key";
-                //dTeacher.DataTextField = "Value";
 
                 if (lessonInTT.Count > 0)
                 {
-                    //dSubject.DataValueField = lessonInTT["CodeLesson"].ToString();
-                    //dTeacher.DataValueField = lessonInTT["TeacherId"].ToString();
-
                     string subjectID = "DDLsubject" + counter;
                     string TID = "DDLteacher" + counter;
                     (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue = lessonInTT["CodeLesson"];
                     (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue = lessonInTT["TeacherId"];
-
                 }
-
-                //dSubject.DataBind();
-                //cell.Controls.Add(dSubject);
-                //cell.Controls.Add(new HtmlGenericControl("br"));
-
-                //dTeacher.DataBind();
-                //cell.Controls.Add(dTeacher);
-                //tr.Cells.Add(cell);
-                //cell.Controls.Add(new HtmlGenericControl("br"));
 
                 counter++;
             }
 
-            //TimeTable.Rows.Add(tr);
         }
     }
 
