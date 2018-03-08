@@ -197,6 +197,29 @@ public class DBconnection
         return l;
     }
 
+    public int InsertLesson(string ClassOt, string ClassNum)  //****************************************************** fix!
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[Class]  ([OtClass], [NumClass], [MainTeacherID], [TotalName]) VALUES ('" + ClassOt + "', '" + ClassNum + "',null,'" + ClassOt + ClassNum + "')";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
+    public List<string> LessonExites(string ClassOt, string ClassNum) //**************************************************** fix!
+    {
+        String selectSTR = "select [TotalName] from [dbo].[Class] where [TotalName] = '" + ClassOt + ClassNum + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string Ot;
+        List<string> l = new List<string>();
+        while (dr.Read())
+        {
+            Ot = dr["TotalName"].ToString();
+            l.Add(Ot);
+        }
+        return l;
+    }
+
     public List<string> ClassesExites(string ClassOt, string ClassNum)
     {
         String selectSTR = "select [TotalName] from [dbo].[Class] where [TotalName] = '" + ClassOt + ClassNum + "'";
@@ -293,7 +316,7 @@ public class DBconnection
                     cStr = "INSERT INTO [dbo].[TimetableLesson] (TimeTableCode, CodeWeekDay, ClassTimeCode, CodeLesson, TeacherId) values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
                     cmd = CreateCommand(cStr, conn);
                     return ExecuteNonQuery(cmd);
-            }
+                 }
         }
         return 0;
     }
