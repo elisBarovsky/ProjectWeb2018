@@ -182,6 +182,44 @@ public class DBconnection
         return ExecuteNonQuery(cmd);
     }
 
+    public List<string> GetClassesOt()
+    {
+        String selectSTR = "select distinct [OtClass] from [dbo].[Class]";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string Ot;
+        List<string> l = new List<string>();
+        while (dr.Read())
+        {
+            Ot = dr["OtClass"].ToString();
+            l.Add(Ot);
+        }
+        return l;
+    }
+
+    public List<string> ClassesExites(string ClassOt, string ClassNum)
+    {
+        String selectSTR = "select [TotalName] from [dbo].[Class] where [TotalName] = '" + ClassOt + ClassNum + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string Ot;
+        List<string> l = new List<string>();
+        while (dr.Read())
+        {
+            Ot = dr["TotalName"].ToString();
+            l.Add(Ot);
+        }
+        return l;
+    }
+
+    public int InsertClass(string ClassOt, string ClassNum)
+    {
+        SqlCommand cmd;
+        String cStr = "INSERT INTO [dbo].[Class]  ([OtClass], [NumClass], [MainTeacherID], [TotalName]) VALUES ('" + ClassOt + "', '"+ ClassNum + "',null,'" + ClassOt+ ClassNum + "')";
+        cmd = CreateCommand(cStr, con);             // create the command
+        return ExecuteNonQuery(cmd);
+    }
+
     public string IsAlreadyLogin(string UserID, string password)
     {
         String selectSTR = "select alreadyLogin from Users where UserID = '" + UserID + "' and LoginPassword = '" + password + "'";
