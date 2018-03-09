@@ -70,6 +70,32 @@ public class DBconnection
         return type;
     }
 
+    public bool IsExists(string newSubject)
+    {
+        String selectSTR = "SELECT count(LessonName) FROM Lessons where LessonName  = '" + newSubject + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        int countRow = 0;
+        while (dr.Read())
+        {
+            countRow = int.Parse(dr[0].ToString());
+        }
+
+        if (countRow > 0)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public int AddNewSubject(string newSubject)
+    {
+        String cStr = "INSERT INTO [dbo].[Lessons]  (LessonName) VALUES ('" + newSubject + "')";
+        SqlCommand cmd = CreateCommand(cStr, con);
+        return ExecuteNonQuery(cmd);
+    }
+
     public string GetPupilGroup(string UserID)
     {
         String selectSTR = "SELECT CodePgroup  FROM Pupil where UserID  = '" + UserID + "'";

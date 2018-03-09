@@ -26,8 +26,8 @@
             </tr>
             <tr>
                 <td style="text-align: right">
-                     <asp:DropDownList ID="LessonsDDL" runat="server" DataSourceID="SqlDataSource1" DataTextField="LessonName" DataValueField="LessonName"></asp:DropDownList>
-                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [LessonName] FROM [Lessons]"></asp:SqlDataSource>
+                     <asp:DropDownList ID="DDLlessons" runat="server" DataSourceID="subjects" DataTextField="LessonName" DataValueField="CodeLesson" AutoPostBack="True"></asp:DropDownList>
+                     <asp:SqlDataSource ID="subjects" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodeLesson], [LessonName] FROM [Lessons] ORDER BY [LessonName]"></asp:SqlDataSource>
                 </td>
                 <td style="text-align: right">מקצועות קיימים</td>
             </tr>

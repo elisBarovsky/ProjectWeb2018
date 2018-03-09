@@ -23,4 +23,13 @@ public class Subject
 
         return db.GetSubjects();
     }
+
+    public bool IsExists(string newSubject)
+    {
+        return db.IsExists(newSubject);
+    }
+
+    public int AddNewSubject(string newSubject) {
+        return db.AddNewSubject(newSubject);
+    }
 }
