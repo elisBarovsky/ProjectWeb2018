@@ -419,10 +419,11 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    public int AddParent(string PupilID, string ParentID)
+    public int AddParent( string ParentID, string PupilID1, string PupilID2, string PupilID3, string PupilID4, string PupilID5, string PupilID6)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[PupilsParent] ([PupilID] ,[ParentID]) VALUES ('" + PupilID + "' ,'" + ParentID + "')";
+        String cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID1],[PupilID2],[PupilID3],[PupilID4],[PupilID5],[PupilID6]) " +
+            "VALUES ('" + ParentID + "' ,'" + PupilID1 + "','" + PupilID2 + "','" + PupilID3 + "','" + PupilID4 + "','" + PupilID5 + "','" + PupilID6 + "')";
         cmd = CreateCommand(cStr, con);
         return ExecuteNonQuery(cmd);// execute the command  
     }

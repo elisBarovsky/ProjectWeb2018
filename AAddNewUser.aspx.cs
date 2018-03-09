@@ -16,7 +16,20 @@ public partial class AddNewUser : System.Web.UI.Page
             VisibleTeacherFalse(false);
             VisibleParentFalse(false);
             AddUserBTN.Visible = false;
+            FillNumChilds();
+            HideChildTBID();
         }
+    }
+
+    private void FillNumChilds()
+    {
+        List<int> NumChild = new List<int>();
+        for (int i = 1; i < 7; i++)
+        {
+            NumChild.Add(i);
+        }
+        NumOfChildDDL.DataSource = NumChild;
+        NumOfChildDDL.DataBind();
     }
 
     protected void UserTypeDLL_CheckedChanged(object sender, EventArgs e)
@@ -59,15 +72,24 @@ public partial class AddNewUser : System.Web.UI.Page
 
     protected void VisibleParentFalse(bool ans)
     {
-        ChildIDTB.Visible = ans;
         ChildIDLBL.Visible = ans;
+        NumOfChildDDL.Visible = ans;
+        NumChildLBL.Visible = ans;
+        ChildI1DTB.Visible = ans;
+    }
+
+    protected void HideChildTBID()
+    {       
+        ChildI2DTB.Visible = false;
+        ChildI3DTB.Visible = false;
+        ChildI4DTB.Visible = false;
+        ChildI5DTB.Visible = false;
+        ChildI6DTB.Visible = false;
     }
 
     protected void VisibleTeacherFalse(bool ans)
     {
         MainTeacher.Visible = ans;
-       // ClassOtDLL.Visible = ans;
-      //  ClassLBL.Visible = ans;
         MainTeacherCB.Visible = ans;
     }
 
@@ -82,7 +104,7 @@ public partial class AddNewUser : System.Web.UI.Page
             //   ImgPath = folderPath + FileUpload1.FileName;  להוריד ירוק כשיהיה בשרת
         }
 
-        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), ImgPath, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
+        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), ImgPath,"", PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
         if (res1 == 1)
         {
@@ -103,32 +125,41 @@ public partial class AddNewUser : System.Web.UI.Page
             else if(UserTypeDLL.SelectedValue == "3")  
             {
                 Users UsersParentUser = new Users();
-                int num4 = UsersParentUser.AddParent(ChildIDTB.Text, UserIDTB.Text); ;
+                if (NumOfChildDDL.SelectedValue!="1")
+                {
+
+                }
+                else
+                {
+                    int num4 = UsersParentUser.AddParent(ChildI1DTB.Text, UserIDTB.Text);
+                }
+         
             }
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש נוסף בהצלחה'); location.href='AAddNewUser.aspx';", true);
-        //    AddUserSuuccsed();
         }
         else
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בעדכון המשתמש, בדוק נתונים');", true);
-            //MessegaeLBL.Text = "הייתה בעיה בהוספת המשתמש, בדוק נתונים";
         }
     }
+
     protected void Clear()
     {
-       // MessegaeLBL.Text = "משתמש נוסף בהצלחה";
-        UserIDTB.Text="";
-        FNameTB.Text="";
-        LNameTB.Text="";
-        Calendar1.SelectedDate= Calendar1.TodaysDate;
-        UserNameTB.Text="";
-        PasswordTB.Text="";
-        TelephoneNumberTB.Text="";
-       // UserTypeDLL.SelectedValue=null;
-        ChildIDTB.Text = "";
+        UserIDTB.Text = "";
+        FNameTB.Text = "";
+        LNameTB.Text = "";
+        Calendar1.SelectedDate = Calendar1.TodaysDate;
+        PasswordTB.Text = "";
+        TelephoneNumberTB.Text = "";
         MainTeacherCB.Checked = false;
         ClassOtDLL.Visible = false;
         ClassLBL.Visible = false;
+        ChildI1DTB.Text = "";
+        ChildI2DTB.Text = "";
+        ChildI3DTB.Text = "";
+        ChildI4DTB.Text = "";
+        ChildI5DTB.Text = "";
+        ChildI6DTB.Text = "";
     }
 
     protected void MainTeacherCB_CheckedChanged(object sender, EventArgs e)
@@ -142,6 +173,61 @@ public partial class AddNewUser : System.Web.UI.Page
         {
             ClassOtDLL.Visible = false;
             ClassLBL.Visible = false;
+        }
+    }
+
+    protected void NumOfChildDDL_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        switch (NumOfChildDDL.SelectedValue)
+        {
+            case "1":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = false;
+                ChildI3DTB.Visible = false;
+                ChildI4DTB.Visible = false;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "2":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = false;
+                ChildI4DTB.Visible = false;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "3":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = false;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "4":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = true;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "5":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = true;
+                ChildI5DTB.Visible = true;
+                ChildI6DTB.Visible = false;
+                break;
+            case "6":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = true;
+                ChildI5DTB.Visible = true;
+                ChildI6DTB.Visible = true;
+                break;
         }
     }
 }

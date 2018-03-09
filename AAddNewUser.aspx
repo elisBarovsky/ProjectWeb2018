@@ -7,12 +7,12 @@
             position: center;
         }
     </style>
-    
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
         <h2 style="text-align: center">ניהול משתמשים</h2>
-        <div class="btn-group" style=" position: relative;  left: 40%;">
+        <div class="btn-group" style="position: relative; left: 40%;">
             <button type="button" class="btn btn-primary active" onclick="location.href = 'AAddNewUser.aspx';">הוספה  </button>
             <button type="button" class="btn btn-primary " onclick="location.href = 'AUpdateUser.aspx';">עדכון</button>
         </div>
@@ -22,41 +22,41 @@
         <table class="auto-style1">
             <tr>
                 <td>
-                    <asp:radiobuttonlist id="GroupAgeDLL" required="required" runat="server" datasourceid="SqlDataSource1" datatextfield="GroupName" datavaluefield="CodePgroup" repeatdirection="Horizontal"></asp:radiobuttonlist>
-                    <asp:sqldatasource id="SqlDataSource1" runat="server" connectionstring="<%$ ConnectionStrings:Betsefer %>" selectcommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:sqldatasource>
+                    <asp:RadioButtonList ID="GroupAgeDLL" required="required" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" RepeatDirection="Horizontal"></asp:RadioButtonList>
+                    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
 
-                    <asp:checkbox id="MainTeacherCB" runat="server" autopostback="true" oncheckedchanged="MainTeacherCB_CheckedChanged" />
+                    <asp:CheckBox ID="MainTeacherCB" runat="server" AutoPostBack="true" OnCheckedChanged="MainTeacherCB_CheckedChanged" />
                 </td>
                 <td>
-                    <asp:label id="GroupAgeLBL" runat="server" text="קבוצת גיל"> </asp:label>
-                    <asp:label id="MainTeacher" runat="server" text=" האם מחנך"></asp:label>
+                    <asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>
+                    <asp:Label ID="MainTeacher" runat="server" Text=" האם מחנך"></asp:Label>
                 </td>
 
                 <td>
-                    <asp:radiobuttonlist id="UserTypeDLL" runat="server" datasourceid="SqlDataSource2" onselectedindexchanged="UserTypeDLL_CheckedChanged" datatextfield="CodeUserName" datavaluefield="CodeUserType" autopostback="true" repeatdirection="Horizontal"></asp:radiobuttonlist>
-                    <asp:sqldatasource id="SqlDataSource2" runat="server" connectionstring="<%$ ConnectionStrings:Betsefer %>" selectcommand="SELECT * FROM [UserType]"></asp:sqldatasource>
+                    <asp:RadioButtonList ID="UserTypeDLL" runat="server" DataSourceID="SqlDataSource2" OnSelectedIndexChanged="UserTypeDLL_CheckedChanged" DataTextField="CodeUserName" DataValueField="CodeUserType" AutoPostBack="true" RepeatDirection="Horizontal"></asp:RadioButtonList>
+                    <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT * FROM [UserType]"></asp:SqlDataSource>
                 </td>
                 <td>
-                    <asp:label id="Label1" runat="server" text="סוג משתמש"></asp:label>
+                    <asp:Label ID="Label1" runat="server" Text="סוג משתמש"></asp:Label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:textbox id="LNameTB" runat="server" required="required"></asp:textbox>
+                    <asp:TextBox ID="LNameTB" runat="server" required="required"></asp:TextBox>
                 </td>
                 <td>שם משפחה</td>
                 <td>
-                    <asp:textbox id="FNameTB" runat="server" required="required"></asp:textbox>
+                    <asp:TextBox ID="FNameTB" runat="server" required="required"></asp:TextBox>
                 </td>
                 <td>שם פרטי</td>
             </tr>
             <tr>
                 <td>
-                    <asp:textbox id="UserIDTB" runat="server" required="required"></asp:textbox>
+                    <asp:TextBox ID="UserIDTB" runat="server" required="required"></asp:TextBox>
                 </td>
                 <td>תעודת זהות</td>
                 <td>
-                    <asp:calendar id="Calendar1" runat="server" autopostback="false" />
+                    <asp:Calendar ID="Calendar1" runat="server" autopostback="false" />
 
                 </td>
                 <td>תאריך לידה</td>
@@ -64,49 +64,53 @@
 
             <tr>
                 <td>
-                    <asp:fileupload id="FileUpload1" runat="server" />
+                    <asp:FileUpload ID="FileUpload1" runat="server" />
                 </td>
                 <td>תמונה</td>
                 <td>
-                    <asp:dropdownlist id="ClassOtDLL" runat="server" datasourceid="SqlDataSource3" datatextfield="TotalName" datavaluefield="ClassCode"></asp:dropdownlist>
-                    <asp:sqldatasource id="SqlDataSource3" runat="server" connectionstring="<%$ ConnectionStrings:Betsefer %>" selectcommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:sqldatasource>
+                    <asp:DropDownList ID="ClassOtDLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
+                    <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                 </td>
                 <td>
-                    <asp:label id="ClassLBL" runat="server" text=" בחר כיתה"></asp:label>
+                    <asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה"></asp:Label>
 
 
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:textbox id="PasswordTB" runat="server" required="required"></asp:textbox>
-                </td>
-                <td>סיסמה</td>
-                <td>
-                    <asp:textbox id="UserNameTB" runat="server" required="required"></asp:textbox>
-                </td>
-                <td>שם משתמש</td>
-            </tr>
+                    <asp:TextBox ID="TelephoneNumberTB" runat="server" required="required"></asp:TextBox>
+                    <br />  <br /> 
 
-            <tr>
-                <td>
-                    <asp:textbox id="ChildIDTB" runat="server" required="required"></asp:textbox>
-                </td>
-                <td>
-                    <asp:label id="ChildIDLBL" runat="server" text=" הזן תעודת זהות ילד"></asp:label>
-                </td>
-                <td>
-                    <asp:textbox id="TelephoneNumberTB" runat="server" required="required"></asp:textbox>
                 </td>
                 <td>טלפון</td>
-
+                <td>
+                    <asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox>
+                </td>
+                <td>סיסמה</td>
             </tr>
-
+              <br />
+            <tr>
+                <td>
+                    <asp:TextBox ID="ChildI1DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI2DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI3DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI4DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI5DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI6DTB" runat="server" required="required"></asp:TextBox>
+                </td>
+                <td>
+                    <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label>
+                </td>
+                <td>
+                    <asp:DropDownList ID="NumOfChildDDL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NumOfChildDDL_SelectedIndexChanged"></asp:DropDownList></td>
+                <td>
+                    <asp:Label ID="NumChildLBL" runat="server" Text="  מספר ילדים רשומים בבית הספר"></asp:Label>
+                </td>
+            </tr>
         </table>
         <br />
-        <asp:button id="AddUserBTN" runat="server" cssclass="form-btn" text="הוסף משתמש" onclick="AddUserBTN_Click" />
-        <asp:label id="MessegaeLBL" runat="server" text="" style="text-align: right"></asp:label>
-
+        <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="הוסף משתמש" OnClick="AddUserBTN_Click" />
     </div>
 </asp:Content>
 

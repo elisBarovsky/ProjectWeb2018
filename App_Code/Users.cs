@@ -203,9 +203,9 @@ public class Users
         return db.IsAlreadyMainTeacher(id);
     }
 
-    public int AddParent(string PupilID, string ParentID)
+    public int AddParent(string ParentID, string PupilID1, string PupilID2, string PupilID3, string PupilID4, string PupilID5, string PupilID6)
     {
-        return db.AddParent(PupilID, ParentID);
+        return db.AddParent(ParentID, PupilID1, PupilID2, PupilID3, PupilID4, PupilID5, PupilID6);
     }
 
     public int UpdateParent(string PupilID, string ParentID)
