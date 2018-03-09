@@ -394,19 +394,6 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    //public string GetCodeClass(string ClassOt)
-    //{
-    //    String selectSTR = "select ClassCode from Class where TotalName= '"+ ClassOt + "'";
-    //    SqlCommand cmd = new SqlCommand(selectSTR, con);
-    //    SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-    //    string CodeClass="";
-    //    while (dr.Read())
-    //    {
-    //        CodeClass = dr["ClassCode"].ToString();
-    //    }
-    //    return CodeClass;
-    //}
-
     public int AddTeacher(string UserID, string IsMain)
     {
         SqlCommand cmd;
@@ -419,9 +406,6 @@ public class DBconnection
     {
         SqlCommand cmd;
         String cStr = "UPDATE [dbo].[Teachers]  SET [IsMainTeacher] = '" + IsMain + "' where [TeacherID]='" + UserID + "'";
-
-        if (IsMain=="1") { UpdateClassTeacher( UserID,  ClassOt); }
-
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd); // execute the command   
     }
@@ -460,13 +444,36 @@ public class DBconnection
 
     public int AddMainTeacherToClass(string id,string OtClass)
     {
-        SqlCommand cmd;
+        SqlCommand cmd;     
         String cStr= "update Class set MainTeacherID = '" + id + "'  where TotalName = '" + OtClass + "'";
         cmd = CreateCommand(cStr, con);             // create the command      
-        return ExecuteNonQuery(cmd); // execute the command   
+        return ExecuteNonQuery(cmd); // execute the command 
     }
 
- 
+    public int DeleteMainTeacherToClass(string TotalClassName)
+    {
+        SqlCommand cmd;
+        String DeletePrevieusClassTeacher = "update Class set MainTeacherID = null where TotalName = '" + TotalClassName + "'";
+        cmd = CreateCommand(DeletePrevieusClassTeacher, con);             // create the command      
+        return ExecuteNonQuery(cmd); // execute the command 
+    }
+
+    public List<string> IsAlreadyMainTeacher(string id)
+    {
+        String cStr = "select [TotalName] from Class where MainTeacherID= '" + id + "'";
+        SqlCommand cmd = new SqlCommand(cStr, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string ClassOt;
+        List<string> l = new List<string>();
+
+        while (dr.Read())
+        {
+            ClassOt = dr["TotalName"].ToString();
+            l.Add(ClassOt);
+        }
+        return l;
+    } 
+
     public Dictionary<string,string> getPupils(string classCode)
     {
         String selectSTR = "SELECT   dbo.Users.UserID,(dbo.Users.UserLName + ' ' + dbo.Users.UserFName)AS PupilName" +
@@ -604,7 +611,6 @@ public class DBconnection
 
             TT.Add(lesson);
         }
-
         return TT;
     }
 }

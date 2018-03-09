@@ -188,6 +188,16 @@ public class Users
         return db.AddMainTeacherToClass(UserID, ClassOt);
     }
 
+    public int DeleteMainTeacherToClass(string TotalClassName)
+    {  
+        return db.DeleteMainTeacherToClass(TotalClassName); // execute the command 
+    }
+
+    public List<string> IsAlreadyMainTeacher(string id)
+    {
+        return db.IsAlreadyMainTeacher(id);
+    }
+
     public int AddParent(string PupilID, string ParentID)
     {
         return db.AddParent(PupilID, ParentID);

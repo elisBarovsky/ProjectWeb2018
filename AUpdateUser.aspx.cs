@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 
 public partial class UpdateUser : System.Web.UI.Page
 {
+    string tempList = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -34,6 +35,7 @@ public partial class UpdateUser : System.Web.UI.Page
             VisiblePupil(false);
             VisibleOtherUsers(true);
             FillUsers();
+            tempList = "2";
         }
         else
         {
@@ -142,9 +144,17 @@ public partial class UpdateUser : System.Web.UI.Page
         }
     }
 
-    public static string KeyByValue(Dictionary<string, string> dict, string val)
+    public string KeyByValue(Dictionary<string, string> dict, string val)
     {
         string key = null;
+        if (dict==null & val =="")
+        {
+            if (UserTypeDLL.SelectedValue == "2")
+            {
+                dict = (Dictionary<string, string>)(Session["UsersList"]);
+                val = UserIDTB.Text;
+            }
+        }
         foreach (KeyValuePair<string, string> pair in dict)
         {
             if (pair.Value == val)
@@ -260,10 +270,22 @@ public partial class UpdateUser : System.Web.UI.Page
             {
                 Users TeacherUser = new Users();
                 string IsMain = "0";
-                if (MainTeacherCB.Checked) { IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString()); }
+                if (MainTeacherCB.Checked)
+                {
+                    IsMain = "1";
+                    List<string> Classes = TeacherUser.IsAlreadyMainTeacher(UserIDTB.Text);
+                    if (Classes.Count>0)
+                    {
+                        for (int i = 0; i < Classes.Count; i++)
+                        {
+                            Users TeacherDeleteClass = new Users();
+                            TeacherDeleteClass.DeleteMainTeacherToClass(Classes[i]);
+                        }
+                    }
+                }
 
-                Users MainTeacherUser = new Users();
-                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain);
+                Users MainTeacherUserCheck = new Users();
+                int res = MainTeacherUserCheck.UpdateTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
             }
             else if (UserTypeDLL.SelectedValue == "3")
             {
@@ -276,7 +298,19 @@ public partial class UpdateUser : System.Web.UI.Page
         else
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בעדכון המשתמש, בדוק נתונים');", true);
-            //MessegaeLBL.Text = "הייתה בעיה בעדכון המשתמש, בדוק נתונים";
         }
+    }
+
+    protected void MainTeacherCB_CheckedChanged(object sender, EventArgs e)
+    {
+        if (MainTeacherCB.Checked)
+        {
+            ClassOt2DLL.Visible = true;
+        }
+        else
+        {
+            ClassOt2DLL.Visible = false;
+        }
+       
     }
 }
