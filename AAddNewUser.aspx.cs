@@ -131,7 +131,7 @@ public partial class AddNewUser : System.Web.UI.Page
                 }
                 else
                 {
-                    int num4 = UsersParentUser.AddParent(ChildI1DTB.Text, UserIDTB.Text);
+                    //int num4 = UsersParentUser.AddParent(ChildI1DTB.Text, UserIDTB.Text);
                 }
          
             }

@@ -179,6 +179,8 @@ public partial class timeTable : System.Web.UI.Page
         addB.CssClass = "btn btn-primary";
         ButtonSave.Visible = false;
         ButtonUpdate.Visible = true;
+        ddl_clasesAdd.ClearSelection();
+        ddl_clasesEdit.ClearSelection();
         ddl_clasesAdd.Visible = false;
         ddl_clasesEdit.Visible = true;
         ClearTimeTable();
@@ -190,6 +192,8 @@ public partial class timeTable : System.Web.UI.Page
         updateB.CssClass = "btn btn-primary";
         ButtonSave.Visible = true;
         ButtonUpdate.Visible = false;
+        ddl_clasesAdd.SelectedValue = "0";
+        ddl_clasesEdit.SelectedValue = "0";
         ddl_clasesAdd.Visible = true;
         ddl_clasesEdit.Visible = false;
         ClearTimeTable();
@@ -218,7 +222,7 @@ public partial class timeTable : System.Web.UI.Page
     {
         if (ButtonUpdate.Visible == true)
         {
-                int classCode = int.Parse(ddl_clasesEdit.SelectedValue.ToString());
+            int classCode = int.Parse(ddl_clasesEdit.SelectedValue.ToString());
             FillTimeTableAccordingToClassCode(classCode);
             return;
         }
