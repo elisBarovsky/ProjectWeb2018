@@ -19,9 +19,14 @@ public partial class AAddLessons : System.Web.UI.Page
     {
         Subject newS = new Subject();
         string newSubject = LessonsNameTB.Text;
-        if (newS.IsExists(newSubject) || newSubject == "")
+        if (newS.IsExists(newSubject))
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('המקצוע כבר קיים ברשימת המקצועות.');", true);
+            return;
+        }
+        else if ( newSubject == "")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא הוזן מקצוע.');", true);
             return;
         }
         else
