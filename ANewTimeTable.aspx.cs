@@ -15,13 +15,13 @@ public partial class timeTable : System.Web.UI.Page
             CreateEmptyTimeTable();
         //}
 
-}
+    }
 
     protected void FillFirstItem(object sender, EventArgs e)
     {
         string Value;
 
-        if ((sender as DropDownList).ID == "ddl_clases")
+        if ((sender as DropDownList).ID == "ddl_clasesAdd" || (sender as DropDownList).ID == "ddl_clasesEdit")
         {
             Value = "בחר כיתה";
         }
@@ -98,14 +98,14 @@ public partial class timeTable : System.Web.UI.Page
 
     protected void ButtonSave_Click(object sender, EventArgs e)
     {
-        if (ddl_clases.SelectedValue == "0")
+        if (ddl_clasesAdd.SelectedValue == "0")
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן לשמור מערכת ללא בחירת כיתה.');", true);
             //CreateEmptyTimeTable();
             return;
         }
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
-        string classCode = ddl_clases.SelectedValue;
+        string classCode = ddl_clasesAdd.SelectedValue;
         string CodeLesson; //מקצוע
         string teacherID;
         TimeTable TT = new TimeTable();
@@ -173,7 +173,9 @@ public partial class timeTable : System.Web.UI.Page
         addB.CssClass = "btn btn-primary";
         ButtonSave.Visible = false;
         ButtonUpdate.Visible = true;
-        CreateEmptyTimeTable();
+        ddl_clasesAdd.Visible = false;
+        ddl_clasesEdit.Visible = true;
+        ClearTimeTable();
     }
 
     protected void PreparePageToAddNew(object sender, EventArgs e)
@@ -182,38 +184,38 @@ public partial class timeTable : System.Web.UI.Page
         updateB.CssClass = "btn btn-primary";
         ButtonSave.Visible = true;
         ButtonUpdate.Visible = false;
-        CreateEmptyTimeTable();
+        ddl_clasesAdd.Visible = true;
+        ddl_clasesEdit.Visible = false;
+        ClearTimeTable();
     }
 
-    //protected void ClearTimeTable()
-    //{
-    //    TimeTable = null;
-    //    int counter = 1;
-    //    for (int i = 1; i < TimeTable.Rows.Count; i++)
-    //    {
-    //        // cells - the days <>.
-    //        for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
-    //        {
-    //            string subjectID = "DDLsubject" + counter;
-    //            string TID = "DDLteacher" + counter;
-    //            (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue = "0";
-    //            (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue = "0";
+    protected void ClearTimeTable()
+    {
+        int counter = 1;
+        for (int i = 1; i < TimeTable.Rows.Count; i++)
+        {
+            // cells - the days <>.
+            for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
+            {
+                string subjectID = "DDLsubject" + counter;
+                string TID = "DDLteacher" + counter;
+                (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue = "0";
+                (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue = "0";
 
-    //            counter++;
-    //        }
-    //    }
+                counter++;
+            }
+        }
 
-    //}
+    }
 
     protected void ddl_clases_SelectedIndexChanged(object sender, EventArgs e)
     {
         if (ButtonUpdate.Visible == true)
         {
-                int classCode = ddl_clases.SelectedIndex;
+                int classCode = int.Parse(ddl_clasesEdit.SelectedValue.ToString());
             FillTimeTableAccordingToClassCode(classCode);
             return;
         }
-        //CreateEmptyTimeTable();
 
     }
 
@@ -226,8 +228,7 @@ public partial class timeTable : System.Web.UI.Page
 
         //TT from the DB
         List<Dictionary<string, string>> allLessons = TT.GetTimeTableAcordingToClassCode(classCode);
-        CreateEmptyTimeTable();
-
+        //CreateEmptyTimeTable();
         //rows ^
         for (int i = 1; i < TimeTable.Rows.Count; i++)
         {
