@@ -286,6 +286,8 @@ public partial class UpdateUser : System.Web.UI.Page
 
                 Users MainTeacherUserCheck = new Users();
                 int res = MainTeacherUserCheck.UpdateTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
+                Users MainTeacherUpdateClass= new Users();
+                int res13 = MainTeacherUpdateClass.AddMainTeacherToClass(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString());
             }
             else if (UserTypeDLL.SelectedValue == "3")
             {

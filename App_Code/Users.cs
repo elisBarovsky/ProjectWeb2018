@@ -168,6 +168,11 @@ public class Users
         return db.UpdateTeacher(UserID, IsMain, ClassOt);
     }
 
+    public int AddMainTeacherToClass(string id, string OtClass)
+    {
+        return db.AddMainTeacherToClass(id, OtClass); 
+    }
+
     public Dictionary<string, string> getPupils(string classCode)
     {
         return db.getPupils(classCode);
