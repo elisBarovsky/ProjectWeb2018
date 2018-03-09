@@ -246,13 +246,19 @@ public partial class timeTable : System.Web.UI.Page
             for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
             {
                 Dictionary<string, string> lessonInTT = ReturnIfLessonExsistsInTT(i, j, allLessons);
+                string subjectID = "DDLsubject" + counter;
+                string TID = "DDLteacher" + counter;
 
                 if (lessonInTT.Count > 0)
                 {
-                    string subjectID = "DDLsubject" + counter;
-                    string TID = "DDLteacher" + counter;
+                    
                     (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue = lessonInTT["CodeLesson"];
                     (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue = lessonInTT["TeacherId"];
+                }
+                else
+                {
+                    (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue = "0";
+                    (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue = "0";
                 }
 
                 counter++;
