@@ -63,7 +63,6 @@ public partial class timeTable : System.Web.UI.Page
 
                 DropDownList dTeacher = new DropDownList();
                 dTeacher.ID = "DDLteacher" + counter;
-                dTeacher.CssClass = "DDL";
                 dTeacher.DataSource = teachers;
                 dTeacher.DataValueField = "Key";
                 dTeacher.DataTextField = "Value";
