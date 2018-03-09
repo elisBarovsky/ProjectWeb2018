@@ -117,7 +117,7 @@
 
                 </td>
                 <td>
-                    <asp:CheckBox ID="MainTeacherCB" runat="server" />
+                    <asp:CheckBox ID="MainTeacherCB" runat="server"  AutoPostBack="true" OnCheckedChanged="MainTeacherCB_CheckedChanged"/>
                 </td>
                 <td>
                     <asp:Label ID="MainTeacher" runat="server" Text=" האם מחנך"></asp:Label>

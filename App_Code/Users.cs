@@ -168,6 +168,11 @@ public class Users
         return db.UpdateTeacher(UserID, IsMain, ClassOt);
     }
 
+    public int AddMainTeacherToClass(string id, string OtClass)
+    {
+        return db.AddMainTeacherToClass(id, OtClass); 
+    }
+
     public Dictionary<string, string> getPupils(string classCode)
     {
         return db.getPupils(classCode);
@@ -186,6 +191,16 @@ public class Users
     public int AddClassTeacher(string UserID, string ClassOt)
     {
         return db.AddMainTeacherToClass(UserID, ClassOt);
+    }
+
+    public int DeleteMainTeacherToClass(string TotalClassName)
+    {  
+        return db.DeleteMainTeacherToClass(TotalClassName); // execute the command 
+    }
+
+    public List<string> IsAlreadyMainTeacher(string id)
+    {
+        return db.IsAlreadyMainTeacher(id);
     }
 
     public int AddParent(string PupilID, string ParentID)
