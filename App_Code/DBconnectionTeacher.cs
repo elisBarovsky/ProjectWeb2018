@@ -69,7 +69,7 @@ public class DBconnectionTeacher
 
     public DataTable FilterTelphoneList(string UserTypeFilterType, string ClassFilter)
     {
-        string selectSTR = "  SELECT (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as 'שם מלא', dbo.Users.PhoneNumber as 'מספר סלולרי'" +
+        string selectSTR = "  SELECT  dbo.Users.PhoneNumber as 'מספר סלולרי', (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as 'שם מלא' " +
                        " FROM dbo.Users full JOIN dbo.PupilsParent ON dbo.Users.UserID = dbo.PupilsParent.PupilID  AND dbo.Users.UserID = dbo.PupilsParent.ParentID Full JOIN" +
                        " dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID   where dbo.Users.CodeUserType='" + UserTypeFilterType + "'and dbo.Pupil.CodeClass='" + ClassFilter + "'";
         SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter

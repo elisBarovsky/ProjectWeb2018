@@ -5,15 +5,26 @@
         .auto-style1 {
             height: 22px;
         }
+
+        .auto-style2 {
+            height: 22px;
+        }
+
+        table {
+            align-self: center;
+            width: 80%;
+            /*border-collapse: collapse;
+            table-layout: fixed;*/
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
         <h2 style="text-align: center">דף קשר</h2>
-        <table class="auto-style2" align="right">
+        <table class="auto-style2" align="center" >
             <tr>
-                <td>
-                    <asp:Button ID="TLBTN" runat="server" Text="צפה" CssClass="form-btn" OnClick="TLBTN_Click" /></td>
+                <td class="auto-style2">
+                    <asp:Button ID="TLBTN" runat="server" Text="צפה" CssClass="form-btn" OnClick="TLBTN_Click" Font-Overline="False" Font-Size="Medium" Height="30px" Width="70px" /></td>
                 <td align="left" class="auto-style1">
                     <asp:RadioButtonList ID="FilterNotes" runat="server" RepeatDirection="Horizontal" Width="349px">
                         <asp:ListItem Text="הורים" Value="3" />
@@ -22,7 +33,7 @@
                 <td class="auto-style1" align="left">
                     <asp:Label ID="Label1" runat="server" Text="בחר קבוצה"></asp:Label>
                 </td>
-                <td></td>
+                <td class="auto-style2"></td>
                 <td align="right" class="auto-style1">
                     <asp:DropDownList ID="ChooseClassDLL" runat="server"></asp:DropDownList></td>
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator_Class" runat="server" ControlToValidate="ChooseClassDLL" ErrorMessage="עליך לבחור כיתה" InitialValue="0"></asp:RequiredFieldValidator>
