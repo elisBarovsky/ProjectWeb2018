@@ -47,7 +47,7 @@
         </asp:table>
         <br /><br />
         <asp:Button ID="ButtonSave" CssClass="form-btn"  runat="server" Text="שמור" visible="true" OnClick="ButtonSave_Click" />
-        <asp:Button ID="ButtonUpdate" CssClass="form-btn"  runat="server" Text="עדכן" Visible="false"/>
+        <asp:Button ID="ButtonUpdate" CssClass="form-btn"  runat="server" Text="עדכן" Visible="false" OnClick="ButtonUpdate_Click"/>
         </div>
 </asp:Content>
 

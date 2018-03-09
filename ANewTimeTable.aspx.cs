@@ -273,4 +273,83 @@ public partial class timeTable : System.Web.UI.Page
 
         return lessonInTT;
     }
+
+    protected void ButtonUpdate_Click(object sender, EventArgs e)
+    {
+        TimeTable TT = new TimeTable();
+
+        //delete timetablelessom acording to class and delete timetable acording to class
+        if (ddl_clasesEdit.SelectedValue == "0")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן לעדכן מערכת ללא בחירת כיתה.');", true);
+            return;
+        }
+
+        List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
+        string classCode = ddl_clasesEdit.SelectedValue;
+        int answer = TT.DeleteTimeTable(classCode);
+        if (answer > 0)
+        {
+            //call the save time table function
+            string CodeLesson; //מקצוע
+            string teacherID;
+            int counter = 1;
+            bool flag = false;
+            // rows - ^.
+            for (int i = 1; !flag && i < TimeTable.Rows.Count; i++)
+            {
+                // cells - the days <>.
+                for (int j = 1; j < TimeTable.Rows[i].Cells.Count; j++)
+                {
+                    string subjectID = "DDLsubject" + counter;
+                    string TID = "DDLteacher" + counter;
+                    CodeLesson = (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as DropDownList).SelectedValue;
+                    teacherID = (TimeTable.Rows[i].Cells[j].FindControl(TID) as DropDownList).SelectedValue;
+                    if (CodeLesson == "0" && teacherID != "0")
+                    {
+                        flag = true;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא ניתן להזין מורה ללא מקצוע נלמד.');", true);
+                    }
+                    else if (CodeLesson != "0" && teacherID == "0")
+                    {
+                        flag = true;
+                        ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן להזין מקצוע ללא מורה.');", true);
+                    }
+                    else if (CodeLesson != "0" && teacherID != "0")
+                    {
+                        Dictionary<string, string> lessonInTimeTable = new Dictionary<string, string>();
+                        lessonInTimeTable.Add("classCode", classCode); //className
+                        lessonInTimeTable.Add("CodeWeekDay", j.ToString()); //numDay
+                        lessonInTimeTable.Add("ClassTimeCode", i.ToString()); //numLesson - 1 is the first lesson.
+                        lessonInTimeTable.Add("CodeLesson", CodeLesson);
+                        lessonInTimeTable.Add("TeacherID", teacherID);
+
+                        matrix.Add(lessonInTimeTable);
+                    }
+                    else
+                    {
+                        Dictionary<string, string> empty = new Dictionary<string, string>();
+                        empty.Add("classCode", "empty");
+                        matrix.Add(empty);
+                    }
+
+                    counter++;
+                }
+            }
+            if (!flag)
+            {
+                int rowsAffected = TT.InsertTimeTable(matrix, classCode);
+                if (rowsAffected > 0)
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ANewTimeTable.aspx';", true);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('קרתה תקלה בעת שמירת המערכת. נא צור קשר עם שירות הלקוחות בטלפון: 1-800-400-400 AIG');", true);
+                }
+
+            }
+        }
+
+    }
 }

@@ -634,5 +634,13 @@ public class DBconnection
         }
         return false;
     }
+
+    public int DeleteTimeTable(string classCode)
+    {
+        String selectSTR = "DELETE T2 FROM dbo.TimetableLesson as T2 INNER JOIN dbo.Timetable as T1 ON T2.TimeTableCode = T1.TimeTableCode where T1.ClassCode = " + classCode;
+        SqlCommand cmd;
+        cmd = CreateCommand(selectSTR, con);        
+        return ExecuteNonQuery(cmd);
+    }
 }
 

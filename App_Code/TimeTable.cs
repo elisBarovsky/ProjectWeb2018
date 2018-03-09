@@ -31,4 +31,9 @@ public class TimeTable
     {
         return db.IsClassHasTimeTable(classCodee);
     }
+
+    public int DeleteTimeTable(string classCode)
+    {
+        return db.DeleteTimeTable(classCode);
+    }
 }
