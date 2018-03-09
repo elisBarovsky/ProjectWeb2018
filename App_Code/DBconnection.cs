@@ -22,7 +22,7 @@ public class DBconnection
         con = connect("Betsefer");
     }
 
-    public SqlConnection connect(String conString)  // read the connection string from the configuration file
+    public SqlConnection connect(String conString) 
     {
         string cStr = WebConfigurationManager.ConnectionStrings[conString].ConnectionString;
         SqlConnection con = new SqlConnection(cStr);
@@ -30,31 +30,15 @@ public class DBconnection
         return con;
     }
 
-    //---------------------------------------------------------------------------------
-    // Create the SqlCommand
-    //---------------------------------------------------------------------------------
     private SqlCommand CreateCommand(String CommandSTR, SqlConnection con)
     {
-        SqlCommand cmd = new SqlCommand(); // create the command object
-        cmd.Connection = con;              // assign the connection to the command object
-        cmd.CommandText = CommandSTR;      // can be Select, Insert, Update, Delete 
-        cmd.CommandTimeout = 10;           // Time to wait for the execution' The default is 30 seconds
-        cmd.CommandType = System.Data.CommandType.Text; // the type of the command, can also be stored procedure
+        SqlCommand cmd = new SqlCommand(); 
+        cmd.Connection = con;            
+        cmd.CommandText = CommandSTR;      
+        cmd.CommandTimeout = 10;           
+        cmd.CommandType = System.Data.CommandType.Text; 
         return cmd;
     }
-
-    //--------------------------------------------------------------------
-    // Read from the DB into a table
-    //--------------------------------------------------------------------
-
-    //public void readCarsDataBase()
-    //{
-    //    String selectStr = "SELECT * FROM Cars"; // create the select that will be used by the adapter to select data from the DB
-    //    SqlDataAdapter da = new SqlDataAdapter(selectStr, con); // create the data adapter
-    //    DataSet ds = new DataSet("carsDS"); // create a DataSet and give it a name (not mandatory) as defualt it will be the same name as the DB
-    //    da.Fill(ds);       // Fill the datatable (in the dataset), using the Select command
-    //    dt = ds.Tables[0]; // point to the cars table , which is the only table in this case
-    //}
 
     public string GetUserType(string UserID, string password)
     {
@@ -154,7 +138,7 @@ public class DBconnection
 
     public List<string> GetUserInfo(string UserID)
     {
-        string UserFName, UserLName, BirthDate, UserImg, UserName, UserPassword, PhoneNumber;
+        string UserFName, UserLName, BirthDate, UserImg, UserPassword, PhoneNumber;
         String selectSTR = "select * from [dbo].[Users] where UserID  = '" + UserID + "'" ;
         SqlCommand cmd = new SqlCommand(selectSTR, con);
         SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
@@ -202,7 +186,7 @@ public class DBconnection
     {
         SqlCommand cmd;
         String cStr = "update[dbo].[Users] set[LoginPassword] = ('" + Password + "') WHERE UserID = '" + userID + "'";
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd = CreateCommand(cStr, con);            
         return ExecuteNonQuery(cmd);
     }
 
@@ -216,29 +200,6 @@ public class DBconnection
         while (dr.Read())
         {
             Ot = dr["OtClass"].ToString();
-            l.Add(Ot);
-        }
-        return l;
-    }
-
-    public int InsertLesson(string ClassOt, string ClassNum)  //****************************************************** fix!
-    {
-        SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[Class]  ([OtClass], [NumClass], [MainTeacherID], [TotalName]) VALUES ('" + ClassOt + "', '" + ClassNum + "',null,'" + ClassOt + ClassNum + "')";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd);
-    }
-
-    public List<string> LessonExites(string ClassOt, string ClassNum) //**************************************************** fix!
-    {
-        String selectSTR = "select [TotalName] from [dbo].[Class] where [TotalName] = '" + ClassOt + ClassNum + "'";
-        SqlCommand cmd = new SqlCommand(selectSTR, con);
-        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-        string Ot;
-        List<string> l = new List<string>();
-        while (dr.Read())
-        {
-            Ot = dr["TotalName"].ToString();
             l.Add(Ot);
         }
         return l;
@@ -263,7 +224,7 @@ public class DBconnection
     {
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Class]  ([OtClass], [NumClass], [MainTeacherID], [TotalName]) VALUES ('" + ClassOt + "', '"+ ClassNum + "',null,'" + ClassOt+ ClassNum + "')";
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd = CreateCommand(cStr, con);      
         return ExecuteNonQuery(cmd);
     }
 
@@ -311,8 +272,8 @@ public class DBconnection
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Users] ([UserID],[UserFName],[UserLName],[BirthDate],[UserImg],[LoginName],[LoginPassword],[PhoneNumber],[CodeUserType],[SecurityQ1Code],[SecurityQ1Answer],[alreadyLogin],[SecurityQ2Code],[SecurityQ2Answer])" +
                      " VALUES('"+ NewUser.UserID1+"','"+ NewUser.UserFName1+"','"+ NewUser.UserLName1+"','"+ NewUser.BirthDate1+"','"+ NewUser.UserImg1+"','"+ NewUser.UserName1+"','"+ NewUser.UserPassword1+"','"+ NewUser.PhoneNumber1+"','"+ NewUser.CodeUserType1+ "' , null, null, 0, null, null)";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);           
+        return ExecuteNonQuery(cmd);   
     }
 
     public int InsertTimeTable(List<Dictionary<string, string>> matrix, string classCode)
@@ -381,8 +342,8 @@ public class DBconnection
     {
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Pupil]([UserID] ,[CodePgroup],[CodeClass])  VALUES ('"+ UserID + "' ,'"+ GroupType + "' ,"+ classNumber + ")";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);          
+        return ExecuteNonQuery(cmd);  
     }
 
     public string GetNumChild(string UserID)
@@ -400,10 +361,10 @@ public class DBconnection
     }
     public int UpdatePupil(string userID, string CodePgroup, string ClassOt)
     {
-        SqlCommand cmd;                                                                      //GetCodeClass(ClassOt)
+        SqlCommand cmd;                                                                 
         String cStr = "UPDATE[dbo].[Pupil] [CodePgroup]='" + CodePgroup + "',[CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);         
+        return ExecuteNonQuery(cmd);   
     }
 
     public int AddTeacher(string UserID, string IsMain)
@@ -411,23 +372,23 @@ public class DBconnection
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Teachers] ([TeacherID] ,[IsMainTeacher]) VALUES ('"+ UserID + "' ,'"+ IsMain + "')";
         cmd = CreateCommand(cStr, con);
-       return ExecuteNonQuery(cmd);// execute the command  
+       return ExecuteNonQuery(cmd);
     }
 
     public int UpdateTeacher(string UserID, string IsMain, string ClassOt)
     {
         SqlCommand cmd;
         String cStr = "UPDATE [dbo].[Teachers]  SET [IsMainTeacher] = '" + IsMain + "' where [TeacherID]='" + UserID + "'";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);            
+        return ExecuteNonQuery(cmd);  
     }
 
     public int UpdateClassTeacher(string UserID, string ClassOt)
     {
         SqlCommand cmd;
         String cStr = "UPDATE [dbo].[Class] SET [MainTeacherID] = '" + UserID + "' where [TotalName]='" + ClassOt + "'";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);          
+        return ExecuteNonQuery(cmd);  
     }
 
     public int AddParent( string ParentID, string PupilID)
@@ -435,39 +396,39 @@ public class DBconnection
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID]) VALUES ('" + ParentID + "' ,'" + PupilID + "')";
         cmd = CreateCommand(cStr, con);
-        return ExecuteNonQuery(cmd);// execute the command  
+        return ExecuteNonQuery(cmd); 
     }
 
     public int UpdateParent(string PupilID, string ParentID)
     {
         SqlCommand cmd;
         String cStr = "UPDATE [dbo].[PupilsParent] SET [PupilID] = '" + PupilID + "' ,[ParentID] = '" + ParentID + "' WHERE [ParentID]= '" + ParentID + "'";
-        cmd = CreateCommand(cStr, con);             // create the command
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);             
+        return ExecuteNonQuery(cmd);    
     }
 
     public int ChangeFirstLogin(string id)
     {
         SqlCommand cmd;
         String cStr = "update Users set alreadyLogin = 1  where UserID = '" + id + "'";
-        cmd = CreateCommand(cStr, con);             // create the command      
-        return ExecuteNonQuery(cmd); // execute the command   
+        cmd = CreateCommand(cStr, con);                   
+        return ExecuteNonQuery(cmd); 
     }
 
     public int AddMainTeacherToClass(string id,string OtClass)
     {
         SqlCommand cmd;     
         String cStr= "update Class set MainTeacherID = '" + id + "'  where TotalName = '" + OtClass + "'";
-        cmd = CreateCommand(cStr, con);             // create the command      
-        return ExecuteNonQuery(cmd); // execute the command 
+        cmd = CreateCommand(cStr, con);              
+        return ExecuteNonQuery(cmd);
     }
 
     public int DeleteMainTeacherToClass(string TotalClassName)
     {
         SqlCommand cmd;
         String DeletePrevieusClassTeacher = "update Class set MainTeacherID = null where TotalName = '" + TotalClassName + "'";
-        cmd = CreateCommand(DeletePrevieusClassTeacher, con);             // create the command      
-        return ExecuteNonQuery(cmd); // execute the command 
+        cmd = CreateCommand(DeletePrevieusClassTeacher, con);                 
+        return ExecuteNonQuery(cmd); 
     }
 
     public List<string> IsAlreadyMainTeacher(string id)
@@ -654,4 +615,3 @@ public class DBconnection
         return ExecuteNonQuery(cmd);
     }
 }
-

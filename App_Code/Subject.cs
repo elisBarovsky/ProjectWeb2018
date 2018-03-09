@@ -29,7 +29,8 @@ public class Subject
         return db.IsExists(newSubject);
     }
 
-    public int AddNewSubject(string newSubject) {
+    public int AddNewSubject(string newSubject)
+    {
         return db.AddNewSubject(newSubject);
     }
 }
