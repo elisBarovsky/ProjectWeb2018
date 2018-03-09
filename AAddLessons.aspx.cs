@@ -34,7 +34,7 @@ public partial class AAddLessons : System.Web.UI.Page
             int answer = newS.AddNewSubject(newSubject);
             if (answer > 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מקצוע חדש נוסף.');", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('המקצוע נוסף בהצלחה') ; location.href='AAddLessons.aspx';", true);
                 
             }
             else

@@ -59,7 +59,7 @@ public partial class AAddClasses : System.Web.UI.Page
             }
             else
             {
-              ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בהכנסת הכיתה, פנה לשירות לקוחות');", true);
+              ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('עקב תקלה לא ניתן להוסיף מקצוע זה.<br/> אנא נסה מאוחר יותר. במידה והתקלה נמשכת אנא פנה לשירות הלקוחות.');", true);
             }
         }
     }
