@@ -383,13 +383,11 @@ public partial class UpdateUser : System.Web.UI.Page
         {
             NumChildDDL.Visible = true;
             ChildIDLBL.Visible=true;
-            ChildI1DTB.Visible = true;
             ChoosenNumChildDDL.Visible = true;
             ChoosenNumChildLBL.Visible = true;
         }
         else
         {
-            ChildI1DTB.Visible = false;
             NumChildDDL.Visible = false;
             ChildIDLBL.Visible = false;
             ChoosenNumChildDDL.Visible = false;
