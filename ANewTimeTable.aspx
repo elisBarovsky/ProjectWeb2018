@@ -9,7 +9,9 @@
     border-collapse:collapse;
     table-layout: fixed;
 }
-
+.DDL{
+    border: 2px solid #92a8d1;
+}
 
     </style>
 </asp:Content>
