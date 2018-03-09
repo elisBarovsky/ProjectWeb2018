@@ -125,6 +125,7 @@ public partial class AddNewUser : System.Web.UI.Page
             else if(UserTypeDLL.SelectedValue == "3")  
             {
                 Users UsersParentUser = new Users();
+<<<<<<< HEAD
                 if (NumOfChildDDL.SelectedValue!="1")
                 {
 
@@ -134,6 +135,9 @@ public partial class AddNewUser : System.Web.UI.Page
                     //int num4 = UsersParentUser.AddParent(ChildI1DTB.Text, UserIDTB.Text);
                 }
          
+=======
+                int num4 = UsersParentUser.AddParent(UserIDTB.Text, ChildI1DTB.Text, ChildI2DTB.Text, ChildI3DTB.Text, ChildI4DTB.Text, ChildI5DTB.Text, ChildI5DTB.Text);
+>>>>>>> f1c2896751b383d3781ebcbf5b1e8041933fd1a6
             }
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש נוסף בהצלחה'); location.href='AAddNewUser.aspx';", true);
         }
