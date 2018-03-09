@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
         .auto-style1 {
-            width: 100%;
+            width: 80%;
             position: center;
         }
     </style>
@@ -19,7 +19,7 @@
         <br />
         <br />
 
-        <table class="auto-style1">
+        <table class="auto-style1" align="center">
             <tr>
                 <td>
                     <asp:RadioButtonList ID="GroupAgeDLL" required="required" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" RepeatDirection="Horizontal"></asp:RadioButtonList>
@@ -57,7 +57,6 @@
                 <td>תעודת זהות</td>
                 <td>
                     <asp:Calendar ID="Calendar1" runat="server" autopostback="false" />
-
                 </td>
                 <td>תאריך לידה</td>
             </tr>
@@ -88,8 +87,7 @@
                     <asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox>
                 </td>
                 <td>סיסמה</td>
-            </tr>
-              <br />
+            </tr>      
             <tr>
                 <td>
                     <asp:TextBox ID="ChildI1DTB" runat="server" required="required"></asp:TextBox><br />

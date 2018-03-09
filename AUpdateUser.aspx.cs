@@ -16,9 +16,34 @@ public partial class UpdateUser : System.Web.UI.Page
             VisibleOtherUsers(false);
             ClearAll();
             UpdateUserBTN.Visible = false;
+            FillNumChilds();
+            HideChildTBID();
+            NumChildLBL.Visible = false;
+            NumChildDDL.Visible = false;
+            VisibleParent(false);
         }
     }
 
+    private void FillNumChilds()
+    {
+        List<int> NumChild = new List<int>();
+        for (int i = 1; i < 7; i++)
+        {
+            NumChild.Add(i);
+        }
+        NumChildDDL.DataSource = NumChild;
+        NumChildDDL.DataBind();
+    }
+
+    protected void HideChildTBID()
+    {
+        ChildI1DTB.Visible = false;
+        ChildI2DTB.Visible = false;
+        ChildI3DTB.Visible = false;
+        ChildI4DTB.Visible = false;
+        ChildI5DTB.Visible = false;
+        ChildI6DTB.Visible = false;
+    }
     protected void UserTypeDLL_CheckedChanged(object sender, EventArgs e)
     {
          ClearAll();
@@ -39,6 +64,7 @@ public partial class UpdateUser : System.Web.UI.Page
         }
         else
         {
+            if (UserTypeDLL.SelectedValue == "3") { VisibleParent(true); }
             VisibleTeacherUsers(false);
             VisiblePupil(false);
             VisibleOtherUsers(true);
@@ -130,11 +156,10 @@ public partial class UpdateUser : System.Web.UI.Page
         LNameTB.Text = UserInfo[1];
         BirthDateTB.Text = UserInfo[2];
         ChangeBdateCB.Visible = true;
-        UserNameTB.Text = UserInfo[3];
-        PasswordTB.Text = UserInfo[4];
-        TelephoneNumberTB.Text = UserInfo[5];
+        PasswordTB.Text = UserInfo[3];
+        TelephoneNumberTB.Text = UserInfo[4];
 
-        if (UserInfo[6]=="")
+        if (UserInfo[5]=="")
         {
             UserIMG.ImageUrl = "/Images/NoImg.png";
         }
@@ -201,6 +226,11 @@ public partial class UpdateUser : System.Web.UI.Page
         ChooseOtherUsers.Visible = ans;
     }
 
+    protected void VisibleParent(bool ans)
+    {
+        UpdateChild.Visible = ans;
+    }
+
     protected void VisibleTeacherUsers(bool ans)
     {
         MainTeacher.Visible = ans;
@@ -213,17 +243,14 @@ public partial class UpdateUser : System.Web.UI.Page
         FNameTB.Text = "";
         LNameTB.Text = "";
         Calendar1.SelectedDate = Calendar1.TodaysDate;
-        UserNameTB.Text = "";
         PasswordTB.Text = "";
         TelephoneNumberTB.Text = "";
-        ChildIDTB.Text = "";
         UserIMG.ImageUrl = "";
         UserIMG.Visible = false;
         BirthDateTB.Text = "";
         ChangeBdateCB.Visible = false;
         ChangeBdateCB.Checked = false;
         Calendar1.Visible = false;
-        ChildIDTB.Visible = false;
         ChildIDLBL.Visible = false;
         MainTeacher.Visible = false;
         MainTeacherCB.Visible = false;
@@ -238,11 +265,11 @@ public partial class UpdateUser : System.Web.UI.Page
         {
             if (ChangeBdateCB.Checked == false)
             {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text,"", UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text,"", "", PasswordTB.Text, TelephoneNumberTB.Text);
             }
             else
             {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(),"", UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(),"", "", PasswordTB.Text, TelephoneNumberTB.Text);
             }
         }
         else
@@ -251,11 +278,11 @@ public partial class UpdateUser : System.Web.UI.Page
 
             if (ChangeBdateCB.Checked == false)
             {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text, "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text, "/Images/" + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
             }
             else
             {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, UserNameTB.Text, PasswordTB.Text, TelephoneNumberTB.Text);
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
             }
         }                                                                                                                       //folderPath // להוריד ירוק כשיהיה בשרת
 
@@ -292,7 +319,7 @@ public partial class UpdateUser : System.Web.UI.Page
             else if (UserTypeDLL.SelectedValue == "3")
             {
                 Users UsersParentUser = new Users();
-                int num4 = UsersParentUser.UpdateParent(ChildIDTB.Text, UserIDTB.Text); ;
+                int num4 = UsersParentUser.UpdateParent("", UserIDTB.Text); ;
             }
 
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש עודכן בהצלחה'); location.href='AUpdateUser.aspx';", true);
@@ -314,5 +341,78 @@ public partial class UpdateUser : System.Web.UI.Page
             ClassOt2DLL.Visible = false;
         }
        
+    }
+
+    protected void UpdateChild_CheckedChanged(object sender, EventArgs e)
+    {
+        if (UpdateChild.Checked)
+        {
+            NumChildLBL.Visible = true;
+            NumChildDDL.Visible = true;
+            ChildIDLBL.Visible=true;
+            ChildI1DTB.Visible = true;
+        }
+        else
+        {
+            ChildI1DTB.Visible = false;
+            NumChildLBL.Visible = false;
+            NumChildDDL.Visible = false;
+            ChildIDLBL.Visible = false;
+        }
+    }
+
+    protected void NumChildDDL_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        switch (NumChildDDL.SelectedValue)
+        {
+            case "1":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = false;
+                ChildI3DTB.Visible = false;
+                ChildI4DTB.Visible = false;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "2":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = false;
+                ChildI4DTB.Visible = false;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "3":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = false;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "4":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = true;
+                ChildI5DTB.Visible = false;
+                ChildI6DTB.Visible = false;
+                break;
+            case "5":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = true;
+                ChildI5DTB.Visible = true;
+                ChildI6DTB.Visible = false;
+                break;
+            case "6":
+                ChildI1DTB.Visible = true;
+                ChildI2DTB.Visible = true;
+                ChildI3DTB.Visible = true;
+                ChildI4DTB.Visible = true;
+                ChildI5DTB.Visible = true;
+                ChildI6DTB.Visible = true;
+                break;
+        }
     }
 }

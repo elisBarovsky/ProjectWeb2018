@@ -169,8 +169,6 @@ public class DBconnection
             UserInfo.Add(UserLName);
             BirthDate = dr["BirthDate"].ToString();
             UserInfo.Add(BirthDate);
-            UserName = dr["LoginName"].ToString();
-            UserInfo.Add(UserName);
             UserPassword = dr["LoginPassword"].ToString();
             UserInfo.Add(UserPassword);
             PhoneNumber = dr["PhoneNumber"].ToString();

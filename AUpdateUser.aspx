@@ -3,13 +3,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
         .auto-style1 {
-            width: 100%;
+            width: 80%;
             position: center;
         }
 
-        .auto-style2 {
-            width: 446px;
-        }
     </style>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
@@ -17,7 +14,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
         <h2 style="text-align: center">ניהול משתמשים</h2>
-        <div class="btn-group" style="position: relative; left: 40%;">
+        <div class="btn-group" style="position: relative; left: 45%;">
             <button type="button" class="wrapper btn btn-primary " onclick="location.href = 'AAddNewUser.aspx';">הוספה  </button>
             <button type="button" class="wrapper btn btn-primary active " onclick="location.href = 'AUpdateUser.aspx';">עדכון</button>
         </div>
@@ -25,9 +22,9 @@
         <br />
 
 
-        <table class="auto-style1">
+        <table class="auto-style1" align="center">
             <tr>
-                <td class="auto-style2">
+                <td >
                     <asp:DropDownList ID="ClassOt1DLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                 </td>
@@ -43,7 +40,7 @@
                     <asp:Label ID="Label1" runat="server" Text="סוג משתמש"></asp:Label></td>
             </tr>
             <tr>
-                <td class="auto-style2">
+                <td >
                     <asp:Image ID="UserIMG" runat="server" />
                 </td>
                 <td></td>
@@ -94,33 +91,40 @@
                 </td>
             </tr>
             <tr>
-                <td class="auto-style2">
-                    <asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox></td>
+                <td >
+                    <asp:DropDownList ID="NumChildDDL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NumChildDDL_SelectedIndexChanged"></asp:DropDownList>
+                    </td>
+                <td> <asp:Label ID="NumChildLBL" runat="server" Text="מספר ילדים"></asp:Label>   </td>
+                <td ><asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox>
+                   </td>
                 <td>סיסמה</td>
-                <td>
-                    <asp:TextBox ID="UserNameTB" runat="server" required="required"></asp:TextBox></td>
-                <td>שם משתמש</td>
             </tr>
             <tr>
                 <td>
-                    <asp:TextBox ID="ChildIDTB" runat="server" required="required"></asp:TextBox>
+                    <asp:TextBox ID="ChildI1DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI2DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI3DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI4DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI5DTB" runat="server" required="required"></asp:TextBox><br />
+                     <asp:TextBox ID="ChildI6DTB" runat="server" required="required"></asp:TextBox>
                     <asp:RadioButtonList ID="GroupAgeDLL" runat="server" RepeatDirection="Horizontal" DataSourceID="SqlDataSource5" DataTextField="GroupName" DataValueField="CodePgroup"></asp:RadioButtonList>
                     <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
                     <asp:DropDownList ID="ClassOt2DLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode" AutoPostBack="false" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                 </td>
                 <td>
-                    <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label>
 
                     <asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>
                     <br />
                     <asp:Label ID="Class2LBL" runat="server" Text=" בחר כיתה"></asp:Label>
-
+                    <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות"></asp:Label>
                 </td>
                 <td>
                     <asp:CheckBox ID="MainTeacherCB" runat="server"  AutoPostBack="true" OnCheckedChanged="MainTeacherCB_CheckedChanged"/>
+                      <asp:CheckBox ID="UpdateChild" runat="server"  AutoPostBack="true" Text="לעדכן ילדים?" OnCheckedChanged="UpdateChild_CheckedChanged"/>
                 </td>
                 <td>
                     <asp:Label ID="MainTeacher" runat="server" Text=" האם מחנך"></asp:Label>
+
                 </td>
             </tr>
 

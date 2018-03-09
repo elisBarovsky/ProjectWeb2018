@@ -2,10 +2,16 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <link href="css/Style.css" rel="stylesheet" />
+    <style>
+        table{
+       align-self :center;
+    width: 80%;
+    border-collapse:collapse;
+    table-layout: fixed;
+}
 
 
-
-
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -30,11 +36,12 @@
                     </td>
                 </tr>
             </table>
+
         <div runat="server" id="AlertBox" class="alertBox" Visible="false">
             <div runat="server" id="AlertBoxMessage"></div>
             <button onclick="closeAlert.call(this, event)">Ok</button>
         </div>
-        <asp:table id = "TimeTable" runat="server">
+        <asp:table id = "TimeTable" runat="server" align="center">
             <%--<asp:TableRow>
                 <asp:tableCell>שיעור</asp:tableCell>
                 <asp:tableCell>ראשון</asp:tableCell>
