@@ -45,12 +45,13 @@ public partial class timeTable : System.Web.UI.Page
             TableRow tr = new TableRow();
             TableCell lessonNumber = new TableCell();
             lessonNumber.Text = (i + 1).ToString();
+            lessonNumber.CssClass = "DDL_TD";
             tr.Cells.Add(lessonNumber);
             //the days <>
             for (int j = 0; j < 6; j++)
             {
                 TableCell cell = new TableCell();
-                cell.CssClass = "DDL";
+                cell.CssClass = "DDL_TD";
                 DropDownList dSubject = new DropDownList();
                 dSubject.ID = "DDLsubject" + counter;
                 dSubject.DataTextField = "Value";
@@ -59,7 +60,7 @@ public partial class timeTable : System.Web.UI.Page
 
                 dSubject.DataBind();
                 cell.Controls.Add(dSubject);
-                cell.Controls.Add(new HtmlGenericControl("br"));
+                //cell.Controls.Add(new HtmlGenericControl("br"));
 
                 DropDownList dTeacher = new DropDownList();
                 dTeacher.ID = "DDLteacher" + counter;
@@ -69,7 +70,7 @@ public partial class timeTable : System.Web.UI.Page
                 dTeacher.DataBind();
                 cell.Controls.Add(dTeacher);
                 tr.Cells.Add(cell);
-                cell.Controls.Add(new HtmlGenericControl("br"));
+                //cell.Controls.Add(new HtmlGenericControl("br"));
 
                 counter++;
             }
