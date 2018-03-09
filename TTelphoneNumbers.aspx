@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <h2 style="text-align: right">דף קשר</h2>
+        <h2 style="text-align: center">דף קשר</h2>
         <table class="auto-style2" align="right">
             <tr>
                 <td>

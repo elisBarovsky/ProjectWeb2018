@@ -10,7 +10,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div class="container">
-  <h2 style="text-align: right">מערכת שעות</h2>
+  <h2 style="text-align: center">מערכת שעות</h2>
   <div class="btn-group" style=" position: relative;  left: 40%;">
     <asp:button runat="server" ID="updateB" class="btn btn-primary" text="עדכן מערכת" onclick="PreparePageToUpdate"></asp:button>
     <asp:button runat="server" ID="addB" class="btn btn-primary active" text="צור מערכת חדשה" onclick="PreparePageToAddNew"></asp:button>

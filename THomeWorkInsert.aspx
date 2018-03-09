@@ -16,7 +16,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <h2 style="text-align: right">שיעורי בית</h2>
+        <h2 style="text-align: center">שיעורי בית</h2>
         <div class="btn-group" style="position: relative; left: 40%;">
             <button type="button" class="btn btn-primary active" onclick="location.href = 'THomeWorkInsert.aspx';">הוספה  </button>
             <button type="button" class="btn btn-primary " onclick="location.href = 'THomeWorkHistory.aspx';">צפייה</button>

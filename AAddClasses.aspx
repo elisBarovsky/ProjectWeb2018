@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <h2 style="text-align: right">ניהול כיתות</h2>
+        <h2 style="text-align: center">ניהול כיתות</h2>
         <br />
         <br />
 

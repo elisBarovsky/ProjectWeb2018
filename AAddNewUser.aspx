@@ -11,7 +11,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
-        <h2 style="text-align: right">ניהול משתמשים</h2>
+        <h2 style="text-align: center">ניהול משתמשים</h2>
         <div class="btn-group" style=" position: relative;  left: 40%;">
             <button type="button" class="btn btn-primary active" onclick="location.href = 'AAddNewUser.aspx';">הוספה  </button>
             <button type="button" class="btn btn-primary " onclick="location.href = 'AUpdateUser.aspx';">עדכון</button>

@@ -10,7 +10,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
       <div class="container">
-        <h2 style="text-align: right">ניהול מקצועות לימוד</h2>
+        <h2 style="text-align: center">ניהול מקצועות לימוד</h2>
         <br />
         <br />
 

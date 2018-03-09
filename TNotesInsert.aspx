@@ -16,7 +16,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
     <div class="container">
-        <h2 style="text-align: right">הערות משמעת</h2>
+        <h2 style="text-align: center">הערות משמעת</h2>
         <div class="btn-group" style=" position: relative;  left: 40%;">
             <button type="button" class="btn btn-primary active" onclick="location.href = 'TNotesInsert.aspx';">הוספה  </button>
             <button type="button" class="btn btn-primary " onclick="location.href = 'TNotesHistory.aspx';">צפייה</button>
