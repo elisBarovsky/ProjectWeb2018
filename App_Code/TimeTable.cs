@@ -17,13 +17,18 @@ public class TimeTable
         //
     }
 
-    public int InsertTimeTable(List<Dictionary<string, string>> matrix)
+    public int InsertTimeTable(List<Dictionary<string, string>> matrix, string classCode)
     {
-        return db.InsertTimeTable(matrix);
+        return db.InsertTimeTable(matrix, classCode);
     }
 
     public List<Dictionary<string, string>> GetTimeTableAcordingToClassCode(int classCode)
     {
         return db.GetTimeTableAcordingToClassCode(classCode);
+    }
+
+    public bool IsClassHasTimeTable(string classCodee)
+    {
+        return db.IsClassHasTimeTable(classCodee);
     }
 }

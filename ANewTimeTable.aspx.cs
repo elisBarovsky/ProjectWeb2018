@@ -98,17 +98,23 @@ public partial class timeTable : System.Web.UI.Page
 
     protected void ButtonSave_Click(object sender, EventArgs e)
     {
+        TimeTable TT = new TimeTable();
+
         if (ddl_clasesAdd.SelectedValue == "0")
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן לשמור מערכת ללא בחירת כיתה.');", true);
-            //CreateEmptyTimeTable();
+            return;
+        }
+        else if (TT.IsClassHasTimeTable(ddl_clasesAdd.SelectedValue))
+        {
+            //change to yes - no button and if yes save the changes.
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לכיתה זו כבר יש מערכת שעות. האם לעדכן?');", true);
             return;
         }
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
         string classCode = ddl_clasesAdd.SelectedValue;
         string CodeLesson; //מקצוע
         string teacherID;
-        TimeTable TT = new TimeTable();
         int counter = 1;
         bool flag = false;
         // rows - ^.
@@ -145,7 +151,7 @@ public partial class timeTable : System.Web.UI.Page
                 else
                 {
                     Dictionary<string, string> empty = new Dictionary<string, string>();
-                    empty.Add("classCode", null);
+                    empty.Add("classCode", "empty");
                     matrix.Add(empty);
                 }
 
@@ -154,7 +160,7 @@ public partial class timeTable : System.Web.UI.Page
         }
         if (!flag)
         {
-            int rowsAffected = TT.InsertTimeTable(matrix);
+            int rowsAffected = TT.InsertTimeTable(matrix, classCode);
             if (rowsAffected > 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ANewTimeTable.aspx';", true);

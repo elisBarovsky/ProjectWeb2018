@@ -317,12 +317,13 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    public int InsertTimeTable(List<Dictionary<string, string>> matrix)
+    public int InsertTimeTable(List<Dictionary<string, string>> matrix, string classCode)
     {
         SqlCommand cmd; string cStr;
+        int num = 0;
         //check empty cells.
 
-        cStr = "INSERT INTO [dbo].[Timetable] values (" + int.Parse(matrix[0]["classCode"]) + ")";
+        cStr = "INSERT INTO [dbo].[Timetable] (ClassCode) values (" + classCode + ")";
         cmd = CreateCommand(cStr, con);
         ExecuteNonQuery(cmd);
 
@@ -330,7 +331,7 @@ public class DBconnection
         {
             SqlConnection conn = connect("Betsefer");
 
-                if (matrix[i]["classCode"] != null)
+                if (matrix[i]["classCode"] != "empty")
                 {
                     int TimeTableCode = GetLastTimeTableCode();
                     int CodeWeekDay = int.Parse(matrix[i]["CodeWeekDay"]);
@@ -341,10 +342,10 @@ public class DBconnection
                    
                     cStr = "INSERT INTO [dbo].[TimetableLesson] (TimeTableCode, CodeWeekDay, ClassTimeCode, CodeLesson, TeacherId) values (" + TimeTableCode + ", " + CodeWeekDay + ", " + ClassTimeCode + ", " + CodeLesson + ", '" + TeacherId + "')";
                     cmd = CreateCommand(cStr, conn);
-                    return ExecuteNonQuery(cmd);
+                    num = ExecuteNonQuery(cmd);
                  }
         }
-        return 0;
+        return num;
     }
 
     public int GetLastTimeTableCode()
@@ -606,6 +607,26 @@ public class DBconnection
         }
 
         return TT;
+    }
+
+    public bool IsClassHasTimeTable(string classCode)
+    {
+        int num = 0;
+
+        String selectSTR = "SELECT count(TimeTableCode) FROM Timetable where ClassCode = " + classCode;
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+        while (dr.Read())
+        {
+            num = int.Parse(dr[0].ToString());
+        }
+
+        if (num > 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
 
