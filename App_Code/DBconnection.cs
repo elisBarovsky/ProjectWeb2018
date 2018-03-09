@@ -385,6 +385,19 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
+    public string GetNumChild(string UserID)
+    {
+        String cStr = "select count([ParentID]) as num from [dbo].[PupilsParent] where [ParentID]='" + UserID + "'";
+        SqlCommand cmd = new SqlCommand(cStr, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string NumChilds="";
+        
+        while (dr.Read())
+        {
+            NumChilds = dr["num"].ToString();
+        }
+        return NumChilds;
+    }
     public int UpdatePupil(string userID, string CodePgroup, string ClassOt)
     {
         SqlCommand cmd;                                                                      //GetCodeClass(ClassOt)
@@ -417,11 +430,10 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    public int AddParent( string ParentID, string PupilID1, string PupilID2, string PupilID3, string PupilID4, string PupilID5, string PupilID6)
+    public int AddParent( string ParentID, string PupilID)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID1],[PupilID2],[PupilID3],[PupilID4],[PupilID5],[PupilID6]) " +
-            "VALUES ('" + ParentID + "' ,'" + PupilID1 + "','" + PupilID2 + "','" + PupilID3 + "','" + PupilID4 + "','" + PupilID5 + "','" + PupilID6 + "')";
+        String cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID]) VALUES ('" + ParentID + "' ,'" + PupilID + "')";
         cmd = CreateCommand(cStr, con);
         return ExecuteNonQuery(cmd);// execute the command  
     }

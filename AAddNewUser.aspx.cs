@@ -124,19 +124,23 @@ public partial class AddNewUser : System.Web.UI.Page
             }
             else if(UserTypeDLL.SelectedValue == "3")  
             {
-                Users UsersParentUser = new Users();
+                    string[] ChildID = new string[int.Parse(NumOfChildDDL.SelectedValue)];
 
-                if (NumOfChildDDL.SelectedValue!="1")
-                {
+                    ChildID[0] = ChildI1DTB.Text;
+                    ChildID[1] = ChildI2DTB.Text;
+                    ChildID[2] = ChildI3DTB.Text;
+                    ChildID[3] = ChildI4DTB.Text;
+                    ChildID[4] = ChildI5DTB.Text;
+                    ChildID[6] = ChildI6DTB.Text;
 
-                }
-                else
-                {
-                    //int num4 = UsersParentUser.AddParent(ChildI1DTB.Text, UserIDTB.Text);
-                }
-
-                int num4 = UsersParentUser.AddParent(UserIDTB.Text, ChildI1DTB.Text, ChildI2DTB.Text, ChildI3DTB.Text, ChildI4DTB.Text, ChildI5DTB.Text, ChildI5DTB.Text);
-
+                    for (int i = 0; i < ChildID.Length; i++)
+                    {
+                        while (ChildID[i]!="")
+                        {
+                            Users AddMoreThanOneChild = new Users();
+                            AddMoreThanOneChild.AddParent(UserIDTB.Text, ChildID[i]);
+                        }
+                    }
             }
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש נוסף בהצלחה'); location.href='AAddNewUser.aspx';", true);
         }

@@ -92,7 +92,9 @@
             </tr>
             <tr>
                 <td >
-                    <asp:DropDownList ID="NumChildDDL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NumChildDDL_SelectedIndexChanged"></asp:DropDownList>
+                    <asp:DropDownList ID="NumChildDDL" runat="server"></asp:DropDownList> <br />
+                    <asp:DropDownList ID="ChoosenNumChildDDL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NumChildDDL_SelectedIndexChanged"> </asp:DropDownList>
+                    <asp:Label ID="ChoosenNumChildLBL" runat="server" Text="כמות ילדים להוספה"></asp:Label>
                     </td>
                 <td> <asp:Label ID="NumChildLBL" runat="server" Text="מספר ילדים"></asp:Label>   </td>
                 <td ><asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox>

@@ -21,18 +21,22 @@ public partial class UpdateUser : System.Web.UI.Page
             NumChildLBL.Visible = false;
             NumChildDDL.Visible = false;
             VisibleParent(false);
+            ChoosenNumChildLBL.Visible = false;
         }
     }
 
     private void FillNumChilds()
     {
         List<int> NumChild = new List<int>();
-        for (int i = 1; i < 7; i++)
+        for (int i = 0; i < 7; i++)
         {
             NumChild.Add(i);
         }
+        
         NumChildDDL.DataSource = NumChild;
         NumChildDDL.DataBind();
+        ChoosenNumChildDDL.DataSource = NumChild;
+        ChoosenNumChildDDL.DataBind();
     }
 
     protected void HideChildTBID()
@@ -87,7 +91,6 @@ public partial class UpdateUser : System.Web.UI.Page
         PupilDLL.DataSource = pupils.Values;
         PupilDLL.DataBind();
         Session["PupilsList"] = pupils;
-
     }
 
     protected void FillClasses()
@@ -140,8 +143,15 @@ public partial class UpdateUser : System.Web.UI.Page
                     Class2LBL.Visible = true;
                     ClassOt2DLL.Visible = true;
                     Users TeacherMainClass = new Users();
-                    ClassOt2DLL.SelectedValue = TeacherMainClass.GetTeacherMainClass(UserID); ;
+                    ClassOt2DLL.SelectedValue = TeacherMainClass.GetTeacherMainClass(UserID);
                 }
+            }
+            else if (UserTypeDLL.SelectedValue == "3")
+            {
+                Users QuntityChiled = new Users();
+                NumChildDDL.Visible = true;
+                NumChildLBL.Visible = true;
+                NumChildDDL.SelectedValue = QuntityChiled.GetNumChild(UserID);
             }
         }
 
@@ -229,6 +239,7 @@ public partial class UpdateUser : System.Web.UI.Page
     protected void VisibleParent(bool ans)
     {
         UpdateChild.Visible = ans;
+        ChoosenNumChildDDL.Visible = false;
     }
 
     protected void VisibleTeacherUsers(bool ans)
@@ -254,6 +265,12 @@ public partial class UpdateUser : System.Web.UI.Page
         ChildIDLBL.Visible = false;
         MainTeacher.Visible = false;
         MainTeacherCB.Visible = false;
+        ChildI1DTB.Text="";
+        ChildI2DTB.Text="";
+        ChildI3DTB.Text="";
+        ChildI4DTB.Text="";
+        ChildI5DTB.Text="";
+        ChildI6DTB.Text="";
     }
 
     protected void UpdateUserBTN_Click(object sender, EventArgs e) //******************* להתאים עד הסוף שינויים
@@ -318,8 +335,26 @@ public partial class UpdateUser : System.Web.UI.Page
             }
             else if (UserTypeDLL.SelectedValue == "3")
             {
-                Users UsersParentUser = new Users();
-                int num4 = UsersParentUser.UpdateParent("", UserIDTB.Text); ;
+                if (UpdateChild.Checked) //************************************************************************************
+                {
+                    string[] ChildID = new string[6];
+
+                    ChildID[0] = ChildI1DTB.Text;
+                    ChildID[1] = ChildI2DTB.Text;
+                    ChildID[2] = ChildI3DTB.Text;
+                    ChildID[3] = ChildI4DTB.Text;
+                    ChildID[4] = ChildI5DTB.Text;
+                    ChildID[5] = ChildI6DTB.Text;
+
+                    for (int i = 0; i < ChildID.Length; i++)
+                    {
+                        if (ChildID[i] != "")
+                        {
+                            Users AddMoreThanOneChild = new Users();
+                            AddMoreThanOneChild.AddParent(UserIDTB.Text, ChildID[i]);
+                        }
+                    }
+                }
             }
 
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('משתמש עודכן בהצלחה'); location.href='AUpdateUser.aspx';", true);
@@ -339,31 +374,32 @@ public partial class UpdateUser : System.Web.UI.Page
         else
         {
             ClassOt2DLL.Visible = false;
-        }
-       
+        }      
     }
 
     protected void UpdateChild_CheckedChanged(object sender, EventArgs e)
     {
         if (UpdateChild.Checked)
         {
-            NumChildLBL.Visible = true;
             NumChildDDL.Visible = true;
             ChildIDLBL.Visible=true;
             ChildI1DTB.Visible = true;
+            ChoosenNumChildDDL.Visible = true;
+            ChoosenNumChildLBL.Visible = true;
         }
         else
         {
             ChildI1DTB.Visible = false;
-            NumChildLBL.Visible = false;
             NumChildDDL.Visible = false;
             ChildIDLBL.Visible = false;
+            ChoosenNumChildDDL.Visible = false;
+            ChoosenNumChildLBL.Visible = false;
         }
     }
 
     protected void NumChildDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
-        switch (NumChildDDL.SelectedValue)
+        switch (ChoosenNumChildDDL.SelectedValue)
         {
             case "1":
                 ChildI1DTB.Visible = true;

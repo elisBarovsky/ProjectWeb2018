@@ -147,10 +147,15 @@ public class Users
         PhoneNumber = phoneNumber;
         CodeUserType = codeUserType;
     }
-
+   
     public int AddPupil(string UserID, string GroupType, int classNumber)
     {
         return db.AddPupil(UserID, GroupType, classNumber);
+    }
+
+    public string GetNumChild(string UserID)
+    {
+        return db.GetNumChild(UserID);
     }
 
     public int UpdatePupil(string userID, string CodePgroup, string CodeClass)
@@ -203,9 +208,9 @@ public class Users
         return db.IsAlreadyMainTeacher(id);
     }
 
-    public int AddParent(string ParentID, string PupilID1, string PupilID2, string PupilID3, string PupilID4, string PupilID5, string PupilID6)
+    public int AddParent(string ParentID, string PupilID)
     {
-        return db.AddParent(ParentID, PupilID1, PupilID2, PupilID3, PupilID4, PupilID5, PupilID6);
+        return db.AddParent(ParentID, PupilID);
     }
 
     public int UpdateParent(string PupilID, string ParentID)
