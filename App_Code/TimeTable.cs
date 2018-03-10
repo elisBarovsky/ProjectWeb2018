@@ -36,4 +36,14 @@ public class TimeTable
     {
         return db.DeleteTimeTable(classCode);
     }
+
+    public string GetLessonNameByLessonCode(string lessonCode)
+    {
+        return db.GetLessonNameByLessonCode(lessonCode);
+    }
+
+    public string GetTeacherNameByID(string TeacherId)
+    {
+        return db.GetTeacherNameByID(TeacherId);
+    }
 }
