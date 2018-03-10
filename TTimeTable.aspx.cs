@@ -64,13 +64,14 @@ public partial class TTimeTable : System.Web.UI.Page
                 cell.CssClass = "DDL_TD";
                 Label dSubject = new Label();
                 dSubject.ID = "DDLsubject" + counter;
-                dSubject.Text = "-";
+                dSubject.Text = "";
+                dSubject.Style["Font-Weight"] = "bold";
                 dSubject.DataBind();
                 cell.Controls.Add(dSubject);
 
                 Label dTeacher = new Label();
                 dTeacher.ID = "DDLteacher" + counter;
-                dTeacher.Text = "-";
+                dTeacher.Text = "";
                 dTeacher.DataBind();
                 cell.Controls.Add(dTeacher);
                 tr.Cells.Add(cell);
@@ -129,13 +130,13 @@ public partial class TTimeTable : System.Web.UI.Page
                         (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as Label).Text = lessonName + "<br/>";
                         (TimeTable.Rows[i].Cells[j].FindControl(TID) as Label).Text = teacherName;
                     }
-                    else
-                    {
-                        (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as Label).Text = "-";
-                        (TimeTable.Rows[i].Cells[j].FindControl(TID) as Label).Text = "-";
-                    }
+                else
+                {
+                    (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as Label).Text = "";
+                    (TimeTable.Rows[i].Cells[j].FindControl(TID) as Label).Text = "";
+                }
 
-                    counter++;
+                counter++;
                 }
 
             }
