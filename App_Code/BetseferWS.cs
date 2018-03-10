@@ -17,7 +17,6 @@ public class BetseferWS : System.Web.Services.WebService
 
     public BetseferWS()
     {
-
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
     }
@@ -42,22 +41,21 @@ public class BetseferWS : System.Web.Services.WebService
     [WebMethod]
     public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode)
     {
-        //Dictionary<string, string> LessonsList = new Dictionary<string, string>();
-        //LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
-        //string LessonCode = KeyByValue(LessonsList, ChooseSubjectCode);
+        Dictionary<string, string> LessonsList = new Dictionary<string, string>();
+        LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
+        string LessonCode = KeyByValue(LessonsList, ChooseSubjectCode);
 
         Notes FilterNoteBySubject = new Notes();
         return FilterNoteBySubject.GivenNotesBySubject(PupilID, ChooseSubjectCode);
     }
 
     [WebMethod]
-    public List<Dictionary<string, string>> GivenTimeTableByClassCode(int classCode)
+    public List<Dictionary<string, string>> GivenTimeTableByClassCode(string PupilID)
     {
-        //איך את שולחת בדיוק את הקלאס קוד? כי אם אין דרך אלא רק עי שליחת תעודת זהות אז תורידי את הירקת למטה
-        //Users PupilClass = new Users();
-        //string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+        Users PupilClass = new Users();
+        string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
         TimeTable TimeTableByClassCode = new TimeTable();
-        return TimeTableByClassCode.GetTimeTableAcordingToClassCode(classCode);
+        return TimeTableByClassCode.GetTimeTableAcordingToClassCode(int.Parse(PupilClassCode));
     }
 
     [WebMethod]
@@ -69,6 +67,22 @@ public class BetseferWS : System.Web.Services.WebService
         return HomeWork.FillAllHomeWork(PupilClassCode);
     }
 
+<<<<<<< HEAD
+=======
+    [WebMethod]
+    public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode)
+    {
+        Users PupilClass = new Users();
+        string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+
+        Dictionary<string, string> LessonsList = new Dictionary<string, string>();
+        LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
+        string LessonCode = KeyByValue(LessonsList, ChooseSubjectCode);
+        HomeWork HomeWork = new HomeWork();
+        return HomeWork.FillBySubjectHomeWork(PupilID, LessonCode);
+    }
+
+>>>>>>> e273010e36d3d540ecdff67401c1eec139c59940
     public static string KeyByValue(Dictionary<string, string> dict, string val)
     {
         string key = null;
