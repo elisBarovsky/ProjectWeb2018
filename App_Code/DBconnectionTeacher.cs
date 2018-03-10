@@ -67,6 +67,32 @@ public class DBconnectionTeacher
         return dtt = ds.Tables[0];
     }
 
+    public DataTable GivenAllNotes(string PupilID) //webService
+    {
+        string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת'" +
+                          " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
+                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
+                          " where dbo.Pupil.UserID='" + PupilID + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("ALLNotesDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
+    }
+
+    public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode) //webService
+    {
+        string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת'" +
+                          " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
+                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
+                          " where dbo.Pupil.UserID='" + PupilID + "' and dbo.GivenNotes.LessonsCode ='" + ChooseSubjectCode + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("NotesDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
+    }
+
     public DataTable FilterTelphoneList(string UserTypeFilterType, string ClassFilter)
     {
         string selectSTR = "  SELECT  dbo.Users.PhoneNumber as 'מספר סלולרי', (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as 'שם מלא' " +

@@ -26,13 +26,13 @@ public partial class Teacher : System.Web.UI.Page
         TeacherNameLBL.Text = "שלום " + UserInfo[0] + " " + UserInfo[1];
 
 
-        if (UserInfo[6] == "")
+        if (UserInfo[5] == "")
         {
             TeacherIMG.ImageUrl = "/Images/NoImg.png";
         }
         else
         {
-            TeacherIMG.ImageUrl = UserInfo[6];
+            TeacherIMG.ImageUrl = UserInfo[5];
         }
     }
 }

@@ -1,6 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Teacher_MasterPage.master" AutoEventWireup="true" CodeFile="THomeWorkHistory.aspx.cs" Inherits="THomeWorkHistory" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
+     <style type="text/css">
+        .auto-style1 {
+           width: 80%;
+            position: center;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">
@@ -11,7 +17,7 @@
         </div>
         <br />
         <br />
-        <table class="auto-style1">
+        <table class="auto-style1" >
             <tr>
                 <td align="right">
                     <asp:dropdownlist id="ChooseLessonsDLL" runat="server"></asp:dropdownlist>

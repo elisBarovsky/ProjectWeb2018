@@ -33,4 +33,13 @@ public class Notes
         return dbT.FilterNotes(FilterType, ValueFilter);
     }
 
+    public DataTable GivenAllNotes(string PupilID)
+    {
+        return dbT.GivenAllNotes(PupilID);
+    }
+
+    public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode)
+    {
+        return dbT.GivenNotesBySubject(PupilID, ChooseSubjectCode);
+    }
 }

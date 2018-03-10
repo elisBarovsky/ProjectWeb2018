@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -22,9 +23,24 @@ public class BetseferWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public string HelloWorld()
+    public DataTable TelephoneList(string UserTypeFilter,string ClassFilter)
     {
-        return "Hello World";
+        TelphoneList TL = new TelphoneList();
+        return TL.FilterTelphoneList(UserTypeFilter, ClassFilter);
     }
 
+    [WebMethod]
+    public DataTable GivenAllNotes(string PupilID)
+    {
+        Notes AllNotesByID = new Notes();
+        return AllNotesByID.GivenAllNotes(PupilID);
+    }
+
+    [WebMethod]
+    public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode)
+    {
+        Notes FilterNoteBySubject = new Notes();
+        return FilterNoteBySubject.GivenNotesBySubject(PupilID, ChooseSubjectCode);
+    }
 }
+

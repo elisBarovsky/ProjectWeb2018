@@ -5,6 +5,7 @@
         .auto-style1 {
             width: 1144px;
             height: 196px;
+             width: 80%;
         }
         .auto-style2 {
             left: 0px;
