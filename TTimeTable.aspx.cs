@@ -45,6 +45,7 @@ public partial class TTimeTable : System.Web.UI.Page
         //rows ^
         for (int i = 0; i < 9; i++)
         {
+<<<<<<< HEAD
             TableRow tr = new TableRow();           
             TableCell lessonNumber = new TableCell();
             lessonNumber.Style.Add("width", "20px");
@@ -53,6 +54,10 @@ public partial class TTimeTable : System.Web.UI.Page
             lessonNumber.Text = (i + 1).ToString();
             lessonNumber.CssClass = "DDL_TD";
             tr.Cells.Add(lessonNumber);
+=======
+            TableRow tr = new TableRow();
+           
+>>>>>>> 7ca43565af568e727420d9490d6975d7ce137e99
             //the days <>
             for (int j = 0; j < 6; j++)
             {
@@ -76,6 +81,10 @@ public partial class TTimeTable : System.Web.UI.Page
 
                 counter++;
             }
+            TableCell lessonNumber = new TableCell();
+            lessonNumber.Text = (i + 1).ToString();
+            lessonNumber.CssClass = "DDL_TD";
+            tr.Cells.Add(lessonNumber);
 
             TimeTable.Rows.Add(tr);
         }
@@ -83,7 +92,7 @@ public partial class TTimeTable : System.Web.UI.Page
 
     protected void FillDaysTitles()
     {
-        string[] days = new string[] { "שיעור", "ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי" };
+        string[] days = new string[] { "שישי", "חמישי", "רביעי", "שלישי", "שני", "ראשון", "שיעור" };
         //TimeTable;
         TableRow tr = new TableRow();
 

@@ -10,10 +10,7 @@ public partial class timeTable : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!Page.IsPostBack)
-        //{
             CreateEmptyTimeTable();
-        //}
 
     }
 
@@ -43,10 +40,7 @@ public partial class timeTable : System.Web.UI.Page
         for (int i = 0; i < 9; i++)
         {
             TableRow tr = new TableRow();
-            TableCell lessonNumber = new TableCell();
-            lessonNumber.Text = (i + 1).ToString();
-            lessonNumber.CssClass = "DDL_TD";
-            tr.Cells.Add(lessonNumber);
+            
             //the days <>
             for (int j = 0; j < 6; j++)
             {
@@ -75,6 +69,11 @@ public partial class timeTable : System.Web.UI.Page
                 counter++;
             }
 
+            TableCell lessonNumber = new TableCell();
+            lessonNumber.Text = (i + 1).ToString();
+            lessonNumber.CssClass = "DDL_TD";
+            tr.Cells.Add(lessonNumber);
+
             TimeTable.Rows.Add(tr);
         }
 
@@ -82,7 +81,7 @@ public partial class timeTable : System.Web.UI.Page
 
     protected void FillDaysTitles()
     {
-        string[] days = new string[] { "שיעור", "ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי" };
+        string[] days = new string[] { "שישי", "חמישי", "רביעי", "שלישי", "שני", "ראשון", "שיעור" };
         //TimeTable;
         TableRow tr = new TableRow();
         
