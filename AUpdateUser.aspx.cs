@@ -295,13 +295,13 @@ public partial class UpdateUser : System.Web.UI.Page
 
             if (ChangeBdateCB.Checked == false)
             {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text, "/Images/" + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text, folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
             }
             else
             {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), "/Images/" + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
             }
-        }                                                                                                                       //folderPath // להוריד ירוק כשיהיה בשרת
+        }                                                                                                                       //Images // להוריד ירוק כשיהיה לא בשרת
 
         if (res1 == 1)
         {
@@ -335,7 +335,7 @@ public partial class UpdateUser : System.Web.UI.Page
             }
             else if (UserTypeDLL.SelectedValue == "3")
             {
-                if (UpdateChild.Checked) //************************************************************************************
+                if (UpdateChild.Checked) 
                 {
                     string[] ChildID = new string[6];
 
@@ -350,8 +350,10 @@ public partial class UpdateUser : System.Web.UI.Page
                     {
                         if (ChildID[i] != "")
                         {
+                            Users GetPupilClass = new Users();
+                            string ChildCodeClass = GetPupilClass.GetPupilOtClass(ChildID[i]);
                             Users AddMoreThanOneChild = new Users();
-                            AddMoreThanOneChild.AddParent(UserIDTB.Text, ChildID[i]);
+                            AddMoreThanOneChild.UpdateParent(UserIDTB.Text, ChildID[i],ChildCodeClass);
                         }
                     }
                 }
