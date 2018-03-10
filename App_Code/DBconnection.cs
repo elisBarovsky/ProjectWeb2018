@@ -404,18 +404,18 @@ public class DBconnection
         return ExecuteNonQuery(cmd);  
     }
 
-    public int AddParent( string ParentID, string PupilID)
+    public int AddParent( string ParentID, string PupilID, string ChildCodeClass)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID]) VALUES ('" + ParentID + "' ,'" + PupilID + "')";
+        String cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID],[codeClass]) VALUES ('" + ParentID + "' ,'" + PupilID + ",'"+ ChildCodeClass + "')";
         cmd = CreateCommand(cStr, con);
         return ExecuteNonQuery(cmd); 
     }
 
-    public int UpdateParent(string PupilID, string ParentID)
+    public int UpdateParent(string PupilID, string ParentID, string ChildCodeClass)
     {
         SqlCommand cmd;
-        String cStr = "UPDATE [dbo].[PupilsParent] SET [PupilID] = '" + PupilID + "' ,[ParentID] = '" + ParentID + "' WHERE [ParentID]= '" + ParentID + "'";
+        String cStr = "UPDATE [dbo].[PupilsParent] SET [PupilID] = '" + PupilID + "' ,[ParentID] = '" + ParentID + "',codeClass='"+ ChildCodeClass+ "' WHERE [ParentID]= '" + ParentID + "'";
         cmd = CreateCommand(cStr, con);             
         return ExecuteNonQuery(cmd);    
     }

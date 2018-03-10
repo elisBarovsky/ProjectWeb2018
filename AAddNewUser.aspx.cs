@@ -100,8 +100,8 @@ public partial class AddNewUser : System.Web.UI.Page
         if (FileUpload1.FileName!="")
         {
             FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-            ImgPath = "/Images/" + FileUpload1.FileName;
-            //   ImgPath = folderPath + FileUpload1.FileName;  להוריד ירוק כשיהיה בשרת
+            // ImgPath = "/Images/" + FileUpload1.FileName;להוריד ירוק כשלא יהיה בשרת  
+               ImgPath = folderPath + FileUpload1.FileName;  
         }
 
         Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), ImgPath,"", PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
@@ -137,8 +137,10 @@ public partial class AddNewUser : System.Web.UI.Page
                     {
                         while (ChildID[i]!="")
                         {
+                            Users GetPupilClass = new Users();
+                            string ChildCodeClass= GetPupilClass.GetPupilOtClass(ChildID[i]);
                             Users AddMoreThanOneChild = new Users();
-                            AddMoreThanOneChild.AddParent(UserIDTB.Text, ChildID[i]);
+                            AddMoreThanOneChild.AddParent(UserIDTB.Text, ChildID[i],ChildCodeClass);
                         }
                     }
             }

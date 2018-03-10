@@ -213,14 +213,14 @@ public class Users
         return db.IsAlreadyMainTeacher(id);
     }
 
-    public int AddParent(string ParentID, string PupilID)
+    public int AddParent(string ParentID, string PupilID,string ChildCodeClass)
     {
-        return db.AddParent(ParentID, PupilID);
+        return db.AddParent(ParentID, PupilID, ChildCodeClass);
     }
 
-    public int UpdateParent(string PupilID, string ParentID)
+    public int UpdateParent(string PupilID, string ParentID, string ChildCodeClass)
     {
-        return db.UpdateParent(PupilID, ParentID);  
+        return db.UpdateParent(PupilID, ParentID, ChildCodeClass);  
     }
 
     public int AddUser(Users NewUser)
