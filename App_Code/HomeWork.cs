@@ -32,4 +32,9 @@ public class HomeWork
     {
         return dbT.FillAllHomeWork(PupilID);
     }
+
+    public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode)
+    {
+        return dbT.FillBySubjectHomeWork(PupilID, ChooseSubjectCode);
+    }
 }

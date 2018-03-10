@@ -20,8 +20,8 @@
                 <td align="right">
                     <asp:DropDownList ID="ChooseLessonsDLL" runat="server"></asp:DropDownList>
                     <asp:DropDownList ID="NotesDLL" runat="server"></asp:DropDownList>
-                    <asp:DropDownList ID="PupilsDLL" runat="server" AutoPostBack="true" CssClass="auto-style1"></asp:DropDownList>
                     <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList></td>
+                 <br />
                 <td align="right">
                     <asp:RadioButtonList ID="FilterNotes" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="FilterNotes_SelectedIndexChanged" Width="365px">
                         <asp:ListItem Text="מקצוע" Value="1" />
@@ -31,6 +31,16 @@
                     </asp:RadioButtonList></td>
                 <td>
                     <asp:Label ID="Label1" runat="server" Text="כיצד תרצה לסנן  "></asp:Label>
+                </td>
+            </tr>
+            <tr>
+                  <td align="right">    <asp:DropDownList ID="PupilsDLL" runat="server" CssClass="auto-style1"></asp:DropDownList>
+                      </td>
+                <td align="right">
+
+                 </td>
+                <td>
+
                 </td>
             </tr>
             <tr>
