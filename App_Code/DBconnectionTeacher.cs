@@ -66,11 +66,22 @@ public class DBconnectionTeacher
         DataTable dtt = ds.Tables[0];
         return dtt = ds.Tables[0];
     }
-
+    
     public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)  
     {
         string selectSTR = "SELECT  IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'"+
                             " FROM dbo.HomeWork where  CodeClass = '"+ ClassCode  + "' and LessonsCode = '"+ LessonsCode + "' and TeacherID = '"+ TeacherID + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("HWDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
+    }
+
+    public DataTable FillAllHomeWork(string ClassCode)//WebService
+    {
+        string selectSTR = "SELECT  IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'" +
+                            " FROM dbo.HomeWork where  CodeClass = '" + ClassCode + "'";
         SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
         DataSet ds = new DataSet("HWDS");
         daa.Fill(ds);
@@ -85,6 +96,19 @@ public class DBconnectionTeacher
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where dbo.Pupil.UserID='" + PupilID + "'";
         SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); 
+        DataSet ds = new DataSet("ALLNotesDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
+    }
+
+    public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode) //webService
+    {
+        string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת'" +
+                          " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
+                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
+                          " where dbo.Pupil.UserID='" + PupilID + "' and LessonsCode = '" + ChooseSubjectCode + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con);
         DataSet ds = new DataSet("ALLNotesDS");
         daa.Fill(ds);
         DataTable dtt = ds.Tables[0];

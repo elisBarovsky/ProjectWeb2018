@@ -27,4 +27,9 @@ public class HomeWork
     {
         return dbT.FilterHomeWork(TeacherID, LessonsCode, ClassCode);
     }
+
+    public DataTable FillAllHomeWork(string PupilID)
+    {
+        return dbT.FillAllHomeWork(PupilID);
+    }
 }

@@ -575,7 +575,7 @@ public class DBconnection
         }
     }
 
-    public List<Dictionary<string, string>> GetTimeTableAcordingToClassCode(int classCode)
+    public List<Dictionary<string, string>> GetTimeTableAcordingToClassCode(int classCode) //webService
     {
         //keep just one time table for a class. no history.
         List<Dictionary<string, string>> TT = new List<Dictionary<string, string>>();

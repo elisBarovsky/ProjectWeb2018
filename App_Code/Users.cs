@@ -296,6 +296,5 @@ public class Users
         DBconnectionTeacher dbt = new DBconnectionTeacher();
         return dbt.GetMainTeacherClass(id);
     }
-
 }
 

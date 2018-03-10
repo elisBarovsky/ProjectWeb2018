@@ -23,10 +23,13 @@ public class BetseferWS : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public DataTable TelephoneList(string UserTypeFilter,string ClassFilter)
+    public DataTable TelephoneList(string UserTypeFilter,string PupilID)
     {
+        Users PupilClass = new Users();
+        string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+
         TelphoneList TL = new TelphoneList();
-        return TL.FilterTelphoneList(UserTypeFilter, ClassFilter);
+        return TL.FilterTelphoneList(UserTypeFilter, PupilClassCode);
     }
 
     [WebMethod]
@@ -39,6 +42,10 @@ public class BetseferWS : System.Web.Services.WebService
     [WebMethod]
     public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode)
     {
+        //Dictionary<string, string> LessonsList = new Dictionary<string, string>();
+        //LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
+        //string LessonCode = KeyByValue(LessonsList, ChooseSubjectCode);
+
         Notes FilterNoteBySubject = new Notes();
         return FilterNoteBySubject.GivenNotesBySubject(PupilID, ChooseSubjectCode);
     }
@@ -46,11 +53,43 @@ public class BetseferWS : System.Web.Services.WebService
     [WebMethod]
     public List<Dictionary<string, string>> GivenTimeTableByClassCode(int classCode)
     {
+        //איך את שולחת בדיוק את הקלאס קוד? כי אם אין דרך אלא רק עי שליחת תעודת זהות אז תורידי את הירקת למטה
+        //Users PupilClass = new Users();
+        //string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
         TimeTable TimeTableByClassCode = new TimeTable();
         return TimeTableByClassCode.GetTimeTableAcordingToClassCode(classCode);
     }
 
+    [WebMethod]
+    public DataTable FillAllHomeWork(string PupilID)
+    {
+        Users PupilClass = new Users();
+        string PupilClassCode =  PupilClass.GetPupilOtClass(PupilID);
+        HomeWork HomeWork = new HomeWork();
+        return HomeWork.FillAllHomeWork(PupilClassCode);
+    }
 
+    [WebMethod]
+    public DataTable FillAllHomeWork(string PupilID)
+    {
+        Users PupilClass = new Users();
+        string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+        HomeWork HomeWork = new HomeWork();
+        return HomeWork.FillAllHomeWork(PupilClassCode);
+    }
 
+    public static string KeyByValue(Dictionary<string, string> dict, string val)
+    {
+        string key = null;
+        foreach (KeyValuePair<string, string> pair in dict)
+        {
+            if (pair.Value == val)
+            {
+                key = pair.Key;
+                break;
+            }
+        }
+        return key;
+    }
 }
 
