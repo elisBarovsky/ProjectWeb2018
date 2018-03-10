@@ -43,6 +43,13 @@ public class BetseferWS : System.Web.Services.WebService
         return FilterNoteBySubject.GivenNotesBySubject(PupilID, ChooseSubjectCode);
     }
 
+    [WebMethod]
+    public List<Dictionary<string, string>> GivenTimeTableByClassCode(int classCode)
+    {
+        TimeTable TimeTableByClassCode = new TimeTable();
+        return TimeTableByClassCode.GetTimeTableAcordingToClassCode(classCode);
+    }
+
 
 
 }
