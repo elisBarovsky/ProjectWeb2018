@@ -26,13 +26,13 @@ public partial class Admin : System.Web.UI.Page
         AdminNameLBL.Text = "שלום "+UserInfo[0]+" "+ UserInfo[1];
 
 
-        if (UserInfo[6] == "")
+        if (UserInfo[5] == "")
         {
             AdminIMG.ImageUrl = "/Images/NoImg.png";
         }
         else
         {
-            AdminIMG.ImageUrl = UserInfo[6];
+            AdminIMG.ImageUrl = UserInfo[5];
         }
     }
 }

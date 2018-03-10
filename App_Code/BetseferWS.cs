@@ -69,15 +69,6 @@ public class BetseferWS : System.Web.Services.WebService
         return HomeWork.FillAllHomeWork(PupilClassCode);
     }
 
-    //[WebMethod]
-    //public DataTable FillAllHomeWork(string PupilID)
-    //{
-    //    Users PupilClass = new Users();
-    //    string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
-    //    HomeWork HomeWork = new HomeWork();
-    //    return HomeWork.FillAllHomeWork(PupilClassCode);
-    //}
-
     public static string KeyByValue(Dictionary<string, string> dict, string val)
     {
         string key = null;
