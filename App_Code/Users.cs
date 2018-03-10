@@ -291,5 +291,11 @@ public class Users
         return db.GetTeachers();
     }
 
+    public int GetMainTeacherClass(string id)
+    {
+        DBconnectionTeacher dbt = new DBconnectionTeacher();
+        return dbt.GetMainTeacherClass(id);
+    }
+
 }
 

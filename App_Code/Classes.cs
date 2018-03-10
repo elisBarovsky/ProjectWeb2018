@@ -25,6 +25,11 @@ public class Classes
         return db.InsertClass(ClassOt, ClassNum);
     }
 
+    public string GetClassNameByCodeClass(int classCode)
+    {
+        return db.GetClassNameByCodeClass(classCode);
+    }
+
     public List<string> ClassesExites(string ClassOt, string ClassNum)
     {
         return db.ClassesExites(ClassOt, ClassNum);

@@ -220,6 +220,19 @@ public class DBconnection
         return l;
     }
 
+    public string GetClassNameByCodeClass(int codeClass)
+    {
+        String selectSTR = "select [TotalName] from [dbo].[Class] where [ClassCode] = " + codeClass;
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string className = "";
+        while (dr.Read())
+        {
+            className = dr[0].ToString();
+        }
+        return className;
+    }
+
     public int InsertClass(string ClassOt, string ClassNum)
     {
         SqlCommand cmd;
@@ -587,6 +600,30 @@ public class DBconnection
         return TT;
     }
 
+    public List<Dictionary<string, string>> GetValuesTimeTableAcordingToClassCode(int classCode)
+    {
+        List<Dictionary<string, string>> TT = new List<Dictionary<string, string>>();
+
+        SqlCommand cmd; string cStr;
+
+        cStr = "select [dbo].[TimetableLesson].TimeTableCode, [dbo].[TimetableLesson].CodeWeekDay, [dbo].[TimetableLesson].ClassTimeCode, [dbo].[TimetableLesson].CodeLesson, [dbo].[TimetableLesson].TeacherId from [dbo].[TimetableLesson] inner join[dbo].[Timetable] on[dbo].[TimetableLesson].TimeTableCode = [dbo].[Timetable].TimeTableCode where[dbo].[Timetable].ClassCode = " + classCode;
+        cmd = CreateCommand(cStr, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+        while (dr.Read())
+        {
+            Dictionary<string, string> lesson = new Dictionary<string, string>();
+            lesson.Add("TimeTableCode", dr["TimeTableCode"].ToString());
+            lesson.Add("CodeWeekDay", dr["CodeWeekDay"].ToString());
+            lesson.Add("ClassTimeCode", dr["ClassTimeCode"].ToString());
+            lesson.Add("CodeLesson", dr["CodeLesson"].ToString());
+            lesson.Add("TeacherId", dr["TeacherId"].ToString());
+
+            TT.Add(lesson);
+        }
+        return TT;
+    }
+
     public bool IsClassHasTimeTable(string classCode)
     {
         int num = 0;
@@ -613,5 +650,33 @@ public class DBconnection
         SqlCommand cmd;
         cmd = CreateCommand(selectSTR, con);        
         return ExecuteNonQuery(cmd);
+    }
+
+    public string GetLessonNameByLessonCode(string lessonCode)
+    {
+        String selectSTR = "SELECT LessonName FROM Lessons where CodeLesson = " + lessonCode;
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string lessonName = "";
+        while (dr.Read())
+        {
+            lessonName = dr[0].ToString();
+        }
+
+        return lessonName;
+    }
+
+    public string GetTeacherNameByID(string TeacherId)
+    {
+        String selectSTR = "SELECT UserFName + ' ' + UserLName FROM Users where UserId = '" + TeacherId +"'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        string teacherName = "";
+        while (dr.Read())
+        {
+            teacherName = dr[0].ToString();
+        }
+
+        return teacherName;
     }
 }

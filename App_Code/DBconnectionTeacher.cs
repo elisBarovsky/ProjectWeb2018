@@ -240,4 +240,18 @@ public class DBconnectionTeacher
             }
         }
     }
+
+    public int GetMainTeacherClass(string id)
+    {
+        String selectSTR = "SELECT ClassCode FROM Class where MainTeacherID  = '" + id + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        int classCode = -1;
+
+        while (dr.Read())
+        {
+            classCode = int.Parse(dr[0].ToString());
+        }
+        return classCode;
+    }
 }
