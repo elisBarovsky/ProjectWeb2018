@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -20,5 +21,10 @@ public class HomeWork
     public int InserHomeWork(string LessonsCode, string HWInfo, string TeacherID, string CodeClass, string HWDate, bool IsLehagasha)
     {
         return dbT.InserHomeWork(LessonsCode, HWInfo, TeacherID, CodeClass, HWDate, IsLehagasha);
+    }
+
+    public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)
+    {
+        return dbT.FilterHomeWork(TeacherID, LessonsCode, ClassCode);
     }
 }

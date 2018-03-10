@@ -52,7 +52,7 @@
             </tr>
         </table>
         <br />
-        <asp:button runat="server" text="סנן"  />
+        <asp:button ID="FilterHWBTN" runat="server" CssClass="form-btn" text="סנן" OnClick="FilterHWBTN_Click" />
 
     </div>
 

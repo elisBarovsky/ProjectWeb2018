@@ -60,8 +60,19 @@ public class DBconnectionTeacher
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where "+ FilterType + "='" + ValueFilter + "'";
-        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); 
         DataSet ds = new DataSet("NotesDS");
+        daa.Fill(ds);
+        DataTable dtt = ds.Tables[0];
+        return dtt = ds.Tables[0];
+    }
+
+    public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)  
+    {
+        string selectSTR = "SELECT  IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'"+
+                            " FROM dbo.HomeWork where  CodeClass = '"+ ClassCode  + "' and LessonsCode = '"+ LessonsCode + "' and TeacherID = '"+ TeacherID + "'";
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        DataSet ds = new DataSet("HWDS");
         daa.Fill(ds);
         DataTable dtt = ds.Tables[0];
         return dtt = ds.Tables[0];
@@ -73,7 +84,7 @@ public class DBconnectionTeacher
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where dbo.Pupil.UserID='" + PupilID + "'";
-        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); 
         DataSet ds = new DataSet("ALLNotesDS");
         daa.Fill(ds);
         DataTable dtt = ds.Tables[0];
@@ -192,8 +203,8 @@ public class DBconnectionTeacher
     public int InserHomeWork(string LessonsCode, string HWInfo, string TeacherID, string CodeClass, string HWDate, bool IsLehagasha)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[HomeWork] ([LessonsCode] ,[HWInfo],[TeacherID],[CodeClass],[HWDate],[IsLehagasha]) " +
-                   " VALUES ('" + LessonsCode + "','" + HWInfo + "','" + TeacherID + "' ,'" + CodeClass + "' ,'" + HWDate + "','" + IsLehagasha + "')";
+        String cStr = "INSERT INTO [dbo].[HomeWork] ([LessonsCode] ,[HWInfo],[HWGivenDate],[TeacherID],[CodeClass],[HWDueDate],[IsLehagasha]) " +
+                   " VALUES ('" + LessonsCode + "','" + HWInfo + "','" +DateTime.Today.ToShortDateString() +"','" + TeacherID + "' ,'" + CodeClass + "' ,'" + HWDate + "','" + IsLehagasha + "')";
         cmd = CreateCommand(cStr, con);             // create the command
         return ExecuteNonQuery(cmd);
     }

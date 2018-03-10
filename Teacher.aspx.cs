@@ -17,12 +17,12 @@ public partial class Teacher : System.Web.UI.Page
 
     public void LoadUser()
     {
-        string AdminId = Request.Cookies["UserID"].Value;
+        string TeacherId = Request.Cookies["UserID"].Value;
         Users UserInfo_ = new Users();
         TeacherIMG.Visible = true;
 
         List<string> UserInfo = new List<string>();
-        UserInfo = UserInfo_.GetUserInfo(AdminId);
+        UserInfo = UserInfo_.GetUserInfo(TeacherId);
         TeacherNameLBL.Text = "שלום " + UserInfo[0] + " " + UserInfo[1];
 
 

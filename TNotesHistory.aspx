@@ -4,19 +4,17 @@
     <style type="text/css">
         .auto-style1 {
             margin-right: 0;
+
         }
 
         .auto-style2 {
             width: 80%;
             height: 43px;
             margin-right: 0;
+            position: center;
         }
 
-        #Footer {
-            position: fixed;
-            bottom: 50PX;
-            width: 70%;
-        }
+ 
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -54,14 +52,8 @@
             </tr>
         </table>
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <div id="Footer">
-            <asp:Button ID="FilterNotesBTN" runat="server" CssClass="form-btn" Text="סנן" OnClick="FilterNotesBTN_Click" />
 
-        </div>
+        <asp:Button ID="FilterNotesBTN" runat="server" CssClass="form-btn" Text="סנן" OnClick="FilterNotesBTN_Click" />
     </div>
 </asp:Content>
 
