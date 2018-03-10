@@ -183,6 +183,11 @@ public class Users
         return db.getPupils(classCode);
     }
 
+    public List<Dictionary<string, string>> getPupilsByClassCode(string classCode)
+    {
+        return db.getPupilsByClassCode(classCode);
+    }
+
     public Dictionary<string, string> FillUsers(string CodeUserType)
     {
         return db.FillUsers(CodeUserType);

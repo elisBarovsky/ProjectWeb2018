@@ -67,8 +67,7 @@ public class BetseferWS : System.Web.Services.WebService
         return HomeWork.FillAllHomeWork(PupilClassCode);
     }
 
-<<<<<<< HEAD
-=======
+
     [WebMethod]
     public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode)
     {
@@ -82,7 +81,7 @@ public class BetseferWS : System.Web.Services.WebService
         return HomeWork.FillBySubjectHomeWork(PupilID, LessonCode);
     }
 
->>>>>>> e273010e36d3d540ecdff67401c1eec139c59940
+
     public static string KeyByValue(Dictionary<string, string> dict, string val)
     {
         string key = null;

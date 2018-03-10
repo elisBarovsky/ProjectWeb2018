@@ -478,6 +478,25 @@ public class DBconnection
         return l;
     }
 
+    public List<Dictionary<string, string>> getPupilsByClassCode(string classCode)
+    {
+        String selectSTR = "SELECT   dbo.Users.UserID,(dbo.Users.UserLName + ' ' + dbo.Users.UserFName)AS PupilName" +
+           "  FROM dbo.Pupil INNER JOIN   dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID   where dbo.Pupil.CodeClass='" + classCode + "'";
+        SqlCommand cmd = new SqlCommand(selectSTR, con);
+        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+        List<Dictionary<string, string>> l = new List<Dictionary<string, string>>();
+
+        while (dr.Read())
+        {
+            Dictionary<string, string> p = new Dictionary<string, string>();
+            p["UserId"] = dr["UserID"].ToString();
+            p["UserName"] = dr["PupilName"].ToString();
+
+            l.Add(p);
+        }
+        return l;
+    }
+
     public Dictionary<string, string> GetTeachers()
     {
         String selectSTR = "SELECT UserID, UserFName + ' ' + UserLName AS FullName FROM Users WHERE (CodeUserType = 2)";
