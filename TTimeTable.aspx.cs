@@ -45,8 +45,11 @@ public partial class TTimeTable : System.Web.UI.Page
         //rows ^
         for (int i = 0; i < 9; i++)
         {
-            TableRow tr = new TableRow();
+            TableRow tr = new TableRow();           
             TableCell lessonNumber = new TableCell();
+            lessonNumber.Style.Add("width", "20px");
+            lessonNumber.Style.Add("height", "40px");
+            lessonNumber.Style.Add("text-align", "center");
             lessonNumber.Text = (i + 1).ToString();
             lessonNumber.CssClass = "DDL_TD";
             tr.Cells.Add(lessonNumber);
@@ -54,6 +57,9 @@ public partial class TTimeTable : System.Web.UI.Page
             for (int j = 0; j < 6; j++)
             {
                 TableCell cell = new TableCell();
+                cell.Style.Add("width", "70px");
+                cell.Style.Add("height", "40px");
+                cell.Style.Add("text-align", "center");
                 cell.CssClass = "DDL_TD";
                 Label dSubject = new Label();
                 dSubject.ID = "DDLsubject" + counter;
@@ -84,6 +90,7 @@ public partial class TTimeTable : System.Web.UI.Page
         for (int i = 0; i < days.Length; i++)
         {
             TableCell cell = new TableCell();
+            cell.Style.Add("text-align", "center");
             cell.Text = days[i];
             tr.Cells.Add(cell);
         }

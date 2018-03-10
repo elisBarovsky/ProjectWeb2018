@@ -2,19 +2,10 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
-        .auto-style1 {
-            margin-right: 0;
-
-        }
-
-        .auto-style2 {
-            width: 80%;
-            height: 43px;
-            margin-right: 0;
+       .auto-style1 {
+           width: 100%;
             position: center;
         }
-
- 
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -24,7 +15,7 @@
             <button type="button" class="btn btn-primary " onclick="location.href = 'TNotesInsert.aspx';">הוספה  </button>
             <button type="button" class="btn btn-primary active" onclick="location.href = 'TNotesHistory.aspx';">צפייה</button>
         </div>
-        <table class="auto-style2" align="right">
+        <table class="auto-style1">
             <tr>
                 <td align="right">
                     <asp:DropDownList ID="ChooseLessonsDLL" runat="server"></asp:DropDownList>
@@ -52,7 +43,7 @@
             </tr>
         </table>
         <br />
-
+         <br />
         <asp:Button ID="FilterNotesBTN" runat="server" CssClass="form-btn" Text="סנן" OnClick="FilterNotesBTN_Click" />
     </div>
 </asp:Content>

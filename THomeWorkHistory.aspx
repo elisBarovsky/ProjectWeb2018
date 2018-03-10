@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
      <style type="text/css">
         .auto-style1 {
-           width: 80%;
+           width: 100%;
             position: center;
         }
     </style>
@@ -17,8 +17,9 @@
         </div>
         <br />
         <br />
-        <table class="auto-style1" >
+        <table class="auto-style1" align="center">
             <tr>
+              
                 <td align="right">
                     <asp:dropdownlist id="ChooseLessonsDLL" runat="server"></asp:dropdownlist>
                 </td>
@@ -28,21 +29,20 @@
                 </td>
                 <td align="right">
                     <asp:label id="ClassLBL" runat="server" text=" בחר כיתה"></asp:label>
-                </td>
+                </td>             
             </tr>
             <tr>
+                   
                 <td colspan="4" align="center">
                          <asp:GridView ID="GridView1" runat="server" AllowPaging="True" BorderStyle="Dashed" HeaderStyle-HorizontalAlign="Right">
                         <PagerStyle HorizontalAlign="Right" />
-                        <RowStyle HorizontalAlign="Right" />
+                        <RowStyle HorizontalAlign="center" />
                     </asp:GridView>
                 </td>
-                <td></td>
+                <td></td>                 
             </tr>
-
-            <tr>
-                <td >
-                   
+            <tr>           
+                <td >                   
                 </td>
                 <td></td>
                 <td>
@@ -50,6 +50,7 @@
                 </td>
                 <td> </td>
             </tr>
+           
         </table>
         <br />
         <asp:button ID="FilterHWBTN" runat="server" CssClass="form-btn" text="סנן" OnClick="FilterHWBTN_Click" />

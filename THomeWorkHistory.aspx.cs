@@ -70,15 +70,17 @@ public partial class THomeWorkHistory : System.Web.UI.Page
             string LessonCode = KeyByValue(LessonsList, ChooseLessonsDLL.SelectedValue);
             HomeWork FilterHomeWork = new HomeWork();
             dtt = FilterHomeWork.FilterHomeWork(TeacherId, LessonCode, ClassCode);
-            if (dtt == null)
+           
+            if (dtt.Rows.Count == 0)
             {
                 ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('אין היסטוריית שיעורים שהוזנה על ידך עבור הכיתה והמקצוע שנבחר'); ", true);
+                GridView1.DataSource = null;
             }
             else
             {
                 GridView1.DataSource = dtt;
-                GridView1.DataBind();
             }
+            GridView1.DataBind();
         }
     }
 }
