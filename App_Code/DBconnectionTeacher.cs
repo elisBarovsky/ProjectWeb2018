@@ -47,7 +47,7 @@ public class DBconnectionTeacher
     {
        string selectSTR = " SELECT dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.Grades.Grade" +
                          " FROM dbo.Pupil INNER JOIN dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID Full outer JOIN dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID where dbo.Pupil.CodeClass = '" + ClassOtID + "'";
-        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); 
         DataSet ds = new DataSet("PupilsDS");
         daa.Fill(ds);
         DataTable dtt = ds.Tables[0];
@@ -69,7 +69,7 @@ public class DBconnectionTeacher
     
     public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)  
     {
-        string selectSTR = "SELECT  IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'"+
+        string selectSTR = "SELECT HWCode, IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'" +
                             " FROM dbo.HomeWork where  CodeClass = '"+ ClassCode  + "' and LessonsCode = '"+ LessonsCode + "' and TeacherID = '"+ TeacherID + "'";
         SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
         DataSet ds = new DataSet("HWDS");
@@ -80,7 +80,7 @@ public class DBconnectionTeacher
 
     public DataTable FillAllHomeWork(string ClassCode)//WebService
     {
-        string selectSTR = "SELECT  IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'" +
+        string selectSTR = "SELECT  HWCode,IsLehagasha , HWDueDate ,HWInfo,HWGivenDate" +
                             " FROM dbo.HomeWork where  CodeClass = '" + ClassCode + "'";
         SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
         DataSet ds = new DataSet("HWDS");
@@ -91,7 +91,7 @@ public class DBconnectionTeacher
 
     public DataTable GivenAllNotes(string PupilID) //webService
     {
-        string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת'" +
+        string selectSTR = " SELECT  dbo.GivenNotes.Comment , dbo.GivenNotes.NoteDate , dbo.Lessons.LessonName , dbo.NoteType.NoteName " +
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where dbo.Pupil.UserID='" + PupilID + "'";
@@ -104,7 +104,7 @@ public class DBconnectionTeacher
 
     public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode) //webService
     {
-        string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת'" +
+        string selectSTR = " SELECT  dbo.GivenNotes.Comment , dbo.GivenNotes.NoteDate , dbo.Lessons.LessonName , dbo.NoteType.NoteName" +
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where dbo.Pupil.UserID='" + PupilID + "' and LessonsCode = '" + ChooseSubjectCode + "'";
@@ -117,11 +117,11 @@ public class DBconnectionTeacher
 
     public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode) //webService
     {
-        string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת'" +
+        string selectSTR = " SELECT  dbo.GivenNotes.Comment , dbo.GivenNotes.NoteDate , dbo.Lessons.LessonName , dbo.NoteType.NoteName" +
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where dbo.Pupil.UserID='" + PupilID + "' and dbo.GivenNotes.LessonsCode ='" + ChooseSubjectCode + "'";
-        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); 
         DataSet ds = new DataSet("NotesDS");
         daa.Fill(ds);
         DataTable dtt = ds.Tables[0];
@@ -143,7 +143,7 @@ public class DBconnectionTeacher
                                 " FROM dbo.PupilsParent INNER JOIN dbo.Users ON dbo.PupilsParent.ParentID = dbo.Users.UserID"+
                                 " where dbo.PupilsParent.codeClass = '"+ ClassFilter + "'";
         }
-        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); // create the data adapter
+        SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con); 
         DataSet ds = new DataSet("TelephoneNumDS");
         daa.Fill(ds);
         DataTable dtt = ds.Tables[0];

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Script.Serialization;
+using System.Web.Script.Services;
 using System.Web.Services;
 
 /// <summary>
@@ -21,55 +23,101 @@ public class BetseferWS : System.Web.Services.WebService
         //InitializeComponent(); 
     }
 
+    //[WebMethod]
+    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    //public string Login(string UserTypeFilter, string PupilID)
+    //{
+    //    Users PupilClass = new Users();
+    //    string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+
+    //    TelphoneList TL = new TelphoneList();
+    //    DataTable DT = TL.FilterTelphoneList(UserTypeFilter, PupilClassCode);
+
+    //    JavaScriptSerializer js = new JavaScriptSerializer();
+    //    string jsonStringCategory = js.Serialize(DT);
+    //    return jsonStringCategory;
+    //}
+
+
     [WebMethod]
-    public DataTable TelephoneList(string UserTypeFilter,string PupilID)
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string TelephoneList(string UserTypeFilter,string PupilID)
     {
         Users PupilClass = new Users();
         string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
 
         TelphoneList TL = new TelphoneList();
-        return TL.FilterTelphoneList(UserTypeFilter, PupilClassCode);
+        DataTable DT =  TL.FilterTelphoneList(UserTypeFilter, PupilClassCode);
+        
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string jsonStringTelephoneList = js.Serialize(DT);
+        return jsonStringTelephoneList;
     }
 
     [WebMethod]
-    public DataTable GivenAllNotes(string PupilID)
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GivenAllNotes(string PupilID)
     {
         Notes AllNotesByID = new Notes();
-        return AllNotesByID.GivenAllNotes(PupilID);
+        DataTable DT = AllNotesByID.GivenAllNotes(PupilID);
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string jsonStringGivenAllNotes = js.Serialize(DT);
+        return jsonStringGivenAllNotes;
     }
 
     [WebMethod]
-    public DataTable GivenNotesBySubject(string PupilID, string ChooseSubjectCode)
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GivenNotesBySubject(string PupilID, string ChooseSubjectCode)
     {
         Dictionary<string, string> LessonsList = new Dictionary<string, string>();
         LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
         string LessonCode = KeyByValue(LessonsList, ChooseSubjectCode);
 
         Notes FilterNoteBySubject = new Notes();
-        return FilterNoteBySubject.GivenNotesBySubject(PupilID, ChooseSubjectCode);
+
+        DataTable DT = FilterNoteBySubject.GivenNotesBySubject(PupilID, ChooseSubjectCode);
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string jsonStringGivenNotesBySubject = js.Serialize(DT);
+        return jsonStringGivenNotesBySubject;
     }
 
     [WebMethod]
-    public List<Dictionary<string, string>> GivenTimeTableByClassCode(string PupilID)
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string GivenTimeTableByClassCode(string PupilID)
     {
         Users PupilClass = new Users();
         string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
         TimeTable TimeTableByClassCode = new TimeTable();
-        return TimeTableByClassCode.GetTimeTableAcordingToClassCode(int.Parse(PupilClassCode));
+
+        List<Dictionary<string, string>> ls = TimeTableByClassCode.GetTimeTableAcordingToClassCode(int.Parse(PupilClassCode));
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        // serialize to string
+        string jsonStringGivenTimeTableByClassCode = js.Serialize(ls);
+        return jsonStringGivenTimeTableByClassCode;
     }
 
     [WebMethod]
-    public DataTable FillAllHomeWork(string PupilID)
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string FillAllHomeWork(string PupilID)
     {
         Users PupilClass = new Users();
         string PupilClassCode =  PupilClass.GetPupilOtClass(PupilID);
         HomeWork HomeWork = new HomeWork();
-        return HomeWork.FillAllHomeWork(PupilClassCode);
+
+        DataTable DT = HomeWork.FillAllHomeWork(PupilClassCode);
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string jsonStringFillAllHomeWork = js.Serialize(DT);
+        return jsonStringFillAllHomeWork;
     }
 
 
     [WebMethod]
-    public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode)
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode)
     {
         Users PupilClass = new Users();
         string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
@@ -78,7 +126,12 @@ public class BetseferWS : System.Web.Services.WebService
         LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
         string LessonCode = KeyByValue(LessonsList, ChooseSubjectCode);
         HomeWork HomeWork = new HomeWork();
-        return HomeWork.FillBySubjectHomeWork(PupilID, LessonCode);
+
+        DataTable DT = HomeWork.FillBySubjectHomeWork(PupilID, LessonCode);
+
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string jsonStringFillBySubjectHomeWork = js.Serialize(DT);
+        return jsonStringFillBySubjectHomeWork;
     }
 
 
