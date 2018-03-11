@@ -45,6 +45,7 @@ public partial class TGrades : System.Web.UI.Page
             grade.ID = "grade" + counter;
             TextBox tb = new TextBox();
             tb.ID = "gradeTB" + counter;
+            tb.Attributes["type"] = "number";
             tb.Text = "";
             grade.Controls.Add(tb);
             row.Cells.Add(grade);
@@ -85,27 +86,54 @@ public partial class TGrades : System.Web.UI.Page
         string codeLesson = ChooseLessonsDLL.SelectedValue;
         string teacherId = Request.Cookies["UserID"].Value;
         string date = Calendar1.SelectedDate.ToShortDateString();
-        Grades g = new Grades();
+        if (date == "01/01/0001")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא נבחר תאריך בחינה.');", true);
+            return;
+        }
         int num = 0;
         for (int i = 1; i < tableGrades.Rows.Count; i++)
         {
             string gradeID = "gradeTB" + (i-1);
             string idID = "id" + (i-1);
+            if (IsGradeMiss())
+            {
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא ניתן להשאיר את השדה - ציון ריק.');", true);
+                return;
+            }
+           
             int grade = int.Parse((tableGrades.Rows[i].Cells[0].FindControl(gradeID) as TextBox).Text);
             string pupilId = tableGrades.Rows[i].Cells[2].Text;
+            Grades g = new Grades();
             num += g.InsertGrade(pupilId, teacherId, codeLesson, date,grade);
         }
 
         if (num == (tableGrades.Rows.Count - 1))
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('ציונים נשמרו בהצלחה');", true);
             ChooseClassDLL.SelectedValue = "0";
-            Response.Redirect("TGradesInsert.aspx");
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('ציונים נשמרו בהצלחה'); location.href='TGradesInsert.aspx';", true);
         }
         else
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('נתקלנו בבעיה בשמירת הנתונים. אנא צור קשר עם שירות הלקוחות.');", true);
         }
+    }
+
+    public bool IsGradeMiss()
+    {
+        bool empty = false;
+
+        for (int i = 1; i < tableGrades.Rows.Count; i++)
+        {
+            string gradeID = "gradeTB" + (i-1);
+
+            if ((tableGrades.Rows[i].Cells[0].FindControl(gradeID) as TextBox).Text == "")
+            {
+                empty = true;
+                break;
+            }
+        }
+        return empty;
     }
 
     public static string KeyByValue(Dictionary<string, string> dict, string val)
@@ -121,7 +149,6 @@ public partial class TGrades : System.Web.UI.Page
         }
         return key;
     }
-
 
     protected void ChooseLessonsDLL_SelectedIndexChanged(object sender, EventArgs e)
     {
