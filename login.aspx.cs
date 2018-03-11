@@ -13,10 +13,7 @@ public partial class login : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!IsPostBack)
-        //{
-           
-        //}
+
     }
     protected void SaveLoginCookie(string ID, string password)
     {
@@ -133,7 +130,7 @@ public partial class login : System.Web.UI.Page
             LBLEror.Visible = false;
             securityQ.Visible = true;
             LabelSecurityQ1.Text = l.First();
-            LabelSecurityQ2.Text = l.First();  //************************************************************
+            LabelSecurityQ2.Text = l[1];  //************************************************************
         }
     }
      
