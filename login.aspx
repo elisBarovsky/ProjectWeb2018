@@ -17,8 +17,11 @@
         <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":מספר תעודת זהות" style="text-align: right"></asp:Login>
            
             <br/>
-            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>
-             <asp:ImageButton ID="ImageButton1" runat="server" src="Images/5897a7cfcba9841eabab6152.png" Height="55px" OnClick="IforgotPassword" />
+            <div>
+                <%--<asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>--%>
+                <asp:ImageButton ID="ImageButton1" runat="server" src="Images/5897a7cfcba9841eabab6152.png" Height="75px" title="שכחתי סיסמה" OnClick="IforgotPassword" />
+            </div>
+            
 
            </div>
              <br/>
