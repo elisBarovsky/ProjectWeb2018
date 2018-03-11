@@ -13,6 +13,9 @@ public partial class THomeWorkInsert : System.Web.UI.Page
         {
             FillClasses();
             FillSubjects();
+            FillDays();
+            FillMonth();
+            FillYear();
         }
     }
 
@@ -66,8 +69,20 @@ public partial class THomeWorkInsert : System.Web.UI.Page
         string TeacherId = Request.Cookies["UserID"].Value;
 
         HomeWork HW = new HomeWork();
-
-        int res1 = HW.InserHomeWork(LessonsCode, HomeWorkDesc.Text, TeacherId, ClassCode, Calendar1.SelectedDate.ToShortDateString(), ChangeHagashaCB.Checked);
+        Users u = new Users();
+        string day = DDLday.SelectedValue, month = DDLmonth.SelectedValue, year = DDLyear.SelectedValue;
+        string Bday = day + "/" + month + "/" + year;
+        if (day == "יום" || month == "חודש" || year == "שנה")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך הלידה לא יכול להיות ריק');", true);
+            return;
+        }
+        else if (!u.IsLegalBday(day, month))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך הלידה לא חוקי');", true);
+            return;
+        }
+        int res1 = HW.InserHomeWork(LessonsCode, HomeWorkDesc.Text, TeacherId, ClassCode, Bday, ChangeHagashaCB.Checked);
         if (res1 == 1)
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שיעורי בית נוספו בהצלחה'); location.href='THomeWorkInsert.aspx';", true);
@@ -76,5 +91,48 @@ public partial class THomeWorkInsert : System.Web.UI.Page
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('הייתה בעיה בהוספת שיעורי בית, בדוק נתונים');", true);
         }
+    }
+
+    protected void FillDays()
+    {
+        List<string> days = new List<string>();
+
+        for (int i = 1; i <= 31; i++)
+        {
+            days.Add(i.ToString());
+        }
+
+        DDLday.DataSource = days;
+        DDLday.DataBind();
+        DDLday.Items.Insert(0, new ListItem("יום"));
+    }
+
+    protected void FillMonth()
+    {
+        List<string> months = new List<string>();
+
+        for (int i = 1; i <= 12; i++)
+        {
+            months.Add(i.ToString());
+        }
+
+        DDLmonth.DataSource = months;
+        DDLmonth.DataBind();
+        DDLmonth.Items.Insert(0, new ListItem("חודש"));
+    }
+
+    protected void FillYear()
+    {
+        int year = 1930;
+        List<string> years = new List<string>();
+
+        for (int i = 0; year < 2011; i++, year++)
+        {
+            years.Add(year.ToString());
+        }
+
+        DDLyear.DataSource = years;
+        DDLyear.DataBind();
+        DDLyear.Items.Insert(0, new ListItem("שנה"));
     }
 }

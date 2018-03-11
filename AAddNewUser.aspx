@@ -56,7 +56,9 @@
                 </td>
                 <td>תעודת זהות</td>
                 <td>
-                    <asp:Calendar ID="Calendar1" runat="server" autopostback="false" />
+                     <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList>/
+                    <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList>/
+                    <asp:DropDownList ID="DDLyear" runat="server"></asp:DropDownList>
                 </td>
                 <td>תאריך לידה</td>
             </tr>

@@ -72,11 +72,12 @@
                     <asp:TextBox ID="UserIDTB" runat="server" required="required"></asp:TextBox></td>
                 <td>תעודת זהות</td>
                 <td>
-                    <asp:TextBox ID="BirthDateTB" runat="server" required="required"></asp:TextBox>
                     <br />
-                    <asp:CheckBox ID="ChangeBdateCB" runat="server" Text="האם תרצה לשנות תאריך לידה?" OnCheckedChanged="ShowCalendar_" AutoPostBack="true" />
-                    <asp:Calendar ID="Calendar1" runat="server" AutoPostBack="false" OnSelectionChanged="FillTBofBdate" />
-
+                <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLyear" runat="server"></asp:DropDownList>
+                <br/>
+               
                 </td>
                 <td>תאריך לידה</td>
             </tr>

@@ -22,6 +22,9 @@ public partial class UpdateUser : System.Web.UI.Page
             NumChildDDL.Visible = false;
             VisibleParent(false);
             ChoosenNumChildLBL.Visible = false;
+            FillDays();
+            FillMonth();
+            FillYear();
         }
     }
 
@@ -48,6 +51,7 @@ public partial class UpdateUser : System.Web.UI.Page
         ChildI5DTB.Visible = false;
         ChildI6DTB.Visible = false;
     }
+
     protected void UserTypeDLL_CheckedChanged(object sender, EventArgs e)
     {
          ClearAll();
@@ -164,8 +168,11 @@ public partial class UpdateUser : System.Web.UI.Page
         UserIDTB.Text = UserID;
         FNameTB.Text = UserInfo[0];
         LNameTB.Text = UserInfo[1];
-        BirthDateTB.Text = UserInfo[2];
-        ChangeBdateCB.Visible = true;
+        string bDay = UserInfo[2];
+        string[] splitBday = bDay.Split('/');
+        DDLday.SelectedValue = splitBday[0];
+        DDLmonth.SelectedValue = splitBday[1];
+        DDLyear.SelectedValue = bDay.Substring(bDay.Length-4, 4);
         PasswordTB.Text = UserInfo[3];
         TelephoneNumberTB.Text = UserInfo[4];
 
@@ -201,22 +208,10 @@ public partial class UpdateUser : System.Web.UI.Page
         return key;
     }
 
-    protected void ShowCalendar_(object sender, EventArgs e)
-    {
-        if (ChangeBdateCB.Checked==true )
-        {
-            Calendar1.Visible = true;
-        }
-        else
-        {
-            Calendar1.Visible = false;
-        }
-    }
-
-    protected void FillTBofBdate(object sender, EventArgs e)
-    {
-        BirthDateTB.Text = Calendar1.SelectedDate.ToShortDateString();
-    }
+    //protected void FillTBofBdate(object sender, EventArgs e)
+    //{
+    //    BirthDateTB.Text = Calendar1.SelectedDate.ToShortDateString();
+    //}
     
     protected void VisiblePupil(bool ans)
     {
@@ -253,15 +248,10 @@ public partial class UpdateUser : System.Web.UI.Page
         UserIDTB.Text = "";
         FNameTB.Text = "";
         LNameTB.Text = "";
-        Calendar1.SelectedDate = Calendar1.TodaysDate;
         PasswordTB.Text = "";
         TelephoneNumberTB.Text = "";
         UserIMG.ImageUrl = "";
         UserIMG.Visible = false;
-        BirthDateTB.Text = "";
-        ChangeBdateCB.Visible = false;
-        ChangeBdateCB.Checked = false;
-        Calendar1.Visible = false;
         ChildIDLBL.Visible = false;
         MainTeacher.Visible = false;
         MainTeacherCB.Visible = false;
@@ -278,29 +268,24 @@ public partial class UpdateUser : System.Web.UI.Page
         string folderPath = Server.MapPath("~/Images/");
         int res1 = 0;
         Users NewUser = new Users();
+        string day = DDLday.SelectedValue, month = DDLmonth.SelectedValue, year = DDLyear.SelectedValue;
+        string Bday = day + "/" + month + "/" + year;
+        if (day == "יום" || month == "חודש" || year == "שנה")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך הלידה לא יכול להיות ריק');", true);
+            return;
+        }
+
         if (FileUpload1.FileName=="")
         {
-            if (ChangeBdateCB.Checked == false)
-            {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text,"", "", PasswordTB.Text, TelephoneNumberTB.Text);
-            }
-            else
-            {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(),"", "", PasswordTB.Text, TelephoneNumberTB.Text);
-            }
+            
+            res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday,"", "", PasswordTB.Text, TelephoneNumberTB.Text);
         }
         else
         {
             FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
 
-            if (ChangeBdateCB.Checked == false)
-            {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, BirthDateTB.Text, folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
-            }
-            else
-            {
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Calendar1.SelectedDate.ToShortDateString(), folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
-            }
+                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday, folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
         }                                                                                                                       //Images // להוריד ירוק כשיהיה לא בשרת
 
         if (res1 == 1)
@@ -450,5 +435,48 @@ public partial class UpdateUser : System.Web.UI.Page
                 ChildI6DTB.Visible = true;
                 break;
         }
+    }
+
+    protected void FillDays()
+    {
+        List<string> days = new List<string>();
+
+        for (int i = 1; i <= 31; i++)
+        {
+            days.Add(i.ToString());
+        }
+
+        DDLday.DataSource = days;
+        DDLday.DataBind();
+        DDLday.Items.Insert(0, new ListItem("יום"));
+    }
+
+    protected void FillMonth()
+    {
+        List<string> months = new List<string>();
+
+        for (int i = 1; i <= 12; i++)
+        {
+            months.Add(i.ToString());
+        }
+
+        DDLmonth.DataSource = months;
+        DDLmonth.DataBind();
+        DDLmonth.Items.Insert(0, new ListItem("חודש"));
+    }
+
+    protected void FillYear()
+    {
+        int year = 1930;
+        List<string> years = new List<string>();
+
+        for (int i = 0; year < 2011; i++, year++)
+        {
+            years.Add(year.ToString());
+        }
+
+        DDLyear.DataSource = years;
+        DDLyear.DataBind();
+        DDLyear.Items.Insert(0, new ListItem("שנה"));
     }
 }

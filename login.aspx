@@ -45,9 +45,10 @@
                 <asp:TextBox ID="TextBoxUserID" runat="server"></asp:TextBox>
                 <asp:Label ID="LabelUserID" runat="server" Text="ת.ז."></asp:Label>
                 <br/>
-                <asp:Label ID="LabelBDay" runat="server" Text="תאריך לידה"></asp:Label>
-                 <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-
+                <br />
+                <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLyear" runat="server"></asp:DropDownList>
                 <br/>
                
                 <br/>
