@@ -203,9 +203,11 @@ public class DBconnectionTeacher
 
     public int InsertGrade(string PupilID, string TeacherID, string CodeLesson, string ExamDate, int Grade)
     {
+        SqlConnection conGrades = new SqlConnection();
+        conGrades = connect("Betsefer");
         SqlCommand cmd;
         String cStr = "INSERT INTO [dbo].[Grades]  ([PupilID] ,[TeacherID],[CodeLesson],[ExamDate],[Grade])   VALUES ('"+ PupilID + "','"+ TeacherID + "','"+ CodeLesson + "' ,'"+ ExamDate + "' ,"+ Grade + ")";
-        cmd = CreateCommand(cStr, con);             // create the command
+        cmd = CreateCommand(cStr, conGrades);             // create the command
         return ExecuteNonQuery(cmd);
     }
 

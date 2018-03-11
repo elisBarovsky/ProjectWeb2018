@@ -9,44 +9,31 @@ public partial class TGrades : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!IsPostBack)
-        {
-            ClearAll();
-            //FillClasses();
-            //FillSubjects();
-        }
+
+            CreatePupilsListByClassCode();
     }
 
     protected void FillPupils(object sender, EventArgs e)
     {
-        //Dictionary<string, string> Classes = new Dictionary<string, string>();
-        //Classes = (Dictionary<string, string>)(Session["ClassesList"]);
-        //string ClassCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
-
         CreatePupilsListByClassCode();
-
-        //Grades ClassPupilGrades = new Grades();
-
-        //GridView1.DataSource = ClassPupilGrades.PupilList(ClassCode);
-        //GridView1.DataBind();
     }
 
     protected void CreatePupilsListByClassCode()
     {
+        tableGrades.Rows.Clear();
         string ClassCode = ChooseClassDLL.SelectedValue;
-
         List<Dictionary<string, string>> pupils = new List<Dictionary<string, string>>();
         Users u = new Users();
         pupils = u.getPupilsByClassCode(ClassCode);
-
-        string[] tytles = new string[] { "ציון", "שם", "ת.ז." };
+        string[] titles = new string[] { "ציון", "שם", "ת.ז." };
         TableRow tr = new TableRow();
-
+        int counter = 0;
         for (int i = 0; i < 3; i++)
         {
-            TableCell tytle = new TableCell();
-            tytle.Text = tytles[i];
-            tr.Cells.Add(tytle);
+            TableCell title = new TableCell();
+            title.CssClass = "DDL_TD";
+            title.Text = titles[i];
+            tr.Cells.Add(title);
         }
         tableGrades.Rows.Add(tr);
 
@@ -55,85 +42,70 @@ public partial class TGrades : System.Web.UI.Page
             TableRow row = new TableRow();
 
             TableCell grade = new TableCell();
-                TextBox tb = new TextBox();
-                tb.Text = "";
-                grade.Controls.Add(tb);
-                row.Cells.Add(grade);
+            grade.CssClass = "DDL_TD";
+            grade.ID = "grade" + counter;
+            TextBox tb = new TextBox();
+            tb.ID = "gradeTB" + counter;
+            tb.Text = "";
+            grade.Controls.Add(tb);
+            row.Cells.Add(grade);
 
-                TableCell name = new TableCell();
-                name.Text = pupils[i]["UserName"];
-                row.Cells.Add(name);
+            TableCell name = new TableCell();
+            name.CssClass = "DDL_TD";
+            name.ID = "name" + counter;
+            name.Text = pupils[i]["UserName"];
+            row.Cells.Add(name);
 
-                TableCell id = new TableCell();
-                id.Text = pupils[i]["UserId"];
-                row.Cells.Add(id);
+            TableCell id = new TableCell();
+            id.CssClass = "DDL_TD";
+            id.ID = "id" + counter;
+            id.Text = pupils[i]["UserId"];
+            row.Cells.Add(id);
 
-                tableGrades.Rows.Add(row);
+            tableGrades.Rows.Add(row);
+            counter++;
         }
+        tableGrades.DataBind();
     }
 
-    //protected void GridView1_RowEditing(object sender, GridViewEditEventArgs e)
-    //{
-    //    GridView1.EditIndex = e.NewEditIndex;
-    //    FillPupils(sender,e);
-    //}
+    protected void FillFirstItem(object sender, EventArgs e)
+    {
+        string value = "";
 
-    //protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
-    //{
-    //    GridView1.EditIndex = -1;
-    //    FillPupils(sender, e); 
-    //}
-
-    //protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
-    //{
-    //    string PupilID = (string)e.NewValues["UserID"];
-    //    string PupilName = (string)e.NewValues["PupilName"];
-    //    string Grade = (string)e.NewValues["Grade"];
-    //    string TeacherId = Request.Cookies["UserID"].Value;
-
-    //    // Update here the database record for the selected patientID
-    //    Dictionary<string, string> Lessons = new Dictionary<string, string>();
-    //    Lessons = (Dictionary<string, string>)(Session["LessonsList"]);
-
-    //    Grades InsertPupilGrade = new Grades();
-    //    InsertPupilGrade.InsertGrade(PupilID, TeacherId, KeyByValue(Lessons, ChooseLessonsDLL.SelectedValue), Calendar1.SelectedDate.ToShortDateString(), int.Parse(Grade));
-    //    GridView1.EditIndex = -1;
-    //    FillPupils(sender, e);
-    //}
-
-    //protected void FillClasses()
-    //{
-    //    Dictionary<string, string> Classes = new Dictionary<string, string>();
-    //    Grades ClassGrade = new Grades();
-    //    Classes = ClassGrade.FillClassOt();
-    //    ChooseClassDLL.DataSource = Classes.Values;
-    //    ChooseClassDLL.DataBind();
-    //    Session["ClassesList"] = Classes;
-    //}
-
-    //protected void FillSubjects()
-    //{
-    //    Dictionary<string, string> Lessons = new Dictionary<string, string>();
-    //    Grades ClassGrade = new Grades();
-    //    Lessons = ClassGrade.FillLessons();
-    //    ChooseLessonsDLL.DataSource = Lessons.Values;
-    //    ChooseLessonsDLL.DataBind();
-    //    Session["LessonsList"] = Lessons;
-    //}
+        if ((sender as DropDownList).ID == "ChooseClassDLL")
+        {
+            value = "בחר כיתה";
+        }
+        else value = "בחר מקצוע";
+         (sender as DropDownList).Items.Insert(0, new ListItem(value, "0"));
+    }
 
     protected void AddGrades_Click(object sender, EventArgs e)
     {
-        //int classCode = int.Parse(ChooseClassDLL.SelectedValue);
         string codeLesson = ChooseLessonsDLL.SelectedValue;
-        string teacherId = Request.Cookies["UserID"].ToString();
+        string teacherId = Request.Cookies["UserID"].Value;
         string date = Calendar1.SelectedDate.ToShortDateString();
         Grades g = new Grades();
-
-        for (int i = 0; i < tableGrades.Rows.Count; i++)
+        int num = 0;
+        for (int i = 1; i < tableGrades.Rows.Count; i++)
         {
-            int grade = int.Parse(tableGrades.Rows[i].Cells[0].ToString());
-            string pupilId = tableGrades.Rows[i].Cells[2].ToString();
-            int num = g.InsertGrade(pupilId, teacherId, codeLesson, date,grade);
+            string gradeID = "gradeTB" + (i-1);
+            string idID = "id" + (i-1);
+            int grade = int.Parse((tableGrades.Rows[i].Cells[0].FindControl(gradeID) as TextBox).Text);
+            string pupilId = tableGrades.Rows[i].Cells[2].Text;
+            num += g.InsertGrade(pupilId, teacherId, codeLesson, date,grade);
+        }
+
+        if (num == (tableGrades.Rows.Count - 1))
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('ציונים נשמרו בהצלחה');", true);
+            ChooseClassDLL.SelectedValue = "0";
+            Response.Redirect("TGradesInsert.aspx");
+        }
+        else
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('נתקלנו בבעיה בשמירת הנתונים. אנא צור קשר עם שירות הלקוחות.');", true);
+
         }
     }
 
@@ -151,27 +123,10 @@ public partial class TGrades : System.Web.UI.Page
         return key;
     }
 
-    protected void ClearAll()
+
+    protected void ChooseLessonsDLL_SelectedIndexChanged(object sender, EventArgs e)
     {
-        //UserIDTB.Text = "";
-        //FNameTB.Text = "";
-        //LNameTB.Text = "";
-        //Calendar1.SelectedDate = Calendar1.TodaysDate;
-        //UserNameTB.Text = "";
-        //PasswordTB.Text = "";
-        //TelephoneNumberTB.Text = "";
-        //ChildIDTB.Text = "";
-        //UserIMG.ImageUrl = "";
-        //UserIMG.Visible = false;
-        //BirthDateTB.Text = "";
-        //ChangeBdateCB.Visible = false;
-        //ChangeBdateCB.Checked = false;
-        //Calendar1.Visible = false;
-        //ChildIDTB.Visible = false;
-        //ChildIDLBL.Visible = false;
-        //MainTeacher.Visible = false;
-        //MainTeacherCB.Visible = false;
+        ChooseLessonsDLL.Enabled = false;
+        ChooseClassDLL.Visible = true;
     }
-
-
 }

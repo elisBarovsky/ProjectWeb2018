@@ -6,6 +6,16 @@
               width:100%;
               position: center;
           }
+
+        table{
+       align-self :center;
+    width: 80%;
+    border-collapse:collapse;
+    table-layout: fixed;
+}
+.DDL_TD{
+    border: 2px solid #92a8d1;
+}
       </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -20,17 +30,15 @@
           <table class="auto-style1">
             <tr>
                 <td>
-                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="True" OnSelectedIndexChanged="FillPupils" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
+                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="True" Visible="false" ondatabound="FillFirstItem" OnSelectedIndexChanged="FillPupils" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
                     <asp:SqlDataSource ID="DSclasses" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                 </td>
-                <td>בחר כיתה
-                </td>
+                
 
-                <td><asp:DropDownList ID="ChooseLessonsDLL" runat="server" DataSourceID="DSsubjects" DataTextField="LessonName" DataValueField="CodeLesson" ></asp:DropDownList>
+                <td><asp:DropDownList ID="ChooseLessonsDLL" runat="server" AutoPostBack="true" DataSourceID="DSsubjects" ondatabound="FillFirstItem" Visible="true" DataTextField="LessonName" DataValueField="CodeLesson" OnSelectedIndexChanged="ChooseLessonsDLL_SelectedIndexChanged" ></asp:DropDownList>
                     <asp:SqlDataSource ID="DSsubjects" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodeLesson], [LessonName] FROM [Lessons]"></asp:SqlDataSource>
                 </td>
-                <td>בחר מקצוע
-                </td>
+                
             </tr>
             <tr>
                 <td>
@@ -43,14 +51,10 @@
             </tr>
             <tr>
                 <td align="center" colspan="4">
-                    <%--<asp:GridView ID="GridView1" runat="server" OnRowEditing="GridView1_RowEditing" OnRowCancelingEdit="GridView1_RowCancelingEdit"
-                      OnRowUpdating="GridView1_RowUpdating" >
-                    <Columns>
-                        <asp:CommandField ShowEditButton="true" ShowCancelButton="true" ShowDeleteButton="true" />
-                    </Columns>
-                    </asp:GridView>--%>
-                    <asp:Table ID="tableGrades" runat="server"></asp:Table>
-
+                    <br />
+                    <br />
+                    <asp:Table ID="tableGrades" runat="server" ></asp:Table>
+                    <br />
                 </td>
             </tr>
         </table>

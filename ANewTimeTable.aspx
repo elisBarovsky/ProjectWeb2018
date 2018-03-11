@@ -12,8 +12,6 @@
 .DDL_TD{
     border: 2px solid #92a8d1;
 }
-
-
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
