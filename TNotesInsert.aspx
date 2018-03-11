@@ -28,7 +28,9 @@
                 <td>
                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                 </td>
-                <td>בחר כיתה
+                <td>
+                    
+                    בחר כיתה
                 </td>
                 <td><asp:DropDownList ID="ChooseLessonsDLL" runat="server" ></asp:DropDownList>
                 </td>

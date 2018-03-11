@@ -17,8 +17,11 @@
         <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":מספר תעודת זהות" style="text-align: right"></asp:Login>
            
             <br/>
-            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>
-             <asp:ImageButton ID="ImageButton1" runat="server" src="Images/5897a7cfcba9841eabab6152.png" Height="55px" OnClick="IforgotPassword" />
+            <div>
+                <%--<asp:LinkButton ID="LinkButton1" runat="server" OnClick="IforgotPassword">שכחתי סיסמה</asp:LinkButton>--%>
+                <asp:ImageButton ID="ImageButton1" runat="server" src="Images/5897a7cfcba9841eabab6152.png" Height="75px" title="שכחתי סיסמה" OnClick="IforgotPassword" />
+            </div>
+            
 
            </div>
              <br/>
@@ -45,9 +48,10 @@
                 <asp:TextBox ID="TextBoxUserID" runat="server"></asp:TextBox>
                 <asp:Label ID="LabelUserID" runat="server" Text="ת.ז."></asp:Label>
                 <br/>
-                <asp:Label ID="LabelBDay" runat="server" Text="תאריך לידה"></asp:Label>
-                 <asp:Calendar ID="Calendar1" runat="server"></asp:Calendar>
-
+                <br />
+                <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLyear" runat="server"></asp:DropDownList>
                 <br/>
                
                 <br/>

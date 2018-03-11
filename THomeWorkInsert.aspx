@@ -25,14 +25,17 @@
         <br />
         <table class="auto-style1">
             <tr>
+               <%-- <td>
+                </td>--%>
                 <td>
                     <asp:DropDownList ID="ChooseLessonsDLL" runat="server"></asp:DropDownList>
+                    בחר מקצוע
                 </td>
-                <td>בחר מקצוע</td>
+               <%-- <td>
+                    
+                </td>--%>
                 <td>
                     <asp:DropDownList ID="ChooseClassDLL" runat="server" ></asp:DropDownList>
-                </td>
-                <td>
                     <asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה"></asp:Label>
                 </td>
             </tr>
@@ -48,10 +51,15 @@
                     <asp:CheckBox ID="ChangeHagashaCB" runat="server" Text="האם השיעורים להגשה?" />
                 </td>
                 <td></td>
+               <%-- <td>
+               
+                </td>--%>
                 <td>
-                    <asp:Calendar ID="Calendar1" runat="server" autopostback="false" />
+                    <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLyear" runat="server"></asp:DropDownList>
+                    לביצוע עד תאריך
                 </td>
-                <td>לביצוע עד תאריך </td>
             </tr>
         </table>
         <br />
