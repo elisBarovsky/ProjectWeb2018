@@ -67,7 +67,7 @@ public partial class login : System.Web.UI.Page
             Login1.FailureText = "אחד מהפרטים שהקשת שגוים";
         }
     }
-    protected void UpdateQuation(object sender, EventArgs e)
+    protected void UpdateQuestion(object sender, EventArgs e)
     {
         int q1 = int.Parse(DropDownList_Qlist1.SelectedItem.Value);
         string a1 = TextBox_answer1.Text;
@@ -181,6 +181,4 @@ public partial class login : System.Web.UI.Page
         loginPage.Visible = true;
         Label1.Visible = false;
     }
-
-  
 }

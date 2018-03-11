@@ -37,7 +37,7 @@
                     <br />
                     <asp:TextBox ID="TextBox_answer2" runat="server"></asp:TextBox>
                       <br />  <br />
-                    <asp:Button ID="LinkButton_continue" runat="server" OnAuthenticate="Login1_Authenticate" text="המשך" OnClick="UpdateQuation"/>
+                    <asp:Button ID="LinkButton_continue" runat="server" OnAuthenticate="Login1_Authenticate" text="המשך" OnClick="UpdateQuestion"/>
                 </div>
 
             <div id="forgetMyPassword"  runat="server" visible="false">
