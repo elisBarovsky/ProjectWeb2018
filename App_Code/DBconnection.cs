@@ -164,21 +164,55 @@ public class DBconnection
     }
 
     public List<string> GetUserSecurityDetailsByuserIDandBday(string userID, string Bday) {
-        String selectSTR = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQAnswer FROM dbo.SecurityQ INNER JOIN" +
-            "  dbo.Users 	ON dbo.SecurityQ.CodeSecurityQ = dbo.Users.SecurityQCode INNER" +
-            " JOIN dbo.UserType ON dbo.Users.CodeUserType = dbo.UserType.CodeUserType " +
-            "where dbo.Users.UserID = '" + userID + "'  and dbo.Users.BirthDate ='" + Bday + "'";
-        SqlCommand cmd = new SqlCommand(selectSTR, con);
-        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-        string Q, answer;
         List<string> l = new List<string>();
-        while (dr.Read())
+
+        l = GetSecurityInfo(1, userID, Bday).Concat(GetSecurityInfo(2, userID, Bday)).ToList();
+        
+        return l;
+    }
+
+    public List<string> GetSecurityInfo(int numQ, string id, string bDay)
+    {
+        string str = "";
+        SqlCommand cmd;
+        List<string> l = new List<string>();
+
+        switch (numQ)
         {
-            Q = dr["SecurityQInfo"].ToString();
-            l.Add(Q);
-            answer = dr["SecurityQAnswer"].ToString();
-            l.Add(answer);
+            case 1:
+                str = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQ1Answer FROM dbo.SecurityQ " +
+            "INNER JOIN dbo.Users ON dbo.SecurityQ.CodeSecurityQ = dbo.Users.SecurityQ1Code " +
+            "where dbo.Users.UserID = '" + id + "' and dbo.Users.BirthDate ='" + bDay + "'";
+
+                cmd = new SqlCommand(str, con);
+                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dr.Read())
+                {
+                    string Q1 = dr["SecurityQInfo"].ToString();
+                    l.Add(Q1);
+                    string answer1 = dr["SecurityQ1Answer"].ToString();
+                    l.Add(answer1);
+                }
+                break;
+            case 2:
+                str = "SELECT dbo.SecurityQ.SecurityQInfo, dbo.Users.SecurityQ2Answer FROM dbo.SecurityQ " +
+            "INNER JOIN dbo.Users ON dbo.SecurityQ.CodeSecurityQ = dbo.Users.SecurityQ2Code " +
+            "where dbo.Users.UserID = '" + id + "' and dbo.Users.BirthDate ='" + bDay + "'";
+
+                cmd = new SqlCommand(str, con);
+                dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (dr.Read())
+                {
+                    string Q2 = dr["SecurityQInfo"].ToString();
+                    l.Add(Q2);
+                    string answer2 = dr["SecurityQ2Answer"].ToString();
+                    l.Add(answer2);
+                }
+                break;
         }
+
         return l;
     }
 

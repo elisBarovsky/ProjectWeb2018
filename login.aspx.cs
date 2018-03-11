@@ -130,7 +130,7 @@ public partial class login : System.Web.UI.Page
             LBLEror.Visible = false;
             securityQ.Visible = true;
             LabelSecurityQ1.Text = l.First();
-            LabelSecurityQ2.Text = l[1];  //************************************************************
+            LabelSecurityQ2.Text = l[2];
         }
     }
      
@@ -143,7 +143,7 @@ public partial class login : System.Web.UI.Page
         string answer1= TextBoxSecurityA1.Text;
         string answer2 = TextBoxSecurityA2.Text;
 
-        if (l[1]== answer1 && l[2] == answer2) //******************************************************************
+        if (l[3]== answer1 && l[1] == answer2)
         {
             ChangePassword.Visible = true;
             securityQ.Visible = false;
