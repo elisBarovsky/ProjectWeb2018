@@ -9,8 +9,7 @@ public partial class TGrades : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
-            CreatePupilsListByClassCode();
+        CreatePupilsListByClassCode();
     }
 
     protected void FillPupils(object sender, EventArgs e)
@@ -77,6 +76,7 @@ public partial class TGrades : System.Web.UI.Page
             value = "בחר כיתה";
         }
         else value = "בחר מקצוע";
+
          (sender as DropDownList).Items.Insert(0, new ListItem(value, "0"));
     }
 
@@ -105,7 +105,6 @@ public partial class TGrades : System.Web.UI.Page
         else
         {
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('נתקלנו בבעיה בשמירת הנתונים. אנא צור קשר עם שירות הלקוחות.');", true);
-
         }
     }
 
