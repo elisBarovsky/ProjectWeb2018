@@ -23,20 +23,48 @@ public class BetseferWS : System.Web.Services.WebService
         //InitializeComponent(); 
     }
 
-    //[WebMethod]
-    //[ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    //public string Login(string UserTypeFilter, string PupilID)
-    //{
-    //    Users PupilClass = new Users();
-    //    string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+    [WebMethod]
+    [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
+    public string Login(string UserID, string password)
+    {
+        Users UserLogin = new Users();
+        string isAlreadyLogin = UserLogin.IsAlreadyLogin(UserID, password);
+        string UserType = "";
+        if (isAlreadyLogin != "")
+        {
+            if (!bool.Parse(isAlreadyLogin))
+            {
+                UserType = "openSeqQestion";/*FillSecurityQ();*/
+            }
+            else
+            {
+                switch (int.Parse(UserLogin.GetUserType(UserID, password)))
+                {
+                    case 1:
+                        UserType="Admin";
+                        break;
+                    case 2:
+                        UserType = "Teacher";
+                        break;
+                    case 3:
+                        UserType = "Parent";
+                        break;
+                    case 4:
+                        UserType = "Child";
+                        break;
+                }             
+            }
+        }
+        else
+        {
+            UserType = "אחד מהפרטים שהקשת שגוים";
+        }
+     
 
-    //    TelphoneList TL = new TelphoneList();
-    //    DataTable DT = TL.FilterTelphoneList(UserTypeFilter, PupilClassCode);
-
-    //    JavaScriptSerializer js = new JavaScriptSerializer();
-    //    string jsonStringCategory = js.Serialize(DT);
-    //    return jsonStringCategory;
-    //}
+        JavaScriptSerializer js = new JavaScriptSerializer();
+        string jsonStringCategory = js.Serialize(UserType);
+        return jsonStringCategory;
+    }
 
 
     [WebMethod]
