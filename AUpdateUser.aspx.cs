@@ -132,7 +132,6 @@ public partial class UpdateUser : System.Web.UI.Page
             Dictionary<string, string> pupils = new Dictionary<string, string>();
             pupils = (Dictionary<string, string>)(Session["PupilsList"]);
             UserID = KeyByValue(pupils, UserID);
-            GroupAgeDLL.SelectedValue = PupilGroupID.GetPupilGroup(UserID);
             ClassOt2DLL.SelectedValue = PupilGroupID.GetPupilOtClass(UserID);
         }
         else
@@ -226,8 +225,6 @@ public partial class UpdateUser : System.Web.UI.Page
         Class1LBL.Visible = ans;
         Class2LBL.Visible = ans;
         ClassOt2DLL.Visible = ans;
-        GroupAgeLBL.Visible = ans;
-        GroupAgeDLL.Visible = ans;
     }
 
     protected void VisibleOtherUsers(bool ans)
@@ -266,6 +263,23 @@ public partial class UpdateUser : System.Web.UI.Page
         ChildI4DTB.Text="";
         ChildI5DTB.Text="";
         ChildI6DTB.Text="";
+        DDLmonth.SelectedIndex =-1;
+        DDLyear.SelectedIndex = -1;
+        DDLday.SelectedIndex = -1;
+        ChildI1DTB.Visible = false;
+        ChildI2DTB.Visible = false;
+        ChildI3DTB.Visible = false;
+        ChildI4DTB.Visible = false;
+        ChildI5DTB.Visible = false;
+        ChildI6DTB.Visible = false;
+        UpdateChild.Visible = false;
+        NumChildLBL.Visible = false;
+        NumChildDDL.Visible = false;
+        ChoosenNumChildLBL.Visible = false;
+        ChoosenNumChildDDL.Visible = false;
+        ChoosenNumChildDDL.SelectedIndex = 0;
+        UpdateChild.Checked = false;
+        ChildIDLBL.Visible = false;
     }
 
     protected void UpdateUserBTN_Click(object sender, EventArgs e) //******************* להתאים עד הסוף שינויים
@@ -289,8 +303,7 @@ public partial class UpdateUser : System.Web.UI.Page
         else
         {
             FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-
-                res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday, folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
+            res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday, folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
         }                                                                                                                       //Images // להוריד ירוק כשיהיה לא בשרת
 
         if (res1 == 1)
@@ -298,7 +311,7 @@ public partial class UpdateUser : System.Web.UI.Page
             if (UserTypeDLL.SelectedValue == "4")
             {
                 Users PupilUser = new Users();
-                int num = PupilUser.UpdatePupil(UserIDTB.Text, GroupAgeDLL.SelectedValue, ClassOt2DLL.SelectedValue);
+                int num = PupilUser.UpdatePupil(UserIDTB.Text, ClassOt2DLL.SelectedValue);
             }
             else if (UserTypeDLL.SelectedValue == "2")
             {
@@ -374,14 +387,12 @@ public partial class UpdateUser : System.Web.UI.Page
         if (UpdateChild.Checked)
         {
             NumChildDDL.Visible = true;
-            ChildIDLBL.Visible=true;
             ChoosenNumChildDDL.Visible = true;
             ChoosenNumChildLBL.Visible = true;
         }
         else
         {
             NumChildDDL.Visible = false;
-            ChildIDLBL.Visible = false;
             ChoosenNumChildDDL.Visible = false;
             ChoosenNumChildLBL.Visible = false;
         }
@@ -389,6 +400,7 @@ public partial class UpdateUser : System.Web.UI.Page
 
     protected void NumChildDDL_SelectedIndexChanged(object sender, EventArgs e)
     {
+        ChildIDLBL.Visible = true;
         switch (ChoosenNumChildDDL.SelectedValue)
         {
             case "1":

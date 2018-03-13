@@ -385,10 +385,10 @@ public class DBconnection
         return ExecuteNonQuery(cmd); // execute the command   
     }
 
-    public int AddPupil(string UserID, string GroupType, int classNumber)
+    public int AddPupil(string UserID, int classNumber)
     {
         SqlCommand cmd;
-        String cStr = "INSERT INTO [dbo].[Pupil]([UserID] ,[CodePgroup],[CodeClass])  VALUES ('"+ UserID + "' ,'"+ GroupType + "' ,"+ classNumber + ")";
+        String cStr = "INSERT INTO [dbo].[Pupil]([UserID],[CodeClass])  VALUES ('"+ UserID + "' ,'"+ classNumber + ")";
         cmd = CreateCommand(cStr, con);          
         return ExecuteNonQuery(cmd);  
     }
@@ -406,10 +406,10 @@ public class DBconnection
         }
         return NumChilds;
     }
-    public int UpdatePupil(string userID, string CodePgroup, string ClassOt)
+    public int UpdatePupil(string userID, string ClassOt)
     {
         SqlCommand cmd;                                                                 
-        String cStr = "UPDATE[dbo].[Pupil] [CodePgroup]='" + CodePgroup + "',[CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
+        String cStr = "UPDATE[dbo].[Pupil] [CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
         cmd = CreateCommand(cStr, con);         
         return ExecuteNonQuery(cmd);   
     }

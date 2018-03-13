@@ -94,31 +94,32 @@
             <tr>
                 <td >
                     <asp:DropDownList ID="NumChildDDL" runat="server"></asp:DropDownList> <br />
+                    <asp:DropDownList ID="ClassOt2DLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode" AutoPostBack="false" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                     <asp:DropDownList ID="ChoosenNumChildDDL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NumChildDDL_SelectedIndexChanged"> </asp:DropDownList>
                     <asp:Label ID="ChoosenNumChildLBL" runat="server" Text="כמות ילדים להוספה"></asp:Label>
                     </td>
-                <td> <asp:Label ID="NumChildLBL" runat="server" Text="מספר ילדים"></asp:Label>   </td>
+                <td> <asp:Label ID="NumChildLBL" runat="server" Text="מספר ילדים"></asp:Label>  
+                    <asp:Label ID="Class2LBL" runat="server" Text=" בחר כיתה"></asp:Label>
+  </td>
                 <td ><asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox>
+
                    </td>
                 <td>סיסמה</td>
             </tr>
             <tr>
                 <td>
+                    
                     <asp:TextBox ID="ChildI1DTB" runat="server" required="required"></asp:TextBox><br />
                      <asp:TextBox ID="ChildI2DTB" runat="server" required="required"></asp:TextBox><br />
                      <asp:TextBox ID="ChildI3DTB" runat="server" required="required"></asp:TextBox><br />
                      <asp:TextBox ID="ChildI4DTB" runat="server" required="required"></asp:TextBox><br />
                      <asp:TextBox ID="ChildI5DTB" runat="server" required="required"></asp:TextBox><br />
                      <asp:TextBox ID="ChildI6DTB" runat="server" required="required"></asp:TextBox>
-                    <asp:RadioButtonList ID="GroupAgeDLL" runat="server" RepeatDirection="Horizontal" DataSourceID="SqlDataSource5" DataTextField="GroupName" DataValueField="CodePgroup"></asp:RadioButtonList>
                     <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
-                    <asp:DropDownList ID="ClassOt2DLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode" AutoPostBack="false" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                 </td>
                 <td>
 
-                    <asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>
                     <br />
-                    <asp:Label ID="Class2LBL" runat="server" Text=" בחר כיתה"></asp:Label>
                     <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות"></asp:Label>
                 </td>
                 <td>

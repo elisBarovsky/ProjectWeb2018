@@ -143,7 +143,7 @@ public partial class AddNewUser : System.Web.UI.Page
             if (UserTypeDLL.SelectedValue == "4")
             {
                 Users PupilUser = new Users();
-                int num = PupilUser.AddPupil(UserIDTB.Text, "",int.Parse(ClassOtDLL.SelectedValue));
+                int num = PupilUser.AddPupil(UserIDTB.Text,int.Parse(ClassOtDLL.SelectedValue));
             }
             else if (UserTypeDLL.SelectedValue == "2")
             {
