@@ -22,13 +22,13 @@
         <table class="auto-style1" align="center">
             <tr>
                 <td>
-                    <asp:RadioButtonList ID="GroupAgeDLL" required="required" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" RepeatDirection="Horizontal"></asp:RadioButtonList>
+                    <%--<asp:RadioButtonList ID="GroupAgeDLL" required="required" runat="server" DataSourceID="SqlDataSource1" DataTextField="GroupName" DataValueField="CodePgroup" RepeatDirection="Horizontal"></asp:RadioButtonList>--%>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodePgroup], [GroupName] FROM [PupilsGroup]"></asp:SqlDataSource>
 
                     <asp:CheckBox ID="MainTeacherCB" runat="server" AutoPostBack="true" OnCheckedChanged="MainTeacherCB_CheckedChanged" />
                 </td>
                 <td>
-                    <asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>
+                    <%--<asp:Label ID="GroupAgeLBL" runat="server" Text="קבוצת גיל"> </asp:Label>--%>
                     <asp:Label ID="MainTeacher" runat="server" Text=" האם מחנך"></asp:Label>
                 </td>
 
@@ -46,13 +46,15 @@
                 </td>
                 <td>שם משפחה</td>
                 <td>
-                    <asp:TextBox ID="FNameTB" runat="server" required="required"></asp:TextBox>
+                    <asp:TextBox ID="FNameTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
                 </td>
                 <td>שם פרטי</td>
             </tr>
             <tr>
                 <td>
-                    <asp:TextBox ID="UserIDTB" runat="server" required="required"></asp:TextBox>
+                    <asp:TextBox ID="UserIDTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="UserIDTB" 
+                        ErrorMessage="מצחיקול! הזן בשדה רק מספרים." ForeColor="Red" ValidationExpression="[0-9]" />
                 </td>
                 <td>תעודת זהות</td>
                 <td>
@@ -69,7 +71,7 @@
                 </td>
                 <td>תמונה</td>
                 <td>
-                    <asp:DropDownList ID="ClassOtDLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
+                    <asp:DropDownList ID="ClassOtDLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode" OnLoad="FillFirstItem"></asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                 </td>
                 <td>
@@ -80,24 +82,40 @@
             </tr>
             <tr>
                 <td>
-                    <asp:TextBox ID="TelephoneNumberTB" runat="server" required="required"></asp:TextBox>
-                    <br />  <br /> 
-
+                    <asp:TextBox ID="TelephoneNumberTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="TelephoneNumberTB" 
+                        ErrorMessage="מצחיקול! הזן בשדה רק מספרים." ValidationExpression="[0-9]" />
+                    <br /> 
                 </td>
                 <td>טלפון</td>
                 <td>
                     <asp:TextBox ID="PasswordTB" runat="server" required="required"></asp:TextBox>
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="PasswordTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression=".{4}.*" />
                 </td>
                 <td>סיסמה</td>
             </tr>      
             <tr>
                 <td>
-                    <asp:TextBox ID="ChildI1DTB" runat="server" required="required"></asp:TextBox><br />
-                     <asp:TextBox ID="ChildI2DTB" runat="server" required="required"></asp:TextBox><br />
-                     <asp:TextBox ID="ChildI3DTB" runat="server" required="required"></asp:TextBox><br />
-                     <asp:TextBox ID="ChildI4DTB" runat="server" required="required"></asp:TextBox><br />
-                     <asp:TextBox ID="ChildI5DTB" runat="server" required="required"></asp:TextBox><br />
-                     <asp:TextBox ID="ChildI6DTB" runat="server" required="required"></asp:TextBox>
+                    <br />
+                     <asp:TextBox ID="ChildI1DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI1DTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression="[0-9]" />
+                     <asp:TextBox ID="ChildI2DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI2DTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression="[0-9]" />
+                     <asp:TextBox ID="ChildI3DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI3DTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression="[0-9]" />
+                     <asp:TextBox ID="ChildI4DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI4DTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression="[0-9]" />
+                     <asp:TextBox ID="ChildI5DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI5DTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression="[0-9]" />
+                     <asp:TextBox ID="ChildI6DTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
+                    <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI6DTB" 
+                        ErrorMessage="סיסמא חייבת להכיל לפחות 4 תוים." ValidationExpression="[0-9]" />
                 </td>
                 <td>
                     <asp:Label ID="ChildIDLBL" runat="server" Text=" הזן תעודת זהות ילד"></asp:Label>

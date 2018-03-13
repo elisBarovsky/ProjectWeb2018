@@ -45,8 +45,8 @@
 
             <div id="forgetMyPassword"  runat="server" visible="false">
 
-                <asp:TextBox ID="TextBoxUserID" runat="server"></asp:TextBox>
-                <asp:Label ID="LabelUserID" runat="server" Text="ת.ז."></asp:Label>
+                <asp:TextBox ID="TextBoxUserID" runat="server" MaxLength="10"></asp:TextBox>
+                <asp:Label ID="LabelUserID" runat="server" Text=".ת.ז"></asp:Label>
                 <br/>
                 <br />
                 <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList> /
@@ -75,7 +75,9 @@
                  <asp:Table ID="Table1" runat="server">
                      <asp:TableRow>
                          <asp:TableCell>
-                 <asp:TextBox ID="Pass1" runat="server" TextMode="Password"></asp:TextBox>
+                 <asp:TextBox ID="Pass1" runat="server" TextMode="Password" ></asp:TextBox>
+                 <asp:RegularExpressionValidator ID="valPassword" runat="server" BorderStyle="Groove" Font-Size="Medium" ControlToValidate="Pass1"
+                    ErrorMessage="סיסמא צריכה להכיל לפחות 4 תוים" ValidationExpression=".{4}.*" />
                          </asp:TableCell>
                          <asp:TableCell>
                   <asp:Label ID="Label3" runat="server" Text="הזן סיסמה חדשה"></asp:Label>

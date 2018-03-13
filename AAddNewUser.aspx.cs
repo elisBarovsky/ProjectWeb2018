@@ -31,6 +31,11 @@ public partial class AddNewUser : System.Web.UI.Page
         }
     }
 
+    protected void FillFirstItem(object sender, EventArgs e)
+    {
+        (sender as DropDownList).Items.Insert(0, new ListItem("בחר", "0"));
+    }
+
     private void FillNumChilds()
     {
         List<int> NumChild = new List<int>();
@@ -74,8 +79,8 @@ public partial class AddNewUser : System.Web.UI.Page
 
     protected void VisiblePupilFalse(bool ans)
     {
-        GroupAgeLBL.Visible = ans;
-        GroupAgeDLL.Visible = ans;
+        //GroupAgeLBL.Visible = ans;
+        //GroupAgeDLL.Visible = ans;
         ClassOtDLL.Visible = ans;
         ClassLBL.Visible = ans;
     }
@@ -125,6 +130,11 @@ public partial class AddNewUser : System.Web.UI.Page
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך הלידה לא תקני.');", true);
             return;
         }
+        else if (ClassOtDLL.SelectedValue == "בחר")
+        {
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('לא נבחרה כיתה.');", true);
+            return;
+        }
         string bDay = day + "/" + month + "/" + year;
         Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, bDay, ImgPath,"", PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
@@ -133,7 +143,7 @@ public partial class AddNewUser : System.Web.UI.Page
             if (UserTypeDLL.SelectedValue == "4")
             {
                 Users PupilUser = new Users();
-                int num = PupilUser.AddPupil(UserIDTB.Text, GroupAgeDLL.SelectedValue,int.Parse(ClassOtDLL.SelectedValue));
+                int num = PupilUser.AddPupil(UserIDTB.Text, "",int.Parse(ClassOtDLL.SelectedValue));
             }
             else if (UserTypeDLL.SelectedValue == "2")
             {
