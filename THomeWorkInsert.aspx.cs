@@ -9,6 +9,11 @@ public partial class THomeWorkInsert : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Request.Cookies["UserID"] == null || Request.Cookies["UserPassword"] == null)
+        {
+            Response.Redirect("login.aspx");
+        }
+
         if (!IsPostBack)
         {
             FillClasses();

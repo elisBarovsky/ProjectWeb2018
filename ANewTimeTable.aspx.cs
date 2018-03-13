@@ -10,7 +10,11 @@ public partial class timeTable : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-            CreateEmptyTimeTable();
+        if (Request.Cookies["UserID"] == null || Request.Cookies["UserPassword"] == null)
+        {
+            Response.Redirect("login.aspx");
+        }
+        CreateEmptyTimeTable();
 
     }
 

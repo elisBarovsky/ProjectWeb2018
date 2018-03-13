@@ -21,6 +21,7 @@ public partial class login : System.Web.UI.Page
             FillYear();
         }
     }
+
     protected void SaveLoginCookie(string ID, string password)
     {
         Response.Cookies["UserID"].Value = ID;
@@ -70,7 +71,7 @@ public partial class login : System.Web.UI.Page
         }
         else
         {
-            Login1.FailureText = "אחד מהפרטים שהקשת שגוים";
+            Login1.FailureText = "אחד מהפרטים שהזנת שגוים";
         }
     }
 

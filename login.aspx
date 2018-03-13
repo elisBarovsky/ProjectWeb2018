@@ -49,8 +49,8 @@
                 <asp:Label ID="LabelUserID" runat="server" Text="ת.ז."></asp:Label>
                 <br/>
                 <br />
-                <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList>/
-                <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList>/
+                <asp:DropDownList ID="DDLday" runat="server"></asp:DropDownList> /
+                <asp:DropDownList ID="DDLmonth" runat="server"></asp:DropDownList> /
                 <asp:DropDownList ID="DDLyear" runat="server"></asp:DropDownList>
                 <br/>
                
@@ -65,19 +65,32 @@
                  <asp:Label ID="LabelSecurityQ1" runat="server" Text=""></asp:Label>
                 <asp:TextBox ID="TextBoxSecurityA2" runat="server"></asp:TextBox>
                  <asp:Label ID="LabelSecurityQ2" runat="server" Text=""></asp:Label>
-                <br/>
+                <br/><br/>
              <asp:Button ID="CheckAnswer" runat="server" Text="אימות תשובה" OnClick="CheckAnswer_Click"  />
 
                 <br/>
             </div>
 
              <div id="ChangePassword"  runat="server" visible="false">
-              
+                 <asp:Table ID="Table1" runat="server">
+                     <asp:TableRow>
+                         <asp:TableCell>
                  <asp:TextBox ID="Pass1" runat="server" TextMode="Password"></asp:TextBox>
+                         </asp:TableCell>
+                         <asp:TableCell>
                   <asp:Label ID="Label3" runat="server" Text="הזן סיסמה חדשה"></asp:Label>
-                 <br/><br/>
+                         </asp:TableCell>
+                     </asp:TableRow>
+                     <asp:TableRow>
+                         <asp:TableCell>
                  <asp:TextBox ID="Pass2" runat="server" TextMode="Password"></asp:TextBox>
-                  <asp:Label ID="Label2" runat="server" Text="הזן סיסמה שנית"></asp:Label>
+                         </asp:TableCell>
+                         <asp:TableCell>
+                  <asp:Label ID="Label2" runat="server" Text="הזן סיסמה בשנית"></asp:Label>
+                         </asp:TableCell>
+                     </asp:TableRow>
+                 </asp:Table>
+                 <br/><br/>
                  <br/>
                  <br/>
                 <asp:Button ID="Button1" runat="server" Text="שנה סיסמה" OnClick="ChangePasswordBTN"   />

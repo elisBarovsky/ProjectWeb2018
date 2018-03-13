@@ -9,9 +9,9 @@ public partial class AAddLessons : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (Request.Cookies["UserID"] == null || Request.Cookies["UserPassword"] == null)
         {
-            
+            Response.Redirect("login.aspx");
         }
     }
 
