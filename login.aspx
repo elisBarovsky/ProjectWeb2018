@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
 </head>
-<body>
+<body style="background-color:cornflowerblue">
     <form id="form1" runat="server">
     <div align="center">
         <div style="text-align=center">
@@ -14,7 +14,55 @@
             <img src="Images/Betsefer.png" />
             <br/>
             <div id="loginPage" runat="server"> 
-        <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=":מספר תעודת זהות" style="text-align: right"></asp:Login>
+        <asp:Login ID="Login1" runat="server"  OnAuthenticate="Login1_Authenticate" LoginButtonText="התחבר" PasswordLabelText=":סיסמה " RememberMeText="זכור אותי להתחברות הבאה" TextLayout="TextOnTop" TitleText="" UserNameLabelText=".ת.ז" style="text-align: right; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; font-size:large">
+            <LayoutTemplate>
+                <table cellpadding="1" cellspacing="0" style="border-collapse:collapse;">
+                    <tr>
+                        <td>
+                            <table cellpadding="0">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" ForeColor="White">.ת.ז</asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName" ErrorMessage="User Name is required." ForeColor="White" ToolTip="User Name is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" ForeColor="White">:סיסמה </asp:Label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ForeColor="White" ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <asp:CheckBox ID="RememberMe" runat="server" ForeColor="White" Text="זכור אותי להתחברות הבאה" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" style="color:Red;">
+                                        <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        <asp:Button ID="LoginButton" runat="server" BackColor="#3399FF" CommandName="Login" ForeColor="White" Text="התחבר" ValidationGroup="Login1" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </LayoutTemplate>
+                </asp:Login>
            
             <br/>
             <div>
@@ -78,21 +126,14 @@
                  <asp:TextBox ID="Pass1" runat="server" TextMode="Password" ></asp:TextBox>
                  <asp:RegularExpressionValidator ID="valPassword" runat="server" BorderStyle="Groove" Font-Size="Medium" ControlToValidate="Pass1"
                     ErrorMessage="סיסמא צריכה להכיל לפחות 4 תוים" ValidationExpression=".{4}.*" />
-                         </asp:TableCell>
-                         <asp:TableCell>
+                         </asp:TableCell><asp:TableCell>
                   <asp:Label ID="Label3" runat="server" Text="הזן סיסמה חדשה"></asp:Label>
-                         </asp:TableCell>
-                     </asp:TableRow>
-                     <asp:TableRow>
+                         </asp:TableCell></asp:TableRow><asp:TableRow>
                          <asp:TableCell>
                  <asp:TextBox ID="Pass2" runat="server" TextMode="Password"></asp:TextBox>
-                         </asp:TableCell>
-                         <asp:TableCell>
+                         </asp:TableCell><asp:TableCell>
                   <asp:Label ID="Label2" runat="server" Text="הזן סיסמה בשנית"></asp:Label>
-                         </asp:TableCell>
-                     </asp:TableRow>
-                 </asp:Table>
-                 <br/><br/>
+                         </asp:TableCell></asp:TableRow></asp:Table><br/><br/>
                  <br/>
                  <br/>
                 <asp:Button ID="Button1" runat="server" Text="שנה סיסמה" OnClick="ChangePasswordBTN"   />
@@ -100,8 +141,7 @@
                         
 
             </div>
-              <asp:Label ID="Label1" runat="server" Text=""></asp:Label>
-            <br/><br/>
+              <asp:Label ID="Label1" runat="server" Text=""></asp:Label><br/><br/>
               <asp:Button ID="Button2" runat="server" Text="מעבר להתחברות " Visible="false" OnClick="BackToLoginBTN" />
     </div>
         </div>
