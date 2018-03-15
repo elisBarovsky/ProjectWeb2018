@@ -5,8 +5,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link href="css/LoginCSS.css" rel="stylesheet" />
 </head>
-<body style="background-color:cornflowerblue">
+<body >
     <form id="form1" runat="server">
     <div align="center">
         <div style="text-align=center">
@@ -22,7 +23,7 @@
                             <table cellpadding="0">
                                 <tr>
                                     <td>
-                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" ForeColor="White">.ת.ז</asp:Label>
+                                        <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName" ForeColor="blue">תעודת זהות</asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
@@ -33,28 +34,30 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" ForeColor="White">:סיסמה </asp:Label>
+                                        <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password" ForeColor="blue">:סיסמה </asp:Label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ForeColor="White" ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
+                                        <asp:TextBox ID="Password" runat="server" TextMode="Password" ></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password" ErrorMessage="Password is required." ForeColor="blue" ToolTip="Password is required." ValidationGroup="Login1">*</asp:RequiredFieldValidator>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <asp:CheckBox ID="RememberMe" runat="server" ForeColor="White" Text="זכור אותי להתחברות הבאה" />
+                                        <asp:CheckBox ID="RememberMe" runat="server" ForeColor="blue" Text="זכור אותי להתחברות הבאה" />
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <td align="center" style="color:Red;">
                                         <asp:Literal ID="FailureText" runat="server" EnableViewState="False"></asp:Literal>
                                     </td>
                                 </tr>
                                 <tr>
+                                   
                                     <td align="right">
-                                        <asp:Button ID="LoginButton" runat="server" BackColor="#3399FF" CommandName="Login" ForeColor="White" Text="התחבר" ValidationGroup="Login1" />
+                                        <asp:Button ID="LoginButton" runat="server" BackColor="#3399FF" CommandName="Login" ForeColor="White" Text="התחבר" ValidationGroup="Login1"  CssClass="form-btn" />
                                     </td>
                                 </tr>
                             </table>

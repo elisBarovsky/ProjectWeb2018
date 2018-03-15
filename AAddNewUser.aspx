@@ -6,8 +6,9 @@
             width: 80%;
             position: center;
         }
-    </style>
 
+    </style>
+    <link href="css/Style.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <div class="container">

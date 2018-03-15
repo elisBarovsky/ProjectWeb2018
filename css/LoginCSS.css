@@ -1,71 +1,12 @@
 ﻿input[type=text], input[type=Password] {
     width: 100%;
-    padding: 6px 10px;
-    margin: 4px 0;
+    padding: 12px 20px;
+    margin: 8px 0;
     box-sizing: border-box;
     border: none;
-    background-color: #b3c8dd;
+    background-color: #7db8f2;
     color: white;
-    border-radius: 5px;
-}
-
-select {
-    padding: 8px 10px;
-    border: none;
-    border-radius: 4px;
-    background-color: #b3c8dd;
-}
-
-#main {
-    text-align: center;
-}
-
-div {
-    position: relative;
-}
-
-.table {
-    width: 100%;
-}
-
-.products {
-    float: left;
-    width: 250px;
-    height: 300px;
-    text-align: center;
-}
-
-footer {
-    bottom: 0px;
-    padding-bottom: 1500px;
-}
-
-img {
-    height: 150px;
-    width: 200px;
-}
-
-#logo {
-    height: 25px;
-}
-
-.Plogo {
-    margin: auto;
-    height: 150px;
-}
-
-#TXT_Info {
-    height: 131px;
-    width: 613px;
-}
-
-#minDiv {
-    position: relative;
-    margin: auto;
-    height: 60px;
-    width: 100px;
-    background-color: aqua;
-    border: 2px solid black;
+    border-radius: 10px;
 }
 
 .portfolio-item {
@@ -228,27 +169,4 @@ center {
 input {
     position: relative;
     z-index: 9999;
-}
-
-#Picon {
-    height: 50px;
-    margin: auto;
-}
-
-#TimeTable {
-    width: 100%;
-    border: 2px solid blue;
-}
-
-TableRow, tableCell {
-    min-height: 20px;
-}
-
-#TimeTable TableRow, #TimeTable tableCell {
-    border: 2px solid blue;
-}
-
-
-.DDL {
-    width: 100%;
 }
