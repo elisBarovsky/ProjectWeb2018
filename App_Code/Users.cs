@@ -148,9 +148,9 @@ public class Users
         CodeUserType = codeUserType;
     }
 
-    public int AddPupil(string UserID, string GroupType, int classNumber)
+    public int AddPupil(string UserID, int classNumber)
     {
-        return db.AddPupil(UserID, GroupType, classNumber);
+        return db.AddPupil(UserID, classNumber);
     }
 
     public string GetNumChild(string UserID)
@@ -158,9 +158,9 @@ public class Users
         return db.GetNumChild(UserID);
     }
 
-    public int UpdatePupil(string userID, string CodePgroup, string CodeClass)
+    public int UpdatePupil(string userID, string CodeClass)
     {
-        return db.UpdatePupil(userID, CodePgroup, CodeClass);
+        return db.UpdatePupil(userID, CodeClass);
     }
 
     public int AddTeacher(string UserID, string IsMain)
@@ -306,6 +306,31 @@ public class Users
     {
         DBconnection db = new DBconnection();
         return db.GetUserFullNameByID(Id);
+    }
+
+    public bool IsLegalBday(string day, string month)
+    {
+        if (int.Parse(month) <= 7)
+        {
+            if (int.Parse(month) % 2 == 0)
+            {
+                if ((int.Parse(month) != 2 && int.Parse(day) > 30) || (int.Parse(month) == 2 && int.Parse(day) > 28))
+                {
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            if (int.Parse(month) % 2 != 0)
+            {
+                if (int.Parse(day) > 30)
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
 

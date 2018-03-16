@@ -703,9 +703,9 @@ public class DBconnection
         return ExecuteNonQuery(cStr); // execute the command   
     }
 
-    public int AddPupil(string UserID, string GroupType, int classNumber)
+    public int AddPupil(string UserID, int classNumber)
     {
-        String cStr = "INSERT INTO [dbo].[Pupil]([UserID] ,[CodePgroup],[CodeClass])  VALUES ('"+ UserID + "' ,'"+ GroupType + "' ,"+ classNumber + ")";
+        String cStr = "INSERT INTO [dbo].[Pupil]([UserID] ,[CodeClass])  VALUES ('"+ UserID + "',"+ classNumber + ")";
         return ExecuteNonQuery(cStr);  
     }
 
@@ -747,9 +747,9 @@ public class DBconnection
         }
     }
 
-    public int UpdatePupil(string userID, string CodePgroup, string ClassOt)
+    public int UpdatePupil(string userID, string ClassOt)
     {
-        string cStr = "UPDATE[dbo].[Pupil] [CodePgroup]='" + CodePgroup + "',[CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
+        string cStr = "UPDATE[dbo].[Pupil] [CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
         return ExecuteNonQuery(cStr);   
     }
 
