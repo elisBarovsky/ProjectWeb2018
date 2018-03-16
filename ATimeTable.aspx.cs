@@ -295,8 +295,9 @@ public partial class timeTable : System.Web.UI.Page
 
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
         string classCode = ddl_clasesEdit.SelectedValue;
-        int answer = TT.DeleteTimeTable(classCode);
-        if (answer > 0)
+        int answer1 = TT.DeleteTimeTableLessons(classCode); 
+        int answer2 = TT.DeleteTimeTable(classCode); 
+        if (answer2 > 0)
         {
             //call the save time table function
             string CodeLesson; //מקצוע
