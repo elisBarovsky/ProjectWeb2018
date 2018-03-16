@@ -302,10 +302,10 @@ public class Users
         return dbt.GetMainTeacherClass(id);
     }
 
-    public string GetUserFullNameByID(string teacherId)
+    public string GetUserFullNameByID(string Id)
     {
         DBconnection db = new DBconnection();
-        return db.GetUserFullNameByID(teacherId);
+        return db.GetUserFullNameByID(Id);
     }
 }
 

@@ -126,11 +126,12 @@ public partial class TTimeTable : System.Web.UI.Page
                     Dictionary<string, string> lessonInTT = ReturnIfLessonExsistsInTT(i, j, allLessons);
                     string subjectID = "DDLsubject" + counter;
                     string TID = "DDLteacher" + counter;
+                Users u = new Users();
 
                     if (lessonInTT.Count > 0)
                     {
                         string lessonName = TT.GetLessonNameByLessonCode(lessonInTT["CodeLesson"]);
-                        string teacherName = TT.GetTeacherNameByID(lessonInTT["TeacherId"]);
+                        string teacherName = u.GetUserFullNameByID(lessonInTT["TeacherId"]);
 
                         (TimeTable.Rows[i].Cells[j].FindControl(subjectID) as Label).Text = lessonName + "<br/>";
                         (TimeTable.Rows[i].Cells[j].FindControl(TID) as Label).Text = teacherName;
