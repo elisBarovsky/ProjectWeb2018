@@ -634,7 +634,6 @@ public class DBconnection
 
         for (int i = 0; i < matrix.Count; i++)
         {
-            SqlConnection conn = connect("Betsefer");
 
                 if (matrix[i]["classCode"] != "empty")
                 {
