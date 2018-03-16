@@ -13,36 +13,34 @@ public partial class THomeWorkInsert : System.Web.UI.Page
         {
             Response.Redirect("login.aspx");
         }
-
+        
         if (!IsPostBack)
         {
-            FillClasses();
-            FillSubjects();
             FillDays();
             FillMonth();
             FillYear();
         }
     }
 
-    protected void FillClasses()
-    {
-        Dictionary<string, string> Classes = new Dictionary<string, string>();
-        Grades ClassGrade = new Grades();
-        Classes = ClassGrade.FillClassOt();
-        ChooseClassDLL.DataSource = Classes.Values;
-        ChooseClassDLL.DataBind();
-        Session["ClassesList"] = Classes;
-    }
+    //protected void FillClasses()
+    //{
+    //    Dictionary<string, string> Classes = new Dictionary<string, string>();
+    //    Grades ClassGrade = new Grades();
+    //    Classes = ClassGrade.FillClassOt();
+    //    ChooseClassDLL.DataSource = Classes.Values;
+    //    ChooseClassDLL.DataBind();
+    //    Session["ClassesList"] = Classes;
+    //}
 
-    protected void FillSubjects()
-    {
-        Dictionary<string, string> Lessons = new Dictionary<string, string>();
-        Grades ClassGrade = new Grades();
-        Lessons = ClassGrade.FillLessons();
-        ChooseLessonsDLL.DataSource = Lessons.Values;
-        ChooseLessonsDLL.DataBind();
-        Session["LessonsList"] = Lessons;
-    }
+    //protected void FillSubjects()
+    //{
+    //    Dictionary<string, string> Lessons = new Dictionary<string, string>();
+    //    Grades ClassGrade = new Grades();
+    //    Lessons = ClassGrade.FillLessons();
+    //    ChooseLessonsDLL.DataSource = Lessons.Values;
+    //    ChooseLessonsDLL.DataBind();
+    //    Session["LessonsList"] = Lessons;
+    //}
 
     public static string KeyByValue(Dictionary<string, string> dict, string val)
     {
@@ -62,13 +60,10 @@ public partial class THomeWorkInsert : System.Web.UI.Page
     {
         string ClassCode = "";
         Dictionary<string, string> Classes = new Dictionary<string, string>();
-        Classes = (Dictionary<string, string>)(Session["ClassesList"]);
-        ClassCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
-
-        string LessonsCode = "";
-        Dictionary<string, string> LessonsList = new Dictionary<string, string>();
-        LessonsList = (Dictionary<string, string>)(Session["LessonsList"]);
-        LessonsCode = KeyByValue(Classes, ChooseClassDLL.SelectedValue);
+        ClassCode = ChooseClassDLL.SelectedValue;
+        Subject s = new Subject();
+        string LessonsCode = s.GetSubjectCodeBySubjectName(ChooseLessonsDLL.SelectedValue);
+        
 
         string date = DateTime.Today.ToShortDateString();
         string TeacherId = Request.Cookies["UserID"].Value;
@@ -79,12 +74,12 @@ public partial class THomeWorkInsert : System.Web.UI.Page
         string Bday = day + "/" + month + "/" + year;
         if (day == "יום" || month == "חודש" || year == "שנה")
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך הלידה לא יכול להיות ריק');", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך לא יכול להיות ריק');", true);
             return;
         }
         else if (!u.IsLegalBday(day, month))
         {
-            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך הלידה לא חוקי');", true);
+            ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('תאריך לא חוקי');", true);
             return;
         }
         int res1 = HW.InserHomeWork(LessonsCode, HomeWorkDesc.Text, TeacherId, ClassCode, Bday, ChangeHagashaCB.Checked);
@@ -128,16 +123,28 @@ public partial class THomeWorkInsert : System.Web.UI.Page
 
     protected void FillYear()
     {
-        int year = 1930;
+        string year = DateTime.Now.Year.ToString();
         List<string> years = new List<string>();
-
-        for (int i = 0; year < 2011; i++, year++)
-        {
-            years.Add(year.ToString());
-        }
+        years.Add(year);
 
         DDLyear.DataSource = years;
         DDLyear.DataBind();
         DDLyear.Items.Insert(0, new ListItem("שנה"));
+    }
+
+    protected void ChooseClassDLL_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        string classCode = ChooseClassDLL.SelectedItem.Value;
+        Subject s = new Subject();
+        Dictionary<string, string> l = s.GetSubjectsByClassCode(classCode);
+        ChooseLessonsDLL.DataSource = l.Values;
+        ChooseLessonsDLL.DataBind();
+        ChooseLessonsDLL.Enabled = true;
+
+    }
+
+    protected void FillFirstItem(object sender, EventArgs e)
+    {
+        (sender as DropDownList).Items.Insert(0, new ListItem("בחר", "0"));
     }
 }

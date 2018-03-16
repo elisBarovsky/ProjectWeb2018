@@ -1529,4 +1529,48 @@ public class DBconnection
             }
         }
     }
-}
+    
+
+    public Dictionary<string, string> GetSubjectsByClassCode(string classCode)
+    {
+        String selectSTR = "SELECT distinct dbo.Lessons.CodeLesson, dbo.Lessons.LessonName FROM dbo.Timetable " +
+            "INNER JOIN dbo.Class ON dbo.Timetable.ClassCode = dbo.Class.ClassCode AND " +
+            "dbo.Timetable.ClassCode = dbo.Class.ClassCode INNER JOIN dbo.TimetableLesson ON " +
+            "dbo.Timetable.TimeTableCode = dbo.TimetableLesson.TimeTableCode INNER JOIN dbo.Lessons " +
+            "ON dbo.TimetableLesson.CodeLesson = dbo.Lessons.CodeLesson where dbo.Class.ClassCode = " + classCode;
+        try
+        {
+            con = connect("Betsefer"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            Dictionary<string, string> d = new Dictionary<string, string>();
+            while (dr.Read())
+            {
+                string lessonCode = dr["CodeLesson"].ToString();
+                string lessonName = dr["LessonName"].ToString();
+                d.Add(lessonCode, lessonName);
+            }
+            return d;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+    }

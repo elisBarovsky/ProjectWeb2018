@@ -45,4 +45,15 @@ public class Subject
     {
         return db.GetSubjectNameBySubjectCode(subjectCode);
     }
+
+    public string GetSubjectCodeBySubjectName(string subjectName)
+    {
+        DBconnectionTeacher dbt = new DBconnectionTeacher();
+        return dbt.GetSubjectCodeBySubjectName(subjectName);
+    }
+
+    public Dictionary<string, string> GetSubjectsByClassCode(string classCode)
+    {
+        return db.GetSubjectsByClassCode(classCode);
+    }
 }
