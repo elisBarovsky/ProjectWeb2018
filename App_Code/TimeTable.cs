@@ -41,9 +41,4 @@ public class TimeTable
     {
         return db.GetLessonNameByLessonCode(lessonCode);
     }
-
-    public string GetTeacherNameByID(string TeacherId)
-    {
-        return db.GetTeacherNameByID(TeacherId);
-    }
 }

@@ -13,24 +13,7 @@
     border: 2px solid #92a8d1;
 }
     </style>
-<script>
-function OpenConfirmDialog()
-{
-    function Confirm() {
-        var confirm_value = document.createElement("INPUT");
-        confirm_value.type = "hidden";
-        confirm_value.name = "confirm_value";
-        if (confirm("This will completely delete the project. Are you sure?")) {
-            confirm_value.value = "Yes";
-        }
-        else {
-            confirm_value.value = "No";
-        }
-        document.forms[0].appendChild(confirm_value);
-    }
-}
 
-</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 
@@ -44,8 +27,8 @@ function OpenConfirmDialog()
             <table>
                 <tr>
                     <td>
-                        <asp:DropDownList ID="ddl_clasesAdd" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True" Visible="true"></asp:DropDownList>
-                        <asp:SqlDataSource ID="DSclasses" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class] ORDER BY [TotalName]"></asp:SqlDataSource>
+                        <asp:DropDownList ID="ddl_clasesAdd" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclassesForAdd" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                        <asp:SqlDataSource ID="DSclassesForAdd" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT ClassCode, TotalName FROM Class WHERE (ClassCode NOT IN (SELECT Class_1.ClassCode FROM Class AS Class_1 INNER JOIN Timetable ON Class_1.ClassCode = Timetable.ClassCode))"></asp:SqlDataSource>
                     </td>
                     <td>
                         <asp:DropDownList ID="ddl_clasesEdit" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclassesForEdit" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True" Visible="false"></asp:DropDownList>

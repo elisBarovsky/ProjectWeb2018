@@ -108,27 +108,7 @@ public partial class timeTable : System.Web.UI.Page
             ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('שים לב! לא ניתן לשמור מערכת ללא בחירת כיתה.');", true);
             return;
         }
-        else if (TT.IsClassHasTimeTable(ddl_clasesAdd.SelectedValue))
-        {
-            //change to yes - no button and if yes save the changes.
-
-            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "Key", "var a=confirm('לכיתה זו כבר יש מערכת שעות. האם לעדכן?');if (a==true) { location.replace('ATimeTable.aspx');}else{}", true);
         
-
-            //string msg = "Do you want to save data?";
-            //ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "alertMessage", "confirm('" + msg + "')", true);
-
-            //string confirmValue = Request.Form["confirm"];
-            //if (confirmValue == "Yes")
-            //{
-            //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked YES!')", true);
-            //}
-            //else
-            //{
-            //    this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('You clicked NO!')", true);
-            //}
-            return;
-        }
         List<Dictionary<string, string>> matrix = new List<Dictionary<string, string>>();
         string classCode = ddl_clasesAdd.SelectedValue;
         string CodeLesson; //מקצוע
