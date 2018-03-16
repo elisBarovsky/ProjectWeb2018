@@ -166,11 +166,11 @@ public partial class timeTable : System.Web.UI.Page
             int rowsAffected = TT.InsertTimeTable(matrix, classCode);
             if (rowsAffected > 0)
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ANewTimeTable.aspx';", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ATimeTable.aspx';", true);
             }
             else
             {
-                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('קרתה תקלה בעת שמירת המערכת. נא צור קשר עם שירות הלקוחות בטלפון: 1-800-400-400 AIG');", true);
+                ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('קרתה תקלה בעת שמירת המערכת. נא צור קשר עם שירות הלקוחות בטלפון: 1-800-400-400');", true);
             }
 
         }
@@ -354,7 +354,7 @@ public partial class timeTable : System.Web.UI.Page
                 int rowsAffected = TT.InsertTimeTable(matrix, classCode);
                 if (rowsAffected > 0)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ANewTimeTable.aspx';", true);
+                    ScriptManager.RegisterClientScriptBlock(this, this.GetType(), "success", "alert('מערכת נשמרה בהצלחה'); location.href='ATimeTable.aspx';", true);
                 }
                 else
                 {
