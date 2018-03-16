@@ -147,10 +147,10 @@ public class Users
         PhoneNumber = phoneNumber;
         CodeUserType = codeUserType;
     }
-   
-    public int AddPupil(string UserID, int classNumber)
+
+    public int AddPupil(string UserID, string GroupType, int classNumber)
     {
-        return db.AddPupil(UserID, classNumber);
+        return db.AddPupil(UserID, GroupType, classNumber);
     }
 
     public string GetNumChild(string UserID)
@@ -158,12 +158,12 @@ public class Users
         return db.GetNumChild(UserID);
     }
 
-    public int UpdatePupil(string userID, string CodeClass)
+    public int UpdatePupil(string userID, string CodePgroup, string CodeClass)
     {
-        return db.UpdatePupil(userID, CodeClass);
+        return db.UpdatePupil(userID, CodePgroup, CodeClass);
     }
 
-    public int AddTeacher(string UserID, string IsMain )
+    public int AddTeacher(string UserID, string IsMain)
     {
         return db.AddTeacher(UserID, IsMain);
     }
@@ -175,7 +175,7 @@ public class Users
 
     public int AddMainTeacherToClass(string id, string OtClass)
     {
-        return db.AddMainTeacherToClass(id, OtClass); 
+        return db.AddMainTeacherToClass(id, OtClass);
     }
 
     public Dictionary<string, string> getPupils(string classCode)
@@ -204,7 +204,7 @@ public class Users
     }
 
     public int DeleteMainTeacherToClass(string TotalClassName)
-    {  
+    {
         return db.DeleteMainTeacherToClass(TotalClassName); // execute the command 
     }
 
@@ -213,14 +213,14 @@ public class Users
         return db.IsAlreadyMainTeacher(id);
     }
 
-    public int AddParent(string ParentID, string PupilID,string ChildCodeClass)
+    public int AddParent(string ParentID, string PupilID, string ChildCodeClass)
     {
         return db.AddParent(ParentID, PupilID, ChildCodeClass);
     }
 
     public int UpdateParent(string PupilID, string ParentID, string ChildCodeClass)
     {
-        return db.UpdateParent(PupilID, ParentID, ChildCodeClass);  
+        return db.UpdateParent(PupilID, ParentID, ChildCodeClass);
     }
 
     public int AddUser(Users NewUser)
@@ -244,7 +244,7 @@ public class Users
     }
 
     public string GetPupilOtClass(string UserID)
-    { 
+    {
         return db.GetPupilOtClass(UserID);
     }
 
@@ -302,30 +302,10 @@ public class Users
         return dbt.GetMainTeacherClass(id);
     }
 
-    public bool IsLegalBday(string day, string month)
+    public string GetUserFullNameByID(string teacherId)
     {
-        if (int.Parse(month) <= 7)
-        {
-            if (int.Parse(month) % 2 == 0)
-            {
-                if ((int.Parse(month) != 2 && int.Parse(day) > 30) || (int.Parse(month) == 2 && int.Parse(day) > 28))
-                {
-                    return false;
-                }
-            }
-        }
-        else
-        {
-            if (int.Parse(month) % 2 != 0)
-            {
-                if (int.Parse(day) > 30)
-                {
-                    return false;
-                }
-            }
-        }
-        return true;
-        
+        DBconnection db = new DBconnection();
+        return db.GetUserFullNameByID(teacherId);
     }
 }
 
