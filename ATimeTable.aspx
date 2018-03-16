@@ -13,6 +13,24 @@
     border: 2px solid #92a8d1;
 }
     </style>
+<script>
+function OpenConfirmDialog()
+{
+    function Confirm() {
+        var confirm_value = document.createElement("INPUT");
+        confirm_value.type = "hidden";
+        confirm_value.name = "confirm_value";
+        if (confirm("This will completely delete the project. Are you sure?")) {
+            confirm_value.value = "Yes";
+        }
+        else {
+            confirm_value.value = "No";
+        }
+        document.forms[0].appendChild(confirm_value);
+    }
+}
+
+</script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
 

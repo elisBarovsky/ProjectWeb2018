@@ -211,7 +211,14 @@ public partial class AddNewUser : System.Web.UI.Page
 
         for (int i = 1; i <= 31; i++)
         {
-            days.Add(i.ToString());
+            if (i<10)
+            {
+                days.Add("0"+i.ToString());
+            }
+            else
+            {
+                days.Add(i.ToString());
+            }
         }
 
         DDLday.DataSource = days;
@@ -225,7 +232,14 @@ public partial class AddNewUser : System.Web.UI.Page
 
         for (int i = 1; i <= 12; i++)
         {
-            months.Add(i.ToString());
+            if (i < 10)
+            {
+                months.Add("0" + i.ToString());
+            }
+            else
+            {
+                months.Add(i.ToString());
+            }         
         }
 
         DDLmonth.DataSource = months;
