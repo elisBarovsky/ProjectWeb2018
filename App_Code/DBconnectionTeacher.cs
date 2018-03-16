@@ -46,7 +46,7 @@ public class DBconnectionTeacher
         string selectSTR = " SELECT dbo.Pupil.UserID, (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as PupilName, dbo.Grades.Grade" +
                         " FROM dbo.Pupil INNER JOIN dbo.Users ON dbo.Pupil.UserID = dbo.Users.UserID Full outer JOIN dbo.Grades ON dbo.Users.UserID = dbo.Grades.PupilID where dbo.Pupil.CodeClass = '" + ClassOtID + "'";
         DataTable dtt = new DataTable();
-        DataSet ds ;
+        DataSet ds;
         try
         {
             con = connect("Betsefer"); // create the connection
@@ -62,7 +62,7 @@ public class DBconnectionTeacher
             SqlDataAdapter daa = new SqlDataAdapter(selectSTR, con);
             ds = new DataSet("PupilsDS");
             daa.Fill(ds);
-            return  dtt = ds.Tables[0];
+            return dtt = ds.Tables[0];
         }
         catch (Exception ex)
         {
@@ -78,12 +78,12 @@ public class DBconnectionTeacher
         }
     }
 
-    public DataTable FilterNotes(string FilterType,string ValueFilter)
+    public DataTable FilterNotes(string FilterType, string ValueFilter)
     {
         string selectSTR = " SELECT  dbo.GivenNotes.Comment AS 'הערת מורה', dbo.GivenNotes.NoteDate AS 'תאריך', dbo.Lessons.LessonName AS 'שיעור', dbo.NoteType.NoteName AS 'הערת משמעת', (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as 'שם תלמיד' ,dbo.Pupil.UserID as 'תעודת זהות תלמיד'" +
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
-                          " where "+ FilterType + "='" + ValueFilter + "'";
+                          " where " + FilterType + "='" + ValueFilter + "'";
         DataTable dtt = new DataTable();
         DataSet ds;
         try
@@ -116,11 +116,11 @@ public class DBconnectionTeacher
             }
         }
     }
-    
-    public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)  
+
+    public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)
     {
         string selectSTR = "SELECT HWCode, IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'" +
-                            " FROM dbo.HomeWork where  CodeClass = '"+ ClassCode  + "' and LessonsCode = '"+ LessonsCode + "' and TeacherID = '"+ TeacherID + "'";
+                            " FROM dbo.HomeWork where  CodeClass = '" + ClassCode + "' and LessonsCode = '" + LessonsCode + "' and TeacherID = '" + TeacherID + "'";
         DataTable dtt = new DataTable();
         DataSet ds;
         try
@@ -153,10 +153,12 @@ public class DBconnectionTeacher
         }
     }
 
-    public DataTable FillAllHomeWork(string ClassCode)//WebService
+    public DataTable FillAllHomeWork(string Id)//WebService
     {
-        string selectSTR = "SELECT  HWCode,IsLehagasha , HWDueDate ,HWInfo,HWGivenDate" +
-                            " FROM dbo.HomeWork where  CodeClass = '" + ClassCode + "'";
+        string selectSTR = "SELECT dbo.HomeWork.HWCode, dbo.HomeWork.LessonsCode, dbo.HomeWork.HWInfo," +
+            "dbo.HomeWork.HWGivenDate, dbo.HomeWork.TeacherID FROM dbo.HomeWork INNER JOIN dbo.Class ON " +
+            "dbo.HomeWork.CodeClass = dbo.Class.ClassCode INNER JOIN dbo.Pupil ON dbo.Class.ClassCode =" +
+            " dbo.Pupil.CodeClass where UserID = '" + Id + "'";
         DataTable dtt = new DataTable();
         DataSet ds;
         try
@@ -191,7 +193,7 @@ public class DBconnectionTeacher
 
     public DataTable GivenAllNotes(string PupilID) //webService
     {
-        string selectSTR = " SELECT  dbo.GivenNotes.Comment , dbo.GivenNotes.NoteDate , dbo.Lessons.LessonName , dbo.NoteType.NoteName " +
+        string selectSTR = " SELECT dbo.GivenNotes.CodeGivenNote, dbo.GivenNotes.Comment , dbo.GivenNotes.NoteDate , dbo.Lessons.LessonName , dbo.NoteType.NoteName " +
                           " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
                           "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
                           " where dbo.Pupil.UserID='" + PupilID + "'";
@@ -229,10 +231,10 @@ public class DBconnectionTeacher
 
     public DataTable FillBySubjectHomeWork(string PupilID, string ChooseSubjectCode) //webService
     {
-        string selectSTR = " SELECT  dbo.GivenNotes.Comment , dbo.GivenNotes.NoteDate , dbo.Lessons.LessonName , dbo.NoteType.NoteName" +
-                          " FROM  dbo.Users inner JOIN dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID inner JOIN dbo.GivenNotes " +
-                          "ON dbo.Users.UserID = dbo.GivenNotes.PupilID  inner JOIN dbo.NoteType ON dbo.GivenNotes.CodeNoteType = dbo.NoteType.CodeNoteType  INNER JOIN  dbo.Lessons ON dbo.GivenNotes.LessonsCode = dbo.Lessons.CodeLesson " +
-                          " where dbo.Pupil.UserID='" + PupilID + "' and LessonsCode = '" + ChooseSubjectCode + "'";
+        string selectSTR = " SELECT dbo.HomeWork.HWGivenDate,(dbo.Users.UserFName+' ' +dbo.Users.UserLName) as TeacherName, dbo.Lessons.LessonName ,dbo.HomeWork.HWInfo, dbo.HomeWork.HWDueDate, dbo.HomeWork.IsLehagasha" +
+                          " FROM  dbo.Users INNER JOIN dbo.HomeWork ON dbo.Users.UserID = dbo.HomeWork.TeacherID INNER JOIN  dbo.Lessons  " +
+                          " ON dbo.HomeWork.LessonsCode = dbo.Lessons.CodeLesson " +
+                          " where dbo.HomeWork.CodeClass= (select [CodeClass] from [dbo].[Pupil] where [UserID]='" + PupilID + "') and dbo.Lessons.CodeLesson='" + ChooseSubjectCode + "'";
         DataTable dtt = new DataTable();
         DataSet ds;
         try
@@ -306,17 +308,17 @@ public class DBconnectionTeacher
     public DataTable FilterTelphoneList(string UserTypeFilterType, string ClassFilter)
     {
         string selectSTR = "";
-        if (UserTypeFilterType=="4")
+        if (UserTypeFilterType == "4")
         {
-             selectSTR = "  SELECT  dbo.Users.PhoneNumber as 'מספר סלולרי', (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as 'שם מלא' " +
-                     " FROM dbo.Users full JOIN dbo.PupilsParent ON dbo.Users.UserID = dbo.PupilsParent.PupilID  AND dbo.Users.UserID = dbo.PupilsParent.ParentID Full JOIN" +
-                     " dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID   where dbo.Users.CodeUserType='" + UserTypeFilterType + "'and dbo.Pupil.CodeClass='" + ClassFilter + "'";
+            selectSTR = "  SELECT  dbo.Users.PhoneNumber as 'מספר סלולרי', (dbo.Users.UserFName +' '+ dbo.Users.UserLName) as 'שם מלא' " +
+                    " FROM dbo.Users full JOIN dbo.PupilsParent ON dbo.Users.UserID = dbo.PupilsParent.PupilID  AND dbo.Users.UserID = dbo.PupilsParent.ParentID Full JOIN" +
+                    " dbo.Pupil ON dbo.Users.UserID = dbo.Pupil.UserID   where dbo.Users.CodeUserType='" + UserTypeFilterType + "'and dbo.Pupil.CodeClass='" + ClassFilter + "'";
         }
         else
         {
-             selectSTR = "SELECT dbo.Users.PhoneNumber,( dbo.Users.UserFName+' '+ dbo.Users.UserLName) as 'שם הורה'"+
-                                " FROM dbo.PupilsParent INNER JOIN dbo.Users ON dbo.PupilsParent.ParentID = dbo.Users.UserID"+
-                                " where dbo.PupilsParent.codeClass = '"+ ClassFilter + "'";
+            selectSTR = "SELECT dbo.Users.PhoneNumber,( dbo.Users.UserFName+' '+ dbo.Users.UserLName) as 'שם הורה'" +
+                               " FROM dbo.PupilsParent INNER JOIN dbo.Users ON dbo.PupilsParent.ParentID = dbo.Users.UserID" +
+                               " where dbo.PupilsParent.codeClass = '" + ClassFilter + "'";
         }
 
         DataTable dtt = new DataTable();
@@ -366,13 +368,13 @@ public class DBconnectionTeacher
         }
         try
         {
-             SqlCommand cmd = new SqlCommand(selectSTR, con);
-             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
 
-             while (dr.Read())
-             {
-                  type = dr["CodeUserType"].ToString();
-             }
+            while (dr.Read())
+            {
+                type = dr["CodeUserType"].ToString();
+            }
             return type;
         }
         catch (Exception ex)
@@ -450,7 +452,7 @@ public class DBconnectionTeacher
     {
         //SqlConnection conGrades = new SqlConnection();
         //conGrades = connect("Betsefer");
-        string cStr = "INSERT INTO [dbo].[Grades]  ([PupilID] ,[TeacherID],[CodeLesson],[ExamDate],[Grade])   VALUES ('"+ PupilID + "','"+ TeacherID + "','"+ CodeLesson + "' ,'"+ ExamDate + "' ,"+ Grade + ")";
+        string cStr = "INSERT INTO [dbo].[Grades]  ([PupilID] ,[TeacherID],[CodeLesson],[ExamDate],[Grade])   VALUES ('" + PupilID + "','" + TeacherID + "','" + CodeLesson + "' ,'" + ExamDate + "' ," + Grade + ")";
         return ExecuteNonQuery(cStr);
     }
 
@@ -473,12 +475,12 @@ public class DBconnectionTeacher
             SqlCommand cmd = new SqlCommand(selectSTR, con);
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             l.Add("0", "בחר");
-                while (dr.Read())
-                {
-                    CodeNoteType = dr["CodeNoteType"].ToString();
-                    NoteName = dr["NoteName"].ToString();
-                    l.Add(CodeNoteType, NoteName);
-                }
+            while (dr.Read())
+            {
+                CodeNoteType = dr["CodeNoteType"].ToString();
+                NoteName = dr["NoteName"].ToString();
+                l.Add(CodeNoteType, NoteName);
+            }
             return l;
         }
         catch (Exception ex)
@@ -495,16 +497,16 @@ public class DBconnectionTeacher
         }
     }
 
-    public int InsertNotes(string PupilID, string CodeNoteType, string NoteDate, string TeacherID,string LessonsCode, string Comment)
+    public int InsertNotes(string PupilID, string CodeNoteType, string NoteDate, string TeacherID, string LessonsCode, string Comment)
     {
-        string cStr = "INSERT INTO [dbo].[GivenNotes]  ([PupilID] ,[CodeNoteType],[NoteDate],[TeacherID],[LessonsCode],[Comment])   VALUES ('" + PupilID + "','" + CodeNoteType + "','" + NoteDate + "' ,'" + TeacherID + "' ,'" + LessonsCode + "','"+ Comment + "')";
+        string cStr = "INSERT INTO [dbo].[GivenNotes]  ([PupilID] ,[CodeNoteType],[NoteDate],[TeacherID],[LessonsCode],[Comment])   VALUES ('" + PupilID + "','" + CodeNoteType + "','" + NoteDate + "' ,'" + TeacherID + "' ,'" + LessonsCode + "','" + Comment + "')";
         return ExecuteNonQuery(cStr);
     }
 
     public int InserHomeWork(string LessonsCode, string HWInfo, string TeacherID, string CodeClass, string HWDate, bool IsLehagasha)
     {
         string cStr = "INSERT INTO [dbo].[HomeWork] ([LessonsCode] ,[HWInfo],[HWGivenDate],[TeacherID],[CodeClass],[HWDueDate],[IsLehagasha]) " +
-                   " VALUES ('" + LessonsCode + "','" + HWInfo + "','" +DateTime.Today.ToShortDateString() +"','" + TeacherID + "' ,'" + CodeClass + "' ,'" + HWDate + "','" + IsLehagasha + "')";
+                   " VALUES ('" + LessonsCode + "','" + HWInfo + "','" + DateTime.Today.ToShortDateString() + "','" + TeacherID + "' ,'" + CodeClass + "' ,'" + HWDate + "','" + IsLehagasha + "')";
         return ExecuteNonQuery(cStr);
     }
 
@@ -524,15 +526,15 @@ public class DBconnectionTeacher
         }
         try
         {
-                SqlCommand cmd = new SqlCommand(selectSTR, con);
-                SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-                l.Add("0", "בחר מקצוע");
-                while (dr.Read())
-                {
-                    CodeLesson = dr["CodeLesson"].ToString();
-                    LessonName = dr["LessonName"].ToString();
-                    l.Add(CodeLesson, LessonName);
-                }
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            l.Add("0", "בחר מקצוע");
+            while (dr.Read())
+            {
+                CodeLesson = dr["CodeLesson"].ToString();
+                LessonName = dr["LessonName"].ToString();
+                l.Add(CodeLesson, LessonName);
+            }
             return l;
         }
         catch (Exception ex)

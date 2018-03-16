@@ -19,9 +19,16 @@ public class Subject
         //
     }
 
-    public Dictionary<int, string> getSubjects() {
+    public Dictionary<int, string> getSubjects()
+    {
 
         return db.GetSubjects();
+    }
+
+    public List<string> getSubjectsByPupilId(string Id)
+    {
+
+        return db.getSubjectsByPupilId(Id);
     }
 
     public bool IsExists(string newSubject)

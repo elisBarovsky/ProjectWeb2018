@@ -28,7 +28,7 @@ public class Notes
         return dbT.InsertNotes(PupilID, CodeNoteType, NoteDate, TeacherID, LessonsCode, Comment);
     }
 
-    public DataTable FilterNotes(string FilterType,string ValueFilter)
+    public DataTable FilterNotes(string FilterType, string ValueFilter)
     {
         return dbT.FilterNotes(FilterType, ValueFilter);
     }

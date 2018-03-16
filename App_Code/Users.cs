@@ -148,9 +148,9 @@ public class Users
         CodeUserType = codeUserType;
     }
 
-    public int AddPupil(string UserID, int classNumber)
+    public int AddPupil(string UserID, string GroupType, int classNumber)
     {
-        return db.AddPupil(UserID, classNumber);
+        return db.AddPupil(UserID, GroupType, classNumber);
     }
 
     public string GetNumChild(string UserID)
@@ -158,9 +158,9 @@ public class Users
         return db.GetNumChild(UserID);
     }
 
-    public int UpdatePupil(string userID, string CodeClass)
+    public int UpdatePupil(string userID, string CodePgroup, string CodeClass)
     {
-        return db.UpdatePupil(userID, CodeClass);
+        return db.UpdatePupil(userID, CodePgroup, CodeClass);
     }
 
     public int AddTeacher(string UserID, string IsMain)
@@ -302,10 +302,10 @@ public class Users
         return dbt.GetMainTeacherClass(id);
     }
 
-    public string GetUserFullNameByID(string Id)
+    public string GetUserFullNameByID(string teacherId)
     {
         DBconnection db = new DBconnection();
-        return db.GetUserFullNameByID(Id);
+        return db.GetUserFullNameByID(teacherId);
     }
 
     public bool IsLegalBday(string day, string month)
