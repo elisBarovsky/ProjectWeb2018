@@ -1097,7 +1097,6 @@ public class DBconnection
         }
     }
 
-
     public string GetTeacherNameByID(string TeacherId)
     {
         String selectSTR = "SELECT UserFName + ' ' + UserLName FROM Users where UserId = '" + TeacherId + "'";
@@ -1530,7 +1529,6 @@ public class DBconnection
         }
     }
     
-
     public Dictionary<string, string> GetSubjectsByClassCode(string classCode)
     {
         String selectSTR = "SELECT distinct dbo.Lessons.CodeLesson, dbo.Lessons.LessonName FROM dbo.Timetable " +

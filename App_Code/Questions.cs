@@ -40,9 +40,6 @@ public class Questions
 
     public Questions()
     {
-        //
-        // TODO: Add constructor logic here
-        //
         SecurityInfo = "";
         db = new DBconnection();
     }
@@ -51,6 +48,5 @@ public class Questions
     {
         return db.GetQuestions();
     }
-
 }
 
