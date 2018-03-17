@@ -329,13 +329,13 @@ public partial class UpdateUser : System.Web.UI.Page
                             TeacherDeleteClass.DeleteMainTeacherToClass(Classes[i]);
                         }
                     }
+                    Users MainTeacherUpdateClass = new Users();
+                    int res13 = MainTeacherUpdateClass.AddMainTeacherToClass(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString());
                 }
 
                 Users MainTeacherUserCheck = new Users();
                 int res = MainTeacherUserCheck.UpdateTeacher(UserIDTB.Text, IsMain);
-                Users MainTeacherUpdateClass= new Users();
-                int res13 = MainTeacherUpdateClass.AddMainTeacherToClass(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString());
-            }
+             }
             else if (UserTypeDLL.SelectedValue == "3")
             {
                 if (UpdateChild.Checked) 
