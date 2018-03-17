@@ -760,7 +760,7 @@ public class DBconnection
         return ExecuteNonQuery(cStr);
     }
 
-    public int UpdateTeacher(string UserID, string IsMain, string ClassOt)
+    public int UpdateTeacher(string UserID, string IsMain)
     {
         string cStr = "UPDATE [dbo].[Teachers]  SET [IsMainTeacher] = '" + IsMain + "' where [TeacherID]='" + UserID + "'";
         return ExecuteNonQuery(cStr);

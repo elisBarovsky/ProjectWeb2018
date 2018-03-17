@@ -168,9 +168,9 @@ public class Users
         return db.AddTeacher(UserID, IsMain);
     }
 
-    public int UpdateTeacher(string UserID, string IsMain, string ClassOt)
+    public int UpdateTeacher(string UserID, string IsMain)
     {
-        return db.UpdateTeacher(UserID, IsMain, ClassOt);
+        return db.UpdateTeacher(UserID, IsMain);
     }
 
     public int AddMainTeacherToClass(string id, string OtClass)

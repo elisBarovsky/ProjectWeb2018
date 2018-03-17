@@ -257,6 +257,7 @@ public partial class UpdateUser : System.Web.UI.Page
         ChildIDLBL.Visible = false;
         MainTeacher.Visible = false;
         MainTeacherCB.Visible = false;
+        MainTeacherCB.Checked = false;
         ChildI1DTB.Text="";
         ChildI2DTB.Text="";
         ChildI3DTB.Text="";
@@ -331,7 +332,7 @@ public partial class UpdateUser : System.Web.UI.Page
                 }
 
                 Users MainTeacherUserCheck = new Users();
-                int res = MainTeacherUserCheck.UpdateTeacher(UserIDTB.Text, IsMain, ClassOt2DLL.SelectedItem.ToString());
+                int res = MainTeacherUserCheck.UpdateTeacher(UserIDTB.Text, IsMain);
                 Users MainTeacherUpdateClass= new Users();
                 int res13 = MainTeacherUpdateClass.AddMainTeacherToClass(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString());
             }
