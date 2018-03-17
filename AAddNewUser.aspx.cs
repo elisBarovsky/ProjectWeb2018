@@ -155,18 +155,19 @@ public partial class AddNewUser : System.Web.UI.Page
             }
             else if(UserTypeDLL.SelectedValue == "3")  
             {
-                    string[] ChildID = new string[int.Parse(NumOfChildDDL.SelectedValue)];
+                    //string[] ChildID = new string[int.Parse(NumOfChildDDL.SelectedValue)];
+                string[] ChildID = new string[6];
 
                     ChildID[0] = ChildI1DTB.Text;
                     ChildID[1] = ChildI2DTB.Text;
                     ChildID[2] = ChildI3DTB.Text;
                     ChildID[3] = ChildI4DTB.Text;
                     ChildID[4] = ChildI5DTB.Text;
-                    ChildID[6] = ChildI6DTB.Text;
+                    ChildID[5] = ChildI6DTB.Text;
 
                     for (int i = 0; i < ChildID.Length; i++)
                     {
-                        while (ChildID[i]!="")
+                        if (ChildID[i]!="")
                         {
                             Users GetPupilClass = new Users();
                             string ChildCodeClass= GetPupilClass.GetPupilOtClass(ChildID[i]);

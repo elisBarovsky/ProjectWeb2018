@@ -774,13 +774,13 @@ public class DBconnection
 
     public int AddParent(string ParentID, string PupilID, string ChildCodeClass)
     {
-        string cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID],[codeClass]) VALUES ('" + ParentID + "' ,'" + PupilID + ",'" + ChildCodeClass + "')";
+        string cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID],[codeClass]) VALUES ('" + ParentID + "' ,'" + PupilID + "'," + ChildCodeClass + ")";
         return ExecuteNonQuery(cStr);
     }
 
-    public int UpdateParent(string PupilID, string ParentID, string ChildCodeClass)
+    public int UpdateParent(string ParentID, string PupilID, string ChildCodeClass)
     {
-        string cStr = "UPDATE [dbo].[PupilsParent] SET [PupilID] = '" + PupilID + "' ,[ParentID] = '" + ParentID + "',codeClass='" + ChildCodeClass + "' WHERE [ParentID]= '" + ParentID + "'";
+        string cStr = "INSERT INTO [dbo].[PupilsParent] ([ParentID] ,[PupilID],[codeClass]) VALUES ('" + ParentID + "' ,'" + PupilID + "'," + ChildCodeClass + ")";
         return ExecuteNonQuery(cStr);
     }
 
