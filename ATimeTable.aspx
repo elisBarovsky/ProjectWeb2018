@@ -7,7 +7,7 @@
        align-self :center;
     width: 80%;
     border-collapse:collapse;
-    table-layout: fixed;
+    table-layout: fixed; 
 }
 .DDL_TD{
     border: 2px solid #92a8d1;
@@ -27,15 +27,13 @@
             <table>
                 <tr>
                     <td>
-                        <asp:DropDownList ID="ddl_clasesAdd" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclassesForAdd" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                        <asp:DropDownList ID="ddl_clasesAdd" style="direction:rtl;" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclassesForAdd" DataTextField="TotalName"  DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                         <asp:SqlDataSource ID="DSclassesForAdd" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT ClassCode, TotalName FROM Class WHERE (ClassCode NOT IN (SELECT Class_1.ClassCode FROM Class AS Class_1 INNER JOIN Timetable ON Class_1.ClassCode = Timetable.ClassCode))"></asp:SqlDataSource>
-                    </td>
-                    <td>
-                        <asp:DropDownList ID="ddl_clasesEdit" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclassesForEdit" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True" Visible="false"></asp:DropDownList>
+                    <asp:DropDownList ID="ddl_clasesEdit" style="direction:rtl;" runat="server" ondatabound="FillFirstItem" DataSourceID="DSclassesForEdit" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ddl_clases_SelectedIndexChanged" AutoPostBack="True" Visible="false"></asp:DropDownList>
                         <asp:SqlDataSource ID="DSclassesForEdit" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT distinct Class.ClassCode, Class.TotalName FROM Class INNER JOIN Timetable ON Class.ClassCode = Timetable.ClassCode AND Class.ClassCode = Timetable.ClassCode
                                                 order by Class.TotalName">
                         </asp:SqlDataSource>
-                    </td>
+                    </td> 
                 </tr>
             </table>
 
