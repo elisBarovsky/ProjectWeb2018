@@ -198,7 +198,7 @@ public class DBconnectionTeacher
 
     public DataTable FilterHomeWork(string TeacherID, string LessonsCode, string ClassCode)
     {
-        string selectSTR = "SELECT HWCode, IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'" +
+        string selectSTR = "SELECT HWCode as 'קוד שיעורים', IsLehagasha as 'האם השיעורים להגשה', HWDueDate AS 'תאריך סיום',HWInfo AS 'תוכן שיעורי הבית',HWGivenDate AS 'תאריך נתינת השיעורים'" +
                             " FROM dbo.HomeWork where  CodeClass = '" + ClassCode + "' and LessonsCode = '" + LessonsCode + "' and TeacherID = '" + TeacherID + "'";
         DataTable dtt = new DataTable();
         DataSet ds;
@@ -469,7 +469,7 @@ public class DBconnectionTeacher
         }
         else //parent -> 3
         {
-            selectSTR = "SELECT dbo.Users.PhoneNumber,( dbo.Users.UserFName+' '+ dbo.Users.UserLName) as 'שם הורה'" +
+            selectSTR = "SELECT dbo.Users.PhoneNumber as 'מספר סלולרי',( dbo.Users.UserFName+' '+ dbo.Users.UserLName) as 'שם הורה'" +
                                " FROM dbo.PupilsParent INNER JOIN dbo.Users ON dbo.PupilsParent.ParentID = dbo.Users.UserID" +
                                " where dbo.PupilsParent.codeClass = '" + ClassFilter + "'";
         }

@@ -23,7 +23,7 @@
         <h2 style="text-align: center">ציונים</h2>
         <div class="btn-group" style=" position: relative;  left: 40%;">
             <button type="button" class="btn btn-primary active" onclick="location.href = 'TGradesInsert.aspx';">הוספה  </button>
-            <button type="button" class="btn btn-primary " onclick="location.href = 'TGradesUpdate.aspx';">עדכון</button>
+<%--            <button type="button" class="btn btn-primary " onclick="location.href = 'TGradesUpdate.aspx';">עדכון</button>--%>
         </div>
         <br />
         <br />
