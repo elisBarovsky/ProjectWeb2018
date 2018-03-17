@@ -750,7 +750,7 @@ public class DBconnection
 
     public int UpdatePupil(string userID, string ClassOt)
     {
-        string cStr = "UPDATE[dbo].[Pupil] [CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
+        string cStr = "UPDATE[dbo].[Pupil] set [CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
         return ExecuteNonQuery(cStr);
     }
 
