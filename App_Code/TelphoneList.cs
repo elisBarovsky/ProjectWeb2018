@@ -24,4 +24,8 @@ public class TelphoneList
     }
 
 
+    public DataTable FilterTelphoneListForMobile(string UserTypeFilterType, string ClassFilter)
+    {
+        return dbT.FilterTelphoneListForMobile(UserTypeFilterType, ClassFilter);
+    }
 }

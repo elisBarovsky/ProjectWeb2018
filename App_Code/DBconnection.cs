@@ -706,7 +706,7 @@ public class DBconnection
 
     public int AddPupil(string UserID, int classNumber)
     {
-        String cStr = "INSERT INTO [dbo].[Pupil]([UserID] [CodeClass])  VALUES ('" + UserID + "'," + classNumber + ")";
+        String cStr = "INSERT INTO [dbo].[Pupil]([UserID],[CodeClass])  VALUES ('" + UserID + "'," + classNumber + ")";
         return ExecuteNonQuery(cStr);
     }
 
@@ -748,7 +748,7 @@ public class DBconnection
         }
     }
 
-    public int UpdatePupil(string userID, string  ClassOt)
+    public int UpdatePupil(string userID, string ClassOt)
     {
         string cStr = "UPDATE[dbo].[Pupil] [CodeClass]='" + ClassOt + "' where [UserID]='" + userID + "'";
         return ExecuteNonQuery(cStr);
@@ -1491,44 +1491,6 @@ public class DBconnection
             }
         }
     }
-
-    public string GetUserFullNameByID(string TeacherId)
-    {
-        String selectSTR = "SELECT UserFName + ' ' + UserLName FROM Users where UserId = '" + TeacherId + "'";
-        string Name = "";
-        try
-        {
-            con = connect("Betsefer"); // create the connection
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-        try
-        {
-            SqlCommand cmd = new SqlCommand(selectSTR, con);
-            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
-            while (dr.Read())
-            {
-                Name = dr[0].ToString();
-            }
-            return Name;
-        }
-        catch (Exception ex)
-        {
-            // write to log
-            throw (ex);
-        }
-        finally
-        {
-            if (con != null)
-            {
-                con.Close();
-            }
-        }
-    }
-    
     public Dictionary<string, string> GetSubjectsByClassCode(string classCode)
     {
         String selectSTR = "SELECT distinct dbo.Lessons.CodeLesson, dbo.Lessons.LessonName FROM dbo.Timetable " +
@@ -1571,4 +1533,81 @@ public class DBconnection
             }
         }
     }
+
+    public string GetUserFullNameByID(string TeacherId)
+    {
+        String selectSTR = "SELECT UserFName + ' ' + UserLName FROM Users where UserId = '" + TeacherId + "'";
+        string Name = "";
+        try
+        {
+            con = connect("Betsefer"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (dr.Read())
+            {
+                Name = dr[0].ToString();
+            }
+            return Name;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
     }
+
+    public string GetPupilIdByParentId(string UserId)
+    {
+        String selectSTR = "SELECT dbo.PupilsParent.PupilID FROM dbo.UserType INNER JOIN " +
+                         "dbo.Users ON dbo.UserType.CodeUserType = dbo.Users.CodeUserType INNER JOIN " +
+                         "dbo.PupilsParent ON dbo.Users.UserID = dbo.PupilsParent.ParentID " +
+                         "where dbo.PupilsParent.ParentID ='" + UserId + "'";
+        string PupilId = "";
+        try
+        {
+            con = connect("Betsefer"); // create the connection
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        try
+        {
+            SqlCommand cmd = new SqlCommand(selectSTR, con);
+            SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+            while (dr.Read())
+            {
+                PupilId = dr[0].ToString();
+            }
+            return PupilId;
+        }
+        catch (Exception ex)
+        {
+            // write to log
+            throw (ex);
+        }
+        finally
+        {
+            if (con != null)
+            {
+                con.Close();
+            }
+        }
+    }
+}

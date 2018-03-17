@@ -150,7 +150,7 @@ public class Users
 
     public int AddPupil(string UserID, int classNumber)
     {
-        return db.AddPupil(UserID,classNumber);
+        return db.AddPupil(UserID, classNumber);
     }
 
     public string GetNumChild(string UserID)
@@ -331,6 +331,12 @@ public class Users
             }
         }
         return true;
+    }
+
+    public string GetPupilIdByUserTypeAndId(string UserId)
+    {
+        DBconnection db = new DBconnection();
+        return db.GetPupilIdByParentId(UserId);
     }
 }
 
