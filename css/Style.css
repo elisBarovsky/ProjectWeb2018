@@ -251,6 +251,9 @@ TableRow, tableCell {
     border: 2px solid blue;
 }
 
+.headerGW  th{
+    text-align: right;
+}
 
 .DDL {
     width: 100%;

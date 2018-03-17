@@ -18,9 +18,9 @@
         <table class="auto-style1">
             <tr>
                 <td align="right">
-                    <asp:DropDownList ID="ChooseLessonsDLL" runat="server"></asp:DropDownList>
-                    <asp:DropDownList ID="NotesDLL" runat="server"></asp:DropDownList>
-                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList></td>
+                    <asp:DropDownList ID="ChooseLessonsDLL" style="direction:rtl;" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="NotesDLL" style="direction:rtl;" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="ChooseClassDLL" style="direction:rtl;" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList></td>
                  <br />
                 <td align="right">
                     <asp:RadioButtonList ID="FilterNotes" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="FilterNotes_SelectedIndexChanged" Width="365px">

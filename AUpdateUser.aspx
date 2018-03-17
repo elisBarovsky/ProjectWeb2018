@@ -25,7 +25,7 @@
         <table class="auto-style1" align="center">
             <tr>
                 <td >
-                    <asp:DropDownList ID="ClassOt1DLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
+                    <asp:DropDownList ID="ClassOt1DLL" style="direction:rtl;" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                     <asp:SqlDataSource ID="SqlDataSource3" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                 </td>
                 <td>
@@ -45,8 +45,8 @@
                 </td>
                 <td></td>
                 <td>
-                    <asp:DropDownList ID="PupilDLL" runat="server" OnSelectedIndexChanged="UserChosed" AutoPostBack="true"></asp:DropDownList>
-                    <asp:DropDownList ID="OtherUsersDLL" runat="server" OnSelectedIndexChanged="UserChosed" AutoPostBack="true"></asp:DropDownList>
+                    <asp:DropDownList ID="PupilDLL" style="direction:rtl;" runat="server" OnSelectedIndexChanged="UserChosed" AutoPostBack="true"></asp:DropDownList>
+                    <asp:DropDownList ID="OtherUsersDLL" style="direction:rtl;" runat="server" OnSelectedIndexChanged="UserChosed" AutoPostBack="true"></asp:DropDownList>
                 </td>
                 <td>
                     <asp:Label ID="ChoosePupilLBL" runat="server" Text="בחר תלמיד"></asp:Label>
@@ -94,7 +94,7 @@
             <tr>
                 <td >
                     <asp:DropDownList ID="NumChildDDL" runat="server"></asp:DropDownList> <br />
-                    <asp:DropDownList ID="ClassOt2DLL" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode" AutoPostBack="false" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
+                    <asp:DropDownList ID="ClassOt2DLL" style="direction:rtl;" runat="server" DataSourceID="SqlDataSource3" DataTextField="TotalName" DataValueField="ClassCode" AutoPostBack="false" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                     <asp:DropDownList ID="ChoosenNumChildDDL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="NumChildDDL_SelectedIndexChanged"> </asp:DropDownList>
                     <asp:Label ID="ChoosenNumChildLBL" runat="server" Text="כמות ילדים להוספה"></asp:Label>
                     </td>

@@ -19,14 +19,14 @@
 
             <tr>
                 <td style="text-align: right">
-                    <asp:DropDownList ID="OtClassDDL" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="OtClassDDL" style="direction:rtl;" runat="server"></asp:DropDownList>
                 </td>
                 <td style="text-align: right">בחר כיתה
                 </td>
             </tr>
             <tr>
                 <td style="text-align: right">
-                    <asp:DropDownList ID="NumClassDDL" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="NumClassDDL" style="direction:rtl;" runat="server"></asp:DropDownList>
                 </td>
                 <td style="text-align: right">בחר מספר כיתה</td>
             </tr>

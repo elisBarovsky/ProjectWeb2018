@@ -30,12 +30,12 @@
           <table class="auto-style1">
             <tr>
                 <td>
-                    <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="True" Visible="false" ondatabound="FillFirstItem" OnSelectedIndexChanged="FillPupils" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
+                    <asp:DropDownList ID="ChooseClassDLL" style="direction:rtl;" runat="server" AutoPostBack="True" Visible="false" ondatabound="FillFirstItem" OnSelectedIndexChanged="FillPupils" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode"></asp:DropDownList>
                     <asp:SqlDataSource ID="DSclasses" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                 </td>
                 
 
-                <td><asp:DropDownList ID="ChooseLessonsDLL" runat="server" AutoPostBack="true" DataSourceID="DSsubjects" ondatabound="FillFirstItem" Visible="true" DataTextField="LessonName" DataValueField="CodeLesson" OnSelectedIndexChanged="ChooseLessonsDLL_SelectedIndexChanged" ></asp:DropDownList>
+                <td><asp:DropDownList ID="ChooseLessonsDLL"  style="direction:rtl;" runat="server" AutoPostBack="true" DataSourceID="DSsubjects" ondatabound="FillFirstItem" Visible="true" DataTextField="LessonName" DataValueField="CodeLesson" OnSelectedIndexChanged="ChooseLessonsDLL_SelectedIndexChanged" ></asp:DropDownList>
                     <asp:SqlDataSource ID="DSsubjects" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [CodeLesson], [LessonName] FROM [Lessons]"></asp:SqlDataSource>
                 </td>
                 

@@ -21,11 +21,11 @@
             <tr>
               
                 <td align="right">
-                    <asp:dropdownlist id="ChooseLessonsDLL" runat="server"></asp:dropdownlist>
+                    <asp:dropdownlist id="ChooseLessonsDLL" style="direction:rtl;" runat="server"></asp:dropdownlist>
                 </td>
                 <td align="right">בחר מקצוע</td>
                 <td align="right">
-                    <asp:dropdownlist id="ChooseClassDLL" runat="server"></asp:dropdownlist>
+                    <asp:dropdownlist id="ChooseClassDLL" style="direction:rtl;" runat="server"></asp:dropdownlist>
                 </td>
                 <td align="right">
                     <asp:label id="ClassLBL" runat="server" text=" בחר כיתה"></asp:label>

@@ -3,14 +3,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
         .auto-style1 {
-           width: 80%;
+           width: 100%;
             position: center;
         }
 
         .auto-style2 {
             left: 0px;
             top: 0px;
-            width: 1032px;
+            width: 100%;
         }
     </style>
 </asp:Content>
@@ -28,14 +28,14 @@
                <%-- <td>
                 </td>--%>
                 <td>
-                    <asp:DropDownList ID="ChooseLessonsDLL" runat="server" Enabled="false"></asp:DropDownList>
+                    <asp:DropDownList ID="ChooseLessonsDLL" style="direction:rtl;" runat="server" Enabled="false"></asp:DropDownList>
                     בחר מקצוע
                 </td>
                <%-- <td>
                     
                 </td>--%>
                 <td>
-                    <asp:DropDownList ID="ChooseClassDLL" runat="server" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ChooseClassDLL_SelectedIndexChanged" AutoPostBack="true" ondatabound="FillFirstItem"></asp:DropDownList>
+                    <asp:DropDownList ID="ChooseClassDLL" style="direction:rtl;" runat="server" DataSourceID="DSclasses" DataTextField="TotalName" DataValueField="ClassCode" OnSelectedIndexChanged="ChooseClassDLL_SelectedIndexChanged" AutoPostBack="true" ondatabound="FillFirstItem"></asp:DropDownList>
                     <asp:SqlDataSource ID="DSclasses" runat="server" ConnectionString="<%$ ConnectionStrings:Betsefer %>" SelectCommand="SELECT [ClassCode], [TotalName] FROM [Class]"></asp:SqlDataSource>
                     <asp:Label ID="ClassLBL" runat="server" Text=" בחר כיתה"></asp:Label>
                 </td>

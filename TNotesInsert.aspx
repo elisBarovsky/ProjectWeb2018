@@ -4,7 +4,7 @@
     <style type="text/css">
         .auto-style1 {
             position: center;
-             width: 80%;
+             width: 100%;
         }
         .auto-style2 {
             left: 0px;
@@ -26,32 +26,32 @@
           <table class="auto-style1">
             <tr>
                 <td>
-                   <asp:DropDownList ID="ChooseClassDLL" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
+                   <asp:DropDownList ID="ChooseClassDLL" style="direction:rtl;" runat="server" AutoPostBack="true" OnSelectedIndexChanged="FillPupils"></asp:DropDownList>
                 </td>
                 <td>
                     
                     בחר כיתה
                 </td>
-                <td><asp:DropDownList ID="ChooseLessonsDLL" runat="server" ></asp:DropDownList>
+                <td><asp:DropDownList ID="ChooseLessonsDLL" style="direction:rtl;" runat="server" ></asp:DropDownList>
                 </td>
                 <td>בחר מקצוע
                 </td>
 
             </tr>
                 <tr>
-                      <td><asp:DropDownList ID="NotesDLL" runat="server" ></asp:DropDownList>
+                      <td><asp:DropDownList ID="NotesDLL" style="direction:rtl;" runat="server" ></asp:DropDownList>
                 </td>
                 <td>בחר הערת משמעת
                 </td>
                 <td>
-                    <asp:DropDownList ID="PupilsDLL" runat="server"  ></asp:DropDownList>
+                    <asp:DropDownList ID="PupilsDLL" style="direction:rtl;" runat="server"  ></asp:DropDownList>
                 </td>
                 <td>בחר תלמיד
                 </td>
             </tr>
             <tr>
                 <td colspan="3">
-                    <asp:TextBox ID="TNoteTB" runat="server" CssClass="auto-style2" TextMode="MultiLine" Height="52px" Width="1036px"></asp:TextBox>
+                    <asp:TextBox ID="TNoteTB" runat="server" CssClass="auto-style2" TextMode="MultiLine" Height="52px" Width="100%" ></asp:TextBox>
                 </td>
                 <td> הערת המורה</td>
             </tr>
