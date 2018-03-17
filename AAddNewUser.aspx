@@ -51,7 +51,7 @@
                 <td>
                     <asp:TextBox ID="UserIDTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
                     <asp:RegularExpressionValidator runat=server ControlToValidate="UserIDTB" 
-                        ErrorMessage="מצחיקול! הזן בשדה רק מספרים." ForeColor="Red" ValidationExpression="[0-9]" />
+                        ErrorMessage="מצחיקול! הזן בשדה רק מספרים." ForeColor="Red" ValidationExpression="^[0-9]*$" />
                 </td>
                 <td>תעודת זהות</td>
                 <td>
@@ -81,7 +81,7 @@
                 <td>
                     <asp:TextBox ID="TelephoneNumberTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
                     <asp:RegularExpressionValidator runat=server ControlToValidate="TelephoneNumberTB" 
-                        ErrorMessage="מצחיקול! הזן בשדה רק מספרים." ValidationExpression="[0-9]" />
+                        ErrorMessage="מצחיקול! הזן בשדה רק מספרים." ForeColor="Red" ValidationExpression="^[0-9]*$" />
                     <br /> 
                 </td>
                 <td>טלפון</td>
@@ -98,22 +98,22 @@
                     <br /><br /><br /><br /><br />
                      <asp:TextBox ID="ChildI1DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
                     <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI1DTB" 
-                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ValidationExpression="[0-9]" />
+                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ForeColor="Red" ValidationExpression="^[0-9]*$"  />
                      <asp:TextBox ID="ChildI2DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
                     <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI2DTB" 
-                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ValidationExpression="[0-9]" />
+                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ForeColor="Red" ValidationExpression="^[0-9]*$"  />
                      <asp:TextBox ID="ChildI3DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
                     <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI3DTB" 
-                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ValidationExpression="[0-9]" />
+                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ForeColor="Red" ValidationExpression="^[0-9]*$"  />
                      <asp:TextBox ID="ChildI4DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
                     <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI4DTB" 
-                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ValidationExpression="[0-9]" />
+                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ForeColor="Red" ValidationExpression="^[0-9]*$"  />
                      <asp:TextBox ID="ChildI5DTB" runat="server" required="required" MaxLength="10"></asp:TextBox><br />
                     <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI5DTB" 
-                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ValidationExpression="[0-9]" />
+                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ForeColor="Red" ValidationExpression="^[0-9]*$"  />
                      <asp:TextBox ID="ChildI6DTB" runat="server" required="required" MaxLength="10"></asp:TextBox>
                     <asp:RegularExpressionValidator runat=server ControlToValidate="ChildI6DTB" 
-                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ValidationExpression="[0-9]" />
+                        ErrorMessage="ת.ז. חייבת להכיל מספרים בלבד." ForeColor="Red" ValidationExpression="^[0-9]*$"  />
                 </td>
                 <td>
                     <asp:Label ID="ChildIDLBL" runat="server" Text=" :הזן תעודת זהות ילד"></asp:Label>
@@ -125,7 +125,6 @@
                 </td>
             </tr>
         </table>
-        <br />
         <asp:Button ID="AddUserBTN" runat="server" CssClass="form-btn" Text="הוסף משתמש" OnClick="AddUserBTN_Click" />
     </div>
 </asp:Content>
