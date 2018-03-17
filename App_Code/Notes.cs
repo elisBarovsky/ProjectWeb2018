@@ -42,4 +42,14 @@ public class Notes
     {
         return dbT.GivenNotesBySubject(PupilID, ChooseSubjectCode);
     }
+
+    public DataTable GivenNoteByCode(string NoteID)
+    {
+        return dbT.GivenNoteByCode(NoteID);
+    }
+
+    public DataTable GivenHTByCode(string HWID)
+    {
+        return dbT.GivenHTByCode(HWID);
+    }
 }
