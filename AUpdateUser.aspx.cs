@@ -186,7 +186,7 @@ public partial class UpdateUser : System.Web.UI.Page
         }
         else
         {
-            UserIMG.ImageUrl = UserInfo[6];
+            UserIMG.ImageUrl = UserInfo[5];
         }
     }
 
