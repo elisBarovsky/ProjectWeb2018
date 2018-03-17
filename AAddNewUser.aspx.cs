@@ -115,8 +115,7 @@ public partial class AddNewUser : System.Web.UI.Page
         if (FileUpload1.FileName!="")
         {
             FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-            // ImgPath = "/Images/" + FileUpload1.FileName;להוריד ירוק כשלא יהיה בשרת  
-               ImgPath = folderPath + FileUpload1.FileName;  
+               ImgPath = "/Images/" + FileUpload1.FileName;
         }
         string day = DDLday.SelectedValue, month = DDLmonth.SelectedValue, year = DDLyear.SelectedValue;
         if (day == "יום" || month == "חודש" || year == "שנה")
@@ -136,7 +135,7 @@ public partial class AddNewUser : System.Web.UI.Page
             return;
         }
         string bDay = day + "/" + month + "/" + year;
-        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, bDay, ImgPath,"", PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
+        Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, bDay, ImgPath, "", PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
         int res1 = NewUser.AddUser(NewUser);
         if (res1 == 1)
         {

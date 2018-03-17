@@ -186,7 +186,7 @@ public partial class UpdateUser : System.Web.UI.Page
         }
         else
         {
-            UserIMG.ImageUrl = UserInfo[6];
+            UserIMG.ImageUrl = UserInfo[5];
         }
     }
 
@@ -296,14 +296,13 @@ public partial class UpdateUser : System.Web.UI.Page
         }
 
         if (FileUpload1.FileName=="")
-        {
-            
+        {           
             res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday,"", "", PasswordTB.Text, TelephoneNumberTB.Text);
         }
         else
         {
             FileUpload1.SaveAs(folderPath + FileUpload1.FileName);
-            res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday, folderPath + FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
+            res1 = NewUser.UpdateUser(UserIDTB.Text, FNameTB.Text, LNameTB.Text, Bday, "Images/" +  FileUpload1.FileName, "", PasswordTB.Text, TelephoneNumberTB.Text);
         }                                                                                                                       //Images // להוריד ירוק כשיהיה לא בשרת
 
         if (res1 == 1)
