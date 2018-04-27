@@ -167,6 +167,8 @@ public class DBconnection
         }
     }
 
+
+
     public string GetPupilOtClass(string UserID)
     {
         String selectSTR = "SELECT  dbo.Class.ClassCode FROM dbo.Class INNER JOIN  dbo.Pupil ON dbo.Class.ClassCode = dbo.Pupil.CodeClass where  dbo.Pupil.UserID='" + UserID + "'";
@@ -283,7 +285,7 @@ public class DBconnection
 
     public List<string> GetUserInfo(string UserID)
     {
-        string UserFName, UserLName, BirthDate, UserImg, UserPassword, PhoneNumber;
+        string ID, UserFName, UserLName, BirthDate, UserImg, UserPassword, PhoneNumber;
         String selectSTR = "select * from [dbo].[Users] where UserID  = '" + UserID + "'";
         List<string> UserInfo = new List<string>();
         try
@@ -302,6 +304,8 @@ public class DBconnection
 
             while (dr.Read())
             {
+                ID = dr["UserID"].ToString();
+                UserInfo.Add(ID);
                 UserFName = dr["UserFName"].ToString();
                 UserInfo.Add(UserFName);
                 UserLName = dr["UserLName"].ToString();
@@ -635,6 +639,8 @@ public class DBconnection
 
         for (int i = 0; i < matrix.Count; i++)
         {
+            SqlConnection conn = connect("Betsefer");
+
             if (matrix[i]["classCode"] != "empty")
             {
                 int TimeTableCode = GetLastTimeTableCode();
@@ -1569,13 +1575,13 @@ public class DBconnection
         }
     }
 
-    public string GetPupilIdByParentId(string UserId)
+    public List<string> GetPupilIdByParentId(string UserId)
     {
         String selectSTR = "SELECT dbo.PupilsParent.PupilID FROM dbo.UserType INNER JOIN " +
                          "dbo.Users ON dbo.UserType.CodeUserType = dbo.Users.CodeUserType INNER JOIN " +
                          "dbo.PupilsParent ON dbo.Users.UserID = dbo.PupilsParent.ParentID " +
                          "where dbo.PupilsParent.ParentID ='" + UserId + "'";
-        string PupilId = "";
+        List<string> PupilId = new List<string>();
         try
         {
             con = connect("Betsefer"); // create the connection
@@ -1591,7 +1597,7 @@ public class DBconnection
             SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
             while (dr.Read())
             {
-                PupilId = dr[0].ToString();
+                PupilId.Add(dr[0].ToString());
             }
             return PupilId;
         }
@@ -1608,4 +1614,48 @@ public class DBconnection
             }
         }
     }
+
+    //public List<Dictionary<string, string>> GetPupilsByParentId(string parentID)
+    //{
+    //    List<Dictionary<string, string>> l = new List<Dictionary<string, string>>();
+
+    //    String selectSTR = "SELECT dbo.PupilsParent.PupilID, dbo.Users.UserFName + ' ' + dbo.Users.UserLName as FullName FROM dbo.UserType INNER JOIN " +
+    //                    "dbo.Users ON dbo.UserType.CodeUserType = dbo.Users.CodeUserType INNER JOIN " +
+    //                    "dbo.PupilsParent ON dbo.Users.UserID = dbo.PupilsParent.ParentID " +
+    //                    "where dbo.PupilsParent.ParentID ='" + parentID + "'";
+    //    try
+    //    {
+    //        con = connect("Betsefer"); // create the connection
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        // write to log
+    //        throw (ex);
+    //    }
+    //    try
+    //    {
+    //        SqlCommand cmd = new SqlCommand(selectSTR, con);
+    //        SqlDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection);
+
+    //        while (dr.Read())
+    //        {
+    //            Dictionary<string, string> d = new Dictionary<string, string>();
+    //            d.Add(dr["PupilID"].ToString(), dr["FullName"].ToString());
+    //            l.Add(d);
+    //        }
+    //        return l;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        // write to log
+    //        throw (ex);
+    //    }
+    //    finally
+    //    {
+    //        if (con != null)
+    //        {
+    //            con.Close();
+    //        }
+    //    }
+    //} 
 }

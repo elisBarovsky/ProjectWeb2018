@@ -107,7 +107,7 @@ public partial class AddNewUser : System.Web.UI.Page
         MainTeacher.Visible = ans;
         MainTeacherCB.Visible = ans;
     }
-
+    //this function changed**************************************************************************************************************************************************************
     protected void AddUserBTN_Click(object sender, EventArgs e)
     {
         string folderPath = Server.MapPath("~/Images/");
@@ -136,22 +136,22 @@ public partial class AddNewUser : System.Web.UI.Page
         }
         string bDay = day + "/" + month + "/" + year;
         Users NewUser = new Users(UserIDTB.Text, FNameTB.Text, LNameTB.Text, bDay, ImgPath, "", PasswordTB.Text, TelephoneNumberTB.Text, UserTypeDLL.SelectedValue);
-        int res1 = NewUser.AddUser(NewUser);
+        Administrator admin = new Administrator();
+        int res1 = admin.AddUser(NewUser);
         if (res1 == 1)
         {
             if (UserTypeDLL.SelectedValue == "4")
             {
-                Users PupilUser = new Users();
-                int num = PupilUser.AddPupil(UserIDTB.Text,int.Parse(ClassOtDLL.SelectedValue));
+                Administrator a = new Administrator();
+                int num = a.AddPupil(UserIDTB.Text,int.Parse(ClassOtDLL.SelectedValue));
             }
             else if (UserTypeDLL.SelectedValue == "2")
             {
-                Users TeacherUser = new Users();
+                Administrator d = new Administrator();
                 string IsMain = "0";
-                if (MainTeacherCB.Checked)   {  IsMain = "1"; int num1 = TeacherUser.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString()); }
+                if (MainTeacherCB.Checked)   {  IsMain = "1"; int num1 = d.AddClassTeacher(UserIDTB.Text, ClassOtDLL.SelectedItem.ToString()); }
 
-                Users MainTeacherUser = new Users();
-                int num2 = MainTeacherUser.AddTeacher(UserIDTB.Text, IsMain);
+                int num2 = d.AddTeacher(UserIDTB.Text, IsMain);
             }
             else if(UserTypeDLL.SelectedValue == "3")  
             {
@@ -171,7 +171,7 @@ public partial class AddNewUser : System.Web.UI.Page
                         {
                             Users GetPupilClass = new Users();
                             string ChildCodeClass= GetPupilClass.GetPupilOtClass(ChildID[i]);
-                            Users AddMoreThanOneChild = new Users();
+                            Administrator AddMoreThanOneChild = new Administrator();
                             AddMoreThanOneChild.AddParent(UserIDTB.Text, ChildID[i],ChildCodeClass);
                         }
                     }

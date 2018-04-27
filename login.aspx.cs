@@ -166,7 +166,7 @@ public partial class login : System.Web.UI.Page
         string answer1= TextBoxSecurityA1.Text;
         string answer2 = TextBoxSecurityA2.Text;
 
-        if (l[1]== answer1 && l[3] == answer2)
+        if (l[3]== answer1 && l[1] == answer2)
         {
             ChangePassword.Visible = true;
             securityQ.Visible = false;
@@ -261,4 +261,6 @@ public partial class login : System.Web.UI.Page
         DDLyear.DataBind();
         DDLyear.Items.Insert(0, new ListItem("שנה"));
     }
+
+ 
 }

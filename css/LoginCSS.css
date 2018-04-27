@@ -1,12 +1,17 @@
 ﻿input[type=text], input[type=Password] {
-    width: 100%;
+    border-style: none;
+    border-color: inherit;
+    border-width: medium;
+width: 37%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
-    border: none;
     background-color: #7db8f2;
     color: white;
     border-radius: 10px;
+    top: -104px;
+    left: -7px;
+    height: 53px;
 }
 
 .portfolio-item {

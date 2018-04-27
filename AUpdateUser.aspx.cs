@@ -283,11 +283,12 @@ public partial class UpdateUser : System.Web.UI.Page
         ChildIDLBL.Visible = false;
     }
 
+    //there are changes******************************************************************************************************************************************************************
     protected void UpdateUserBTN_Click(object sender, EventArgs e) //******************* להתאים עד הסוף שינויים
     {
         string folderPath = Server.MapPath("~/Images/");
         int res1 = 0;
-        Users NewUser = new Users();
+        Administrator NewUser = new Administrator();
         string day = DDLday.SelectedValue, month = DDLmonth.SelectedValue, year = DDLyear.SelectedValue;
         string Bday = day + "/" + month + "/" + year;
         if (day == "יום" || month == "חודש" || year == "שנה")
@@ -310,12 +311,12 @@ public partial class UpdateUser : System.Web.UI.Page
         {
             if (UserTypeDLL.SelectedValue == "4")
             {
-                Users PupilUser = new Users();
+                Administrator PupilUser = new Administrator();
                 int num = PupilUser.UpdatePupil(UserIDTB.Text, ClassOt2DLL.SelectedValue);
             }
             else if (UserTypeDLL.SelectedValue == "2")
             {
-                Users TeacherUser = new Users();
+                Administrator TeacherUser = new Administrator();
                 string IsMain = "0";
                 if (MainTeacherCB.Checked)
                 {
@@ -325,15 +326,15 @@ public partial class UpdateUser : System.Web.UI.Page
                     {
                         for (int i = 0; i < Classes.Count; i++)
                         {
-                            Users TeacherDeleteClass = new Users();
+                            Administrator TeacherDeleteClass = new Administrator();
                             TeacherDeleteClass.DeleteMainTeacherToClass(Classes[i]);
                         }
                     }
-                    Users MainTeacherUpdateClass = new Users();
+                    Administrator MainTeacherUpdateClass = new Administrator();
                     int res13 = MainTeacherUpdateClass.AddMainTeacherToClass(UserIDTB.Text, ClassOt2DLL.SelectedItem.ToString());
                 }
 
-                Users MainTeacherUserCheck = new Users();
+                Administrator MainTeacherUserCheck = new Administrator();
                 int res = MainTeacherUserCheck.UpdateTeacher(UserIDTB.Text, IsMain);
              }
             else if (UserTypeDLL.SelectedValue == "3")
@@ -355,7 +356,7 @@ public partial class UpdateUser : System.Web.UI.Page
                         {
                             Users GetPupilClass = new Users();
                             string ChildCodeClass = GetPupilClass.GetPupilOtClass(ChildID[i]);
-                            Users AddMoreThanOneChild = new Users();
+                            Administrator AddMoreThanOneChild = new Administrator();
                             AddMoreThanOneChild.UpdateParent(UserIDTB.Text, ChildID[i],ChildCodeClass);
                         }
                     }

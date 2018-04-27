@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"  />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
     <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
@@ -34,8 +33,8 @@
         date_input.datepicker(options);
     })
     </script>
-     <link href="CSS/BetseferCSS.css" rel="stylesheet" />
-    <link href="CSS/StyleSheet.css" rel="stylesheet" />
+     <link href="css/BetseferCSS.css" rel="stylesheet" />
+    <link href="css/StyleSheet.css" rel="stylesheet" />
 
     <script src="Scripts/BetseferJS.js"></script>
     <script src="Scripts/AjaxCalls.js"></script>
@@ -98,6 +97,9 @@
                                 <input id="LoginBTN" type="button" value="התחבר" />
 
                                 <input id="Forget" type="image" src="Images/5897a7cfcba9841eabab6152.png" onclick="window.location='#ForgetMyPassword'" height="75">
+
+                                <input id="Forget" type="image" src="Images/5897a7cfcba9841eabab6152.png">
+
                                 <div data-role="footer" data-position="fixed" id="foot">
                                     <img src="Images/Betsefer.png" id="logo" style="visibility:hidden" />
                                 </div>
@@ -133,9 +135,9 @@
                     <h2 style="text-align:center">אימות אחרון ודי..</h2>
                     <br />
                     <label for="ans1" id="Q1L"></label>
-                    <input id="Fans1" type="text" />
+                    <input id="ans1" type="text" />
                     <label for="ans2" id="Q2L"></label>
-                    <input id="Fans2" type="text" />
+                    <input id="ans2" type="text" />
                     <br />
                     <input id="CheckMyAns" type="button" value="יאללה" style="background-color:red;border-bottom-color:black;border-bottom-width:3px" />
                     <div data-role="footer" data-position="fixed" id="foot">
@@ -278,7 +280,7 @@
                     </div>
                 </div>
             </div>
-            <div data-role="page" id="  sPage" > <!--Grades Page  -->               
+            <div data-role="page" id="GradesPage" > <!--Grades Page  -->               
                 <div data-role="header" id="head">
                 </div>
                 <!-- /header -->
@@ -335,6 +337,7 @@
                     <!--<input type="search" name="mySearchInputName" id="search" value="" />-->
                     <br/>
                     <ul data-role="listview" id="contactsLV">
+
                     </ul>
                         <div data-role="footer" data-position="fixed" id="foot">
                             <img src="Images/Betsefer.png" id="logo" />

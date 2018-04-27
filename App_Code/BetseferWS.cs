@@ -66,21 +66,21 @@ public class BetseferWS : System.Web.Services.WebService
             {
                 isvalid = "openSeqQestion";/*FillSecurityQ();*/
             }
-                switch (int.Parse(UserType))
-                {
-                    case 1:
-                        UserType = "Admin";
-                        break;
-                    case 2:
-                        UserType = "Teacher";
-                        break;
-                    case 3:
-                        UserType = "Parent";
-                        break;
-                    case 4:
-                        UserType = "Child";
-                        break;
-                }
+            switch (int.Parse(UserType))
+            {
+                case 1:
+                    UserType = "Admin";
+                    break;
+                case 2:
+                    UserType = "Teacher";
+                    break;
+                case 3:
+                    UserType = "Parent";
+                    break;
+                case 4:
+                    UserType = "Child";
+                    break;
+            }
         }
         string[] arr = new string[] { isvalid, UserType };
         JavaScriptSerializer js = new JavaScriptSerializer();
@@ -111,7 +111,7 @@ public class BetseferWS : System.Web.Services.WebService
         {
             Qestions[i] = qqqq[i].SecurityInfo;
         }
-        
+
         JavaScriptSerializer js = new JavaScriptSerializer();
         string jsonStringQ = js.Serialize(Qestions);
         return jsonStringQ;
@@ -119,10 +119,10 @@ public class BetseferWS : System.Web.Services.WebService
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string SaveQuestion(string ID,string Q1, string Q2, string A1, string A2)
+    public string SaveQuestion(string ID, string Q1, string Q2, string A1, string A2)
     {
         Users UserSaveQA = new Users();
-        int ans = UserSaveQA.SaveQuestion(ID,int.Parse(Q1),A1, int.Parse(Q2), A2);
+        int ans = UserSaveQA.SaveQuestion(ID, int.Parse(Q1), A1, int.Parse(Q2), A2);
         Users UserUpdateLogin = new Users();
         int ans2 = UserUpdateLogin.ChangeFirstLogin(ID);
         int anssss = ans + ans2;
@@ -140,7 +140,7 @@ public class BetseferWS : System.Web.Services.WebService
         string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
 
         TelphoneList TL = new TelphoneList();
-        DataTable DT =  TL.FilterTelphoneListForMobile(type, PupilClassCode);
+        DataTable DT = TL.FilterTelphoneListForMobile(type, PupilClassCode);
 
         var list = new List<Dictionary<string, object>>();
 
@@ -164,18 +164,18 @@ public class BetseferWS : System.Web.Services.WebService
     public string GetPupilIdByUserTypeAndId(string UserId, string type)
     {
         Users u = new Users();
-        string PupilId = "";
+        List<string> PupilsIds = new List<string>();
         if (type == "Child")
         {
-            PupilId = UserId;
+            PupilsIds.Add(UserId);
         }
         else
         {
-            PupilId = u.GetPupilIdByUserTypeAndId(UserId);
+            PupilsIds = u.GetPupilIdByUserTypeAndId(UserId);
         }
 
         JavaScriptSerializer js = new JavaScriptSerializer();
-        string jsonStringFillHW = js.Serialize(PupilId);
+        string jsonStringFillHW = js.Serialize(PupilsIds);
         return jsonStringFillHW;
     }
 
@@ -251,10 +251,11 @@ public class BetseferWS : System.Web.Services.WebService
     public string GivenTimeTableByPupilID(string PupilID)
     {
         Users PupilClass = new Users();
-        string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
+        Student s = new Student();
+        s.otClass = s.GetPupilOtClass(PupilID);
         TimeTable TimeTableByClassCode = new TimeTable();
 
-        List<Dictionary<string, string>> ls = TimeTableByClassCode.GetTimeTableAcordingToClassCodeForMobile(int.Parse(PupilClassCode));
+        List<Dictionary<string, string>> ls = TimeTableByClassCode.GetTimeTableAcordingToClassCodeForMobile(int.Parse(s.otClass));
 
         JavaScriptSerializer js = new JavaScriptSerializer();
         // serialize to string
@@ -267,7 +268,7 @@ public class BetseferWS : System.Web.Services.WebService
     public string FillAllHomeWork(string PupilID)
     {
         Users PupilClass = new Users();
-        string PupilClassCode =  PupilClass.GetPupilOtClass(PupilID);
+        string PupilClassCode = PupilClass.GetPupilOtClass(PupilID);
         HomeWork HomeWork = new HomeWork();
 
         DataTable DT = HomeWork.FillAllHomeWork(PupilClassCode);
